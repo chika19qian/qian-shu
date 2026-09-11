@@ -11,7 +11,7 @@
 }
 .memory-heading { max-width: 700px; }
 .memory-eyebrow { font: 600 .68rem / 1.6 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: #997142; }
-.memory-heading h2 { margin: 4px 0 10px; font: 600 clamp(2.5rem, 4.6vw, 4rem) / 1.12 var(--font-display); }
+.memory-heading h2 { text-wrap: balance; margin: 4px 0 10px; font: 600 clamp(2.5rem, 4.6vw, 4rem) / 1.12 var(--font-display); }
 .memory-heading > p:last-child { font-size: .85rem; line-height: 1.8; }
 .memory-layout { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(260px, 1fr); gap: 22px; align-items: center; margin-top: 24px; }
 .memory-atlas {
@@ -22,6 +22,10 @@
 .memory-land { fill: #f4df9899; stroke: #c0a06b; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .memory-route { fill: none; stroke: #bb7a3680; stroke-width: 2.2; stroke-dasharray: 5 10; stroke-linecap: round; }
 .memory-sketch { fill: none; stroke: #b08a55; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.memory-house .house-walls { fill: var(--ink-white); }
+.memory-house .house-roof, .memory-house .house-door { fill: #efdb9f; }
+.memory-house .house-windows { fill: var(--cream); stroke-width: 1.8; }
+.memory-cloud { fill: var(--ink-white); stroke: #c7ab77; }
 .memory-ocean { position: absolute; left: 51%; top: 55%; color: #b39865; font: 500 clamp(1.2rem, 2vw, 1.65rem) / 1 var(--font-display); transform: rotate(-8deg); pointer-events: none; white-space: nowrap; }
 .memory-pin {
     position: absolute; left: var(--pin-x); top: var(--pin-y); transform: translate(-50%, -34px);
@@ -52,6 +56,7 @@
 .memory-story .memory-place-note { font: 500 .68rem / 1.5 var(--font-body); color: #997142; padding-right: 20px; }
 .memory-story h3 { font: 600 2.5rem / 1.15 var(--font-display); margin: 6px 0 12px; }
 .memory-story > p:not(.memory-place-note) { font: 400 .82rem / 1.85 var(--font-body); }
+.memory-story > p + p { margin-top: 12px; }
 .memory-projects { display: grid; gap: 8px; margin-top: 20px; }
 .memory-projects a { display: flex; align-items: center; gap: 9px; padding: 10px 0; border-top: 1px solid #c8a66c40; color: var(--ink-strong); font: 600 .8rem / 1.5 var(--font-body); }
 .memory-projects a::after { content: '↗'; margin-left: auto; font-size: 1rem; }

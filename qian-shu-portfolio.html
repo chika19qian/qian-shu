@@ -1384,12 +1384,18 @@
                             </g>
                             <path class="memory-route" d="M220 291Q289 238 380 203M398 200C486 67 708 57 820 223"/>
                             <g class="memory-sketch">
-                                <path d="M170 377L195 354L222 374M178 371V397H214V371M192 397V383H201V397"/>
+                                <g class="memory-house" transform="translate(90 222)">
+                                    <path class="house-walls" d="M7 26L31 5L55 26V59H7Z"/>
+                                    <path class="house-roof" d="M1 28L31 2L61 28L55 34L31 13L7 34Z"/>
+                                    <path class="house-door" d="M26 59V43H37V59Z"/>
+                                    <path class="house-windows" d="M14 38H21V45H14ZM43 38H50V45H43Z"/>
+                                </g>
                                 <path d="M351 280Q370 274 386 285Q402 274 420 280V311Q400 306 386 316Q370 306 351 311ZM386 285V316"/>
                                 <path d="M782 341H881M797 341V301M866 341V301M797 307Q829 344 866 307M810 321V341M824 330V341M839 329V341M853 320V341"/>
                                 <path d="M491 178L515 164L552 173L526 179L518 193L512 180L491 178Z"/>
                                 <path d="M472 363q12-9 24 0t24 0M520 385q12-9 24 0t24 0M581 359q12-9 24 0t24 0" opacity=".55"/>
-                                <path d="M515 75q-10-20 8-24q10-18 25-2q21-7 22 15h-54M901 431q-8-16 8-20q10-16 23-1q19-6 21 14h-50" opacity=".6"/>
+                                <path class="memory-cloud" transform="translate(495 30)" d="M12 44C5 44 1 39 2 32C3 26 8 22 15 22C16 11 24 5 33 7C40 8 45 13 47 20C54 16 63 18 67 25C71 30 73 36 69 41C67 44 63 44 58 44Z"/>
+                                <path class="memory-cloud" transform="translate(883 389) scale(.88)" d="M12 44C5 44 1 39 2 32C3 26 8 22 15 22C16 11 24 5 33 7C40 8 45 13 47 20C54 16 63 18 67 25C71 30 73 36 69 41C67 44 63 44 58 44Z"/>
                                 <g transform="translate(75 451)"><circle r="22" stroke-dasharray="2 5"/><path d="M0-30V30M-30 0H30M0-22L6 0L0 22L-6 0Z"/></g>
                             </g>
                         </svg>
@@ -1408,7 +1414,8 @@
                             <button class="memory-close" type="button" aria-label="Close city story">×</button>
                             <p class="memory-place-note">Where I was born</p>
                             <h3 id="memory-wuhan-title">Wuhan</h3>
-                            <p>Wuhan is where I was born, and where I made SamoDiary and SamoPet. One companion lives in a journal, the other on a desktop: two little ways to bring a Samoyed into everyday life.</p>
+                            <p>Wuhan is where I was born. In a difficult season of my life, it was also where I began making a diary app for myself: a small place to set down what I was carrying.</p>
+                            <p>Little by little, I wove in what I had learned about psychology. SamoDiary and SamoPet grew from that beginning, along with a magical forest that was once mine and is now open to everyone. Making it has been a journey of healing, too.</p>
                             <div class="memory-projects">
                                 <a href="#project-samodiary"><img src="portfolio-assets/samodiary-icon.png" alt="" loading="lazy">SamoDiary</a>
                                 <a href="#project-samopet"><img src="portfolio-assets/samopet-logo.png" alt="" loading="lazy">SamoPet</a>
@@ -1418,7 +1425,8 @@
                             <button class="memory-close" type="button" aria-label="Close city story">×</button>
                             <p class="memory-place-note">Where I study now</p>
                             <h3 id="memory-tokyo-title">Tokyo</h3>
-                            <p>Tokyo is where I study now, at the University of Tokyo. Here, I explored dance motion with OpenPose and Python, and led a three-person team building Rock Star Maze. A place for learning, experimenting, and making things.</p>
+                            <p>Tokyo is where I study now. In class, I explored dance through OpenPose and Python, learning to read the body's movement in the language of code.</p>
+                            <p>With two women I met during my Google internship, I led our team of three in building Rock Star Maze at an Amazon hackathon. We brought the curiosity and playfulness at the heart of a hackathon, and turned an idea into a maze we could step inside.</p>
                             <div class="memory-projects">
                                 <a href="#project-dance">Dance motion</a>
                                 <a href="#project-rock">Rock Star Maze</a>
@@ -1428,7 +1436,8 @@
                             <button class="memory-close" type="button" aria-label="Close city story">×</button>
                             <p class="memory-place-note">A summer of building together</p>
                             <h3 id="memory-berkeley-title">Berkeley</h3>
-                            <p>During my summer at UC Berkeley, I worked with a team on SmartCart. I designed flows in Figma and built the responsive interface for our meal-planning app. This city holds a chapter of learning by making things together.</p>
+                            <p>My summer at UC Berkeley was my first time in an English-speaking country. An unfamiliar world brought plenty of challenges, and, along the way, many good friends.</p>
+                            <p>In our HCI class, we made SmartCart together. I designed the UI, built all of the frontend interfaces and web pages, and contributed to part of the backend. As I found my feet in a new place, I was also learning to give ideas a shape that others could see and use.</p>
                             <div class="memory-projects">
                                 <a href="#project-smartcart"><img src="portfolio-assets/smartcart-logo.png" alt="" loading="lazy">SmartCart</a>
                             </div>
@@ -1769,50 +1778,50 @@
         const samoSlidesZh = [
             {
                         "name": "认识萨摩日记",
-                        "title": "给每一天，多一点陪伴。",
-                        "description": "萨摩日记把心情记录和萨摩耶的成长融入一个小小的日常习惯。我独立开发这款 iOS 应用，是希望记录感受也能是一件温暖、有趣、属于自己的事。",
+                        "title": "写下心情，也收获一点陪伴。",
+                        "description": "我做了这款 iOS 应用，把心情日记和萨摩耶养成放在一起。希望写日记不只是记录发生了什么，也能让人有个地方整理心情，享受一点陪伴。",
                         "original": "portfolio-assets/samodiary_detail/首图中 1.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-01.webp"
             },
             {
-                        "name": "遇见小萨摩耶",
-                        "title": "和一个小伙伴，开始新的故事。",
-                        "description": "在属于你的小天地里，迎接一只萨摩耶。随着你写下日记、回到这个小世界，它会陪着你，一起慢慢成长。",
+                        "name": "领养小萨摩耶",
+                        "title": "从今天起，多一个小伙伴。",
+                        "description": "在这个小世界里领养一只萨摩耶。随着你记录日常、照顾它，它也会慢慢长大，成为陪你写日记的小伙伴。",
                         "original": "portfolio-assets/samodiary_detail/中1.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-02.webp"
             },
             {
-                        "name": "记录心情日记",
-                        "title": "给自己的感受，留一点空间。",
-                        "description": "记下一个瞬间，辨认一种情绪，按自己的节奏写下来。不知道从哪里开始时，心情记录和温柔的提示会陪你找到第一句话。",
+                        "name": "记录心情",
+                        "title": "今天过得怎么样？",
+                        "description": "选一选此刻的心情，写下今天发生的事。不知道从哪儿开始时，可以跟着页面上的问题慢慢想。想写多少、怎么写，都由你决定。",
                         "original": "portfolio-assets/samodiary_detail/中2.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-03.webp"
             },
             {
                         "name": "喂食与互动",
-                        "title": "一次记录，也是一份小小的照顾。",
-                        "description": "写日记也连接着对小萨摩耶的照顾。喂它吃饭，看看它的反应，让关心自己的日常变成一件值得期待的小事。",
+                        "title": "写完日记，去看看它吧。",
+                        "description": "喂小萨摩耶吃饭，看看它的反应，把照顾它也变成写日记时的小习惯。希望这些互动能让你更愿意回来记录生活，也记得关心自己。",
                         "original": "portfolio-assets/samodiary_detail/中3.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-04.webp"
             },
             {
                         "name": "探索森林",
-                        "title": "让日常的小习惯，带你走向新的地方。",
-                        "description": "走进童话般的森林，发现新的篇章。探索和小小的奖励让记录更有成长感，每次回来，都能看见这个世界多一点。",
+                        "title": "再往前走走，会遇见什么？",
+                        "description": "走进魔法森林，慢慢发现新的故事和奖励。随着一次次记录，你也能探索更多地方，让写日记多一点期待。",
                         "original": "portfolio-assets/samodiary_detail/中4.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-05.webp"
             },
             {
                         "name": "认识情绪导师",
-                        "title": "需要的时候，给你一点温柔的启发。",
-                        "description": "认识情绪导师 Nova 和 Solis。它们的引导会邀请你停一停，留意此刻的感受，试着换一个角度，也对自己多一点温柔。",
+                        "title": "试着换个角度看心事。",
+                        "description": "Nova 和 Solis 是森林里的两位 AI 情绪导师。它们会通过提示和提问，陪你梳理当下的感受，试着从不同的角度理解自己的想法。",
                         "original": "portfolio-assets/samodiary_detail/中5.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-06.webp"
             },
             {
-                        "name": "尝试新的视角",
-                        "title": "留意脑海里，那些习以为常的想法。",
-                        "description": "通过受心理学启发的小游戏，认识读心术和认知偏差等思维模式。每一个小任务，都邀请你想一想原来的假设，尝试另一种看待事情的方式。",
+                        "name": "认识思维习惯",
+                        "title": "有些想法，也许还有另一种解释。",
+                        "description": "我们有时会把对别人想法的猜测当成事实，也可能不知不觉地陷入某些思维习惯。通过小游戏认识这些认知偏差，练习留意自己的想法，也为自己的判断多找一种可能。",
                         "original": "portfolio-assets/samodiary_detail/中6.png",
                         "preview": "portfolio-assets/samodiary_detail/preview-zh-07.webp"
             }
