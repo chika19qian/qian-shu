@@ -1,0 +1,8 @@
+career-ops/
+node_modules/
+.DS_Store
+.cursor/
+.env
+.env.*
+*.pdf
+*.extracted.txt

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qian Shu — psychology student at the University of Tokyo. Personal site: internships, research, and selected work.">
+    <meta property="og:title" content="Qian Shu">
+    <meta property="og:description" content="Psychology student at the University of Tokyo. AI application engineer intern in Tokyo.">
+    <title>Qian Shu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* === PERSONAL SITE BASE CSS === */
+        :root {
+            --bg: #faf8f5;
+            --fg: #1a1a1a;
+            --accent: #2563eb;
+            --muted: #888;
+            --surface: #fff;
+            --border: #e8e4de;
+            --font-display: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --title: clamp(2rem, 5vw, 4rem);
+            --h2: clamp(1.5rem, 3vw, 2.5rem);
+            --h3: clamp(1.1rem, 2vw, 1.5rem);
+            --body: clamp(0.875rem, 1.2vw, 1.1rem);
+            --small: clamp(0.75rem, 1vw, 0.875rem);
+            --space-xs: clamp(4px, 0.5vw, 8px);
+            --space-sm: clamp(8px, 1vw, 16px);
+            --space-md: clamp(16px, 2vw, 32px);
+            --space-lg: clamp(32px, 4vw, 64px);
+            --space-xl: clamp(48px, 8vw, 128px);
+            --max-width: min(90vw, 800px);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.6s;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+        body {
+            font-family: var(--font-body);
+            font-size: var(--body);
+            color: var(--fg);
+            background: var(--bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--duration) var(--ease), transform var(--duration) var(--ease);
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+        .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .reveal:nth-child(3) { transition-delay: 0.2s; }
+        .reveal:nth-child(4) { transition-delay: 0.3s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --space-lg: clamp(24px, 3vw, 48px);
+                --space-xl: clamp(32px, 5vw, 64px);
+            }
+        }
+
+        /* === PRESET: yolk cream fairy-tale (sketch) === */
+        :root {
+            --bg: #f0d15c;
+            --bg-deep: #e7c44a;
+            --cream: #fff6d4;
+            --fg: #6b4514;
+            --accent: #e3941c;
+            --muted: #a0722a;
+            --surface: rgba(255, 248, 220, 0.55);
+            --border: rgba(255, 255, 255, 0.7);
+            --ink-white: #fffdf6;
+            --navy: #0f2440;
+            --font-display: 'Caveat', cursive;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --max-width: min(92vw, 1080px);
+            --title: clamp(2.4rem, 7vw, 5.2rem);
+            --radius: clamp(16px, 2.4vw, 28px);
+        }
+
+        body {
+            background:
+                radial-gradient(1200px 600px at 10% -10%, #ffe98a 0%, transparent 55%),
+                radial-gradient(900px 500px at 110% 8%, #f7dc6a 0%, transparent 50%),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        .skip {
+            position: absolute;
+            left: -999px;
+            top: 0;
+        }
+        .skip:focus {
+            left: var(--space-sm);
+            top: var(--space-sm);
+            z-index: 20;
+            background: var(--cream);
+            color: var(--fg);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+        }
+
+        .wrap {
+            width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .band {
+            position: relative;
+            padding: var(--space-xl) 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+        }
+        .band:not(.hero-band) {
+            padding-top: clamp(72px, 9vw, 112px);
+        }
+
+        .hero-band {
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            padding-top: clamp(48px, 8vw, 88px);
+            padding-bottom: var(--space-lg);
+        }
+
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: var(--space-sm) 0;
+            background: linear-gradient(to bottom, rgba(240, 209, 92, 0.94), rgba(240, 209, 92, 0));
+        }
+        .site-nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+        }
+        .logo {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.4vw, 2rem);
+            color: var(--ink-white);
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: clamp(12px, 2vw, 28px);
+        }
+        .nav-links a {
+            color: var(--fg);
+            font-size: var(--small);
+            font-weight: 600;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        /* doodle layer */
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+            color: var(--accent);
+            z-index: 1;
+        }
+        .doodle svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .doodle-label {
+            font-family: var(--font-display);
+            fill: var(--accent);
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .piano { width: clamp(72px, 12vw, 140px); top: 96px; left: max(16px, calc(50% - 520px)); animation: float 5s var(--ease) infinite; }
+        .campus { width: clamp(110px, 16vw, 170px); top: 88px; right: max(20px, calc(50% - 520px)); animation: float 6s 0.4s var(--ease) infinite; }
+        .hero-cat { width: clamp(88px, 14vw, 150px); left: max(12px, calc(50% - 530px)); bottom: 16%; pointer-events: auto; }
+        .hero-dog { width: clamp(110px, 16vw, 180px); right: max(16px, calc(50% - 520px)); bottom: 14%; pointer-events: auto; }
+        .about-cat {
+            position: relative;
+            left: auto;
+            bottom: auto;
+            width: clamp(90px, 13vw, 140px);
+            pointer-events: auto;
+            margin-top: -8px;
+        }
+
+        .pet {
+            cursor: pointer;
+            background: none;
+            border: 0;
+            padding: 0;
+            filter: drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12));
+        }
+        .pet-face {
+            display: block;
+            width: 100%;
+            transform-origin: 50% 80%;
+            transition: transform 0.2s var(--ease);
+        }
+        .pet img { width: 100%; pointer-events: none; }
+        .pet.hop .pet-face { animation: hop 0.55s var(--ease); }
+        .pet:focus-visible { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 40%; }
+
+        .yarn {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            z-index: 3;
+            pointer-events: none;
+            background:
+                repeating-conic-gradient(from 20deg, #fff6d4 0 12deg, #e3941c 12deg 18deg);
+            box-shadow: 2px 3px 0 rgba(180, 110, 20, 0.2), inset 0 0 0 2px rgba(255,255,255,0.4);
+            left: 50%;
+            top: 58%;
+        }
+
+        .yarn-trail {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .yarn-trail path {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2.2;
+            stroke-dasharray: 7 11;
+            stroke-linecap: round;
+            opacity: 0.85;
+        }
+
+        .hero-copy {
+            text-align: center;
+            max-width: min(90vw, 720px);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-copy h1 {
+            font-family: var(--font-display);
+            font-size: var(--title);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--ink-white);
+            letter-spacing: 0.01em;
+            text-shadow: 0 2px 0 rgba(227, 148, 28, 0.25);
+        }
+        .hero-copy h1 em {
+            font-style: italic;
+            color: #fff;
+        }
+        .hero-copy .lede {
+            margin-top: var(--space-sm);
+            font-family: var(--font-display);
+            font-size: clamp(1.35rem, 3.2vw, 2.15rem);
+            color: var(--ink-white);
+            line-height: 1.25;
+        }
+
+        /* about band — sketch middle */
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(180px, 0.85fr) minmax(0, 1.4fr);
+            gap: clamp(24px, 5vw, 72px);
+            align-items: start;
+        }
+        .portrait-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            position: relative;
+            min-height: 280px;
+        }
+        .portrait {
+            width: clamp(140px, 18vw, 210px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 3px solid var(--ink-white);
+            background: rgba(255,255,255,0.18);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: transform 0.35s var(--ease), background 0.35s ease;
+        }
+        .portrait:hover,
+        .portrait.wink { transform: rotate(-6deg) scale(1.04); background: rgba(255,255,255,0.32); }
+        .portrait svg { width: 78%; }
+
+        .panel-block { margin-bottom: var(--space-lg); }
+        .hand-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            color: var(--ink-white);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        .link-tile {
+            width: clamp(52px, 7vw, 68px);
+            aspect-ratio: 1;
+            border: 2.5px solid var(--ink-white);
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            color: var(--ink-white);
+            background: transparent;
+            transition: transform 0.3s var(--ease), background 0.3s ease, color 0.3s ease;
+        }
+        .link-tile svg { width: 54%; }
+        .link-tile:hover {
+            transform: translateY(-4px) rotate(-4deg);
+            background: var(--ink-white);
+            color: var(--accent);
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            display: inline-block;
+            padding: 0.35em 0.9em;
+            border: 2px solid var(--ink-white);
+            border-radius: 999px;
+            color: var(--fg);
+            background: rgba(255, 246, 212, 0.35);
+            font-size: var(--small);
+            font-weight: 600;
+            transition: transform 0.25s var(--ease), background 0.25s ease, color 0.25s ease;
+        }
+        .tag:hover {
+            transform: translateY(-2px);
+            background: var(--ink-white);
+            color: var(--navy);
+        }
+
+        .exp-mini {
+            display: grid;
+            gap: var(--space-sm);
+        }
+        .exp-mini article {
+            display: grid;
+            grid-template-columns: minmax(92px, 0.4fr) 1fr;
+            gap: var(--space-sm);
+            padding: 0.4em 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.5);
+            transition: transform 0.3s var(--ease);
+        }
+        .exp-mini article:hover { transform: translateX(6px); }
+        .exp-mini time {
+            font-size: var(--small);
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .exp-mini h3 {
+            font-size: var(--body);
+            font-weight: 700;
+            color: var(--fg);
+        }
+        .exp-mini p { font-size: var(--small); color: var(--muted); }
+
+        /* projects — sketch bottom cards */
+        .projects-head {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        .projects-head h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            color: var(--ink-white);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        .projects-head h2::before,
+        .projects-head h2::after {
+            content: "";
+            width: clamp(32px, 8vw, 80px);
+            height: 2px;
+            background: var(--ink-white);
+            opacity: 0.8;
+        }
+
+        .project-list {
+            display: grid;
+            gap: var(--space-md);
+        }
+        .project-card {
+            display: grid;
+            grid-template-columns: minmax(120px, 0.42fr) 1fr;
+            gap: var(--space-md);
+            align-items: stretch;
+            border: 2.5px solid var(--ink-white);
+            border-radius: var(--radius);
+            padding: clamp(10px, 1.4vw, 16px);
+            background: rgba(255, 255, 255, 0.12);
+            transition: transform 0.35s var(--ease), background 0.35s ease, box-shadow 0.35s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-6px) rotate(-0.4deg);
+            background: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 16px 0 rgba(227, 148, 28, 0.08);
+        }
+        .project-media {
+            border-radius: calc(var(--radius) - 8px);
+            overflow: hidden;
+            min-height: 140px;
+            background: var(--cream);
+            display: grid;
+            place-items: center;
+        }
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .project-media.icon {
+            background: #f4a300;
+            padding: 12%;
+        }
+        .project-media.icon img { object-fit: contain; height: auto; }
+        .project-media.bear {
+            background: linear-gradient(180deg, #faf4ea, #f2b129 140%);
+            padding: 8% 8% 0;
+        }
+        .project-media.bear img { object-fit: contain; height: 100%; }
+        .project-media.empty {
+            background: rgba(255,255,255,0.2);
+            color: var(--muted);
+            font-size: var(--small);
+            text-align: center;
+            padding: var(--space-md);
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+        }
+        .project-body { padding: var(--space-xs) var(--space-sm) var(--space-sm) 0; }
+        .kicker {
+            font-size: var(--small);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .project-body h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            color: var(--ink-white);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .project-body p { color: var(--fg); margin-bottom: var(--space-sm); }
+        .project-links { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: var(--space-sm); }
+        .project-links a {
+            color: var(--navy);
+            font-weight: 700;
+            font-size: var(--small);
+            background-image: linear-gradient(var(--accent), var(--accent));
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            background-size: 0 2px;
+            transition: background-size 0.3s ease;
+        }
+        .project-links a:hover { background-size: 100% 2px; }
+
+        .split-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+        .split-two .project-card {
+            grid-template-columns: 1fr;
+        }
+
+        .edu-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        .edu-card {
+            border: 2px dashed var(--ink-white);
+            border-radius: var(--radius);
+            padding: var(--space-md);
+            background: rgba(255,255,255,0.1);
+            transition: transform 0.3s var(--ease), background 0.3s ease;
+        }
+        .edu-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.22); }
+        .edu-card h3 {
+            font-size: var(--h3);
+            color: var(--fg);
+            margin: 4px 0;
+        }
+
+        .contact {
+            text-align: center;
+            padding-bottom: var(--space-xl);
+        }
+        .contact-lead {
+            max-width: 40ch;
+            margin: 0 auto var(--space-md);
+            color: var(--fg);
+        }
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7em 1.25em;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: var(--small);
+            border: 2px solid var(--ink-white);
+            color: var(--fg);
+            background: transparent;
+            transition: transform 0.3s var(--ease), background 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover { transform: translateY(-3px) rotate(-2deg); }
+        .btn-fill {
+            background: var(--ink-white);
+            color: var(--navy);
+        }
+        .btn-fill:hover { color: var(--navy); }
+        .site-footer {
+            margin-top: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-md);
+            font-size: var(--small);
+            color: var(--muted);
+        }
+
+        .exp-full ul { padding-left: 1.1em; color: var(--fg); }
+        .exp-full li + li { margin-top: 4px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes hop {
+            0% { transform: translateY(0) scale(1); }
+            35% { transform: translateY(-18px) scale(1.06); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-grid,
+            .project-card,
+            .split-two,
+            .edu-row,
+            .exp-mini article {
+                grid-template-columns: 1fr;
+            }
+            .piano, .campus { opacity: 0.7; }
+            .hero-cat { left: 2%; bottom: 6%; }
+            .hero-dog { right: 2%; bottom: 4%; width: 28vw; }
+            .portrait-col { min-height: 0; }
+            .about-cat { position: relative; left: auto; bottom: auto; }
+            .hero-band { min-height: 100svh; }
+            .site-footer { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 400px) {
+            .contact-actions .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip" href="#me">Skip to about</a>
+
+    <nav class="site-nav" aria-label="Primary">
+        <div class="wrap">
+            <a class="logo" href="#top">Qian</a>
+            <div class="nav-links">
+                <a href="#me">Me</a>
+                <a href="#work">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Hello</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === 1. Intro (sketch page 1) === -->
+    <header class="band hero-band" id="top">
+        <svg class="yarn-trail" aria-hidden="true">
+            <path id="yarn-path"></path>
+        </svg>
+        <div class="doodle piano" aria-hidden="true">
+            <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                <rect x="8" y="28" width="104" height="34" rx="6"/>
+                <path d="M8 42h104"/>
+                <rect x="22" y="28" width="10" height="18" fill="currentColor" opacity=".35"/>
+                <rect x="46" y="28" width="10" height="18" fill="currentColor" opacity=".35"/>
+                <rect x="70" y="28" width="10" height="18" fill="currentColor" opacity=".35"/>
+                <rect x="94" y="28" width="10" height="18" fill="currentColor" opacity=".35"/>
+                <path d="M20 18c8-10 18-10 26 0"/>
+            </svg>
+        </div>
+        <div class="doodle campus" aria-hidden="true">
+            <svg viewBox="0 0 130 90" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 78V42l22-16 22 16v36"/>
+                <path d="M62 78V48l28-18 28 18v30"/>
+                <path d="M28 78h72"/>
+                <rect x="34" y="54" width="10" height="10" rx="1"/>
+                <rect x="82" y="54" width="10" height="10" rx="1"/>
+                <text class="doodle-label" x="70" y="18">(東大)</text>
+            </svg>
+        </div>
+
+        <button class="doodle pet hero-cat" type="button" aria-label="A doodle cat. Click to bounce.">
+            <span class="pet-face" data-look>
+                <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round">
+                    <circle cx="60" cy="62" r="32" stroke-width="4"/>
+                    <path d="M32 48 44 22l16 22"/>
+                    <path d="M88 48 76 22 60 44"/>
+                    <circle cx="50" cy="60" r="2.4" fill="currentColor" stroke="none"/>
+                    <circle cx="70" cy="60" r="2.4" fill="currentColor" stroke="none"/>
+                    <path d="M56 70c4 6 12 6 16 0"/>
+                    <path d="M28 64h-16M28 72h-14M92 64h16M92 72h14"/>
+                </svg>
+            </span>
+        </button>
+        <button class="doodle pet hero-dog" type="button" aria-label="Samo, a Samoyed. Click to bounce.">
+            <span class="pet-face" data-look>
+                <img src="portfolio-assets/samo-puppy.png" alt="">
+            </span>
+        </button>
+        <div class="yarn" id="yarn" aria-hidden="true"></div>
+
+        <div class="wrap hero-copy">
+            <h1>Hi, I'm <em>Qian Shu</em></h1>
+            <p class="lede">a psychology student in the University of Tokyo.</p>
+        </div>
+    </header>
+
+    <!-- === 2. Links / Skills / Experience (sketch page 2) === -->
+    <section class="band" id="me">
+        <div class="wrap about-grid">
+            <div class="portrait-col">
+                <button class="portrait" id="portrait" type="button" aria-label="A doodle portrait of Qian. Click to wink.">
+                    <svg viewBox="0 0 120 120" fill="none" stroke="#fffdf6" stroke-width="3.2" stroke-linecap="round">
+                        <circle cx="60" cy="64" r="34"/>
+                        <path d="M28 58c10-28 54-28 64 0"/>
+                        <path d="M38 50c8-10 16-12 22-4"/>
+                        <circle cx="48" cy="66" r="2.6" fill="#e3941c" stroke="none"/>
+                        <circle class="eye-r" cx="72" cy="66" r="2.6" fill="#e3941c" stroke="none"/>
+                        <path d="M54 78c6 8 14 8 20 0" stroke="#e3941c"/>
+                    </svg>
+                </button>
+                <button class="doodle pet about-cat" type="button" aria-label="Another doodle cat. Click to bounce.">
+                    <span class="pet-face" data-look>
+                        <svg viewBox="0 0 140 110" fill="none" stroke="#e3941c" stroke-width="3.2" stroke-linecap="round">
+                            <ellipse cx="70" cy="68" rx="40" ry="28"/>
+                            <circle cx="48" cy="40" r="22"/>
+                            <path d="M30 28 38 8l14 16"/>
+                            <path d="M66 28 58 8 48 24"/>
+                            <circle cx="42" cy="40" r="2.2" fill="#fffdf6" stroke="none"/>
+                            <circle cx="54" cy="40" r="2.2" fill="#fffdf6" stroke="none"/>
+                            <path d="M110 58c12 4 22 18 18 32" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+
+            <div>
+                <div class="panel-block reveal">
+                    <p class="hand-title">Links</p>
+                    <div class="link-row">
+                        <a class="link-tile" href="https://github.com/chika19qian" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 19c-4 1.5-4-2-6-2m12 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.6-1.6 6.6-7A5.4 5.4 0 0 0 19 4.8 5 5 0 0 0 18.9 1S17.7.6 15 2.5a10.3 10.3 0 0 0-6 0C6.3.6 5.1 1 5.1 1a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 3.5 8.9c0 5.4 3.4 6.6 6.6 7a3.4 3.4 0 0 0-1 2.6V22"/></svg>
+                        </a>
+                        <a class="link-tile" href="mailto:chika5747@g.ecc.u-tokyo.ac.jp" aria-label="Email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m4 8 8 6 8-6"/></svg>
+                        </a>
+                        <a class="link-tile" href="https://samodiary.com" aria-label="SamoDiary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="6"/><path d="M8 10 10 4h4l2 6"/><circle cx="10" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="14" cy="13" r="1" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a class="link-tile" href="https://k-coder05.github.io/smartcart/design-process/index.html" aria-label="SmartCart case study">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/><path d="M3 5h2l2.4 11h10.2l2-7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="panel-block reveal">
+                    <p class="hand-title">Skills</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Swift</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML / CSS</span>
+                        <span class="tag">R</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">Unity</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">AI agents</span>
+                        <span class="tag">User testing</span>
+                    </div>
+                </div>
+
+                <div class="panel-block reveal">
+                    <p class="hand-title">Experience</p>
+                    <div class="exp-mini">
+                        <article>
+                            <time>2025–26</time>
+                            <div>
+                                <h3>AI Engineer Intern</h3>
+                                <p>Epark Inc. · Tokyo</p>
+                            </div>
+                        </article>
+                        <article>
+                            <time>2025–now</time>
+                            <div>
+                                <h3>Research Assistant</h3>
+                                <p>Imamizu Lab, UTokyo Psychology</p>
+                            </div>
+                        </article>
+                        <article>
+                            <time>2024–25</time>
+                            <div>
+                                <h3>Research Assistant</h3>
+                                <p>Takahashi Lab, UTokyo Engineering</p>
+                            </div>
+                        </article>
+                        <article>
+                            <time>2024</time>
+                            <div>
+                                <h3>STEP Intern</h3>
+                                <p>Google Japan · Tokyo</p>
+                            </div>
+                        </article>
+                        <article>
+                            <time>Student</time>
+                            <div>
+                                <h3>Psychology, University of Tokyo</h3>
+                                <p>2022–2027 · GPA 3.8 / 4.0</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === 3. Projects (sketch page 3) === -->
+    <section class="band" id="work">
+        <div class="wrap">
+            <div class="projects-head">
+                <h2>Projects</h2>
+            </div>
+            <div class="project-list">
+                <article class="project-card reveal">
+                    <div class="project-media icon">
+                        <img src="portfolio-assets/samodiary-icon.png" alt="SamoDiary app icon">
+                    </div>
+                    <div class="project-body">
+                        <p class="kicker">Independent · 2025–present</p>
+                        <h3>SamoDiary</h3>
+                        <p>An iOS journaling app that combines daily reflections, CBT-inspired mini-games, and a Samoyed companion. AI agents write empathetic letters and help with tasks and schedules. The Samo series has 1,000+ users; related posts on Xiaohongshu reached 10K+ likes.</p>
+                        <div class="tags">
+                            <span class="tag">SwiftUI</span>
+                            <span class="tag">MVVM</span>
+                            <span class="tag">DeepSeek V3</span>
+                            <span class="tag">iOS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://samodiary.com">Website ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media">
+                        <img src="portfolio-assets/samopet-desktop.jpg" alt="SamoPet on the desktop: forest scene, Samoyed companion, and chat">
+                    </div>
+                    <div class="project-body">
+                        <p class="kicker">Independent · macOS</p>
+                        <h3>SamoPet</h3>
+                        <p>A Samoyed desktop companion in Swift, with animated behaviors and an AI agent for conversation, tasks, and reminders. It syncs with the SamoDiary ecosystem so the pet can live on the Mac as well as the phone.</p>
+                        <div class="tags">
+                            <span class="tag">Swift</span>
+                            <span class="tag">macOS</span>
+                            <span class="tag">Xcode</span>
+                            <span class="tag">AI agent</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-media bear">
+                        <img src="portfolio-assets/smartcart-bear.png" alt="SmartCart bear mascot holding a plate">
+                    </div>
+                    <div class="project-body">
+                        <p class="kicker">UC Berkeley CS160 · Frontend</p>
+                        <h3>SmartCart</h3>
+                        <p>Team meal-planning web app that recommends recipes from diet, allergies, budget, and meal type. I designed flows in Figma and built the responsive interface, then connected it to MongoDB accounts.</p>
+                        <div class="tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Figma</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://k-coder05.github.io/smartcart/design-process/index.html">Case study ↗</a>
+                            <a href="https://k-coder05.github.io/smartcart/index.html">Prototype ↗</a>
+                            <a href="https://github.com/K-coder05/smartcart">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="split-two">
+                    <article class="project-card reveal">
+                        <div class="project-media empty">待添加：OpenPose 骨骼对比，或舞蹈视频分析截图</div>
+                        <div class="project-body">
+                            <p class="kicker">Research · UTokyo</p>
+                            <h3>Dance motion</h3>
+                            <p>Used OpenPose to extract joint coordinates from dance videos, then compared motion with cosine similarity and dynamic time warping in Python.</p>
+                            <div class="project-links">
+                                <a href="http://bit.ly/46qWl5B">University blog ↗</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card reveal">
+                        <div class="project-media empty">待添加：Unity 迷宫游戏截图</div>
+                        <div class="project-body">
+                            <p class="kicker">Hackathon · Unity</p>
+                            <h3>Rock Star Maze</h3>
+                            <p>Led a three-person team building a 3D maze puzzle. Stick-breaking maze generation, character interactions, and an AWS dialogue prototype.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/chika19qian/RockMaze">GitHub ↗</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="band" id="experience">
+        <div class="wrap">
+            <p class="hand-title reveal">A little more about the work.</p>
+            <div class="exp-mini exp-full">
+                <article class="reveal">
+                    <time datetime="2025-12">Dec 2025 – Apr 2026</time>
+                    <div>
+                        <h3>AI Engineer Intern · Epark Inc.</h3>
+                        <ul>
+                            <li>Contributed to AI-based product development in the product planning division.</li>
+                            <li>Used generative AI tools to support system design and implementation.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="reveal">
+                    <time datetime="2025-05">May 2025 – present</time>
+                    <div>
+                        <h3>Research Assistant · Imamizu Lab</h3>
+                        <ul>
+                            <li>Assisted with behavioral and fMRI experiments: scheduling, task setup, data collection, and basic organization.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="reveal">
+                    <time datetime="2024-10">Oct 2024 – Feb 2025</time>
+                    <div>
+                        <h3>Research Assistant · Takahashi Lab</h3>
+                        <ul>
+                            <li>Helped record auditory-cortex signals in mice and analyzed the data in MATLAB.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="reveal">
+                    <time datetime="2024-05">May 2024 – Jun 2024</time>
+                    <div>
+                        <h3>STEP Development Program Intern · Google Japan</h3>
+                        <ul>
+                            <li>Worked through data structures, algorithms, and systems topics in Python and C++, including TSP and a malloc challenge.</li>
+                            <li>Studied compilers, memory allocation, architecture, parallelization, and security.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <div class="edu-row">
+                <article class="edu-card reveal">
+                    <p class="kicker">2022 – 2027</p>
+                    <h3>The University of Tokyo</h3>
+                    <p>B.A. Psychology, Faculty of Letters · GPA 3.8 / 4.0</p>
+                    <p>Mabuchi International Foundation Scholarship · Monbukagakusho Honors Scholarship</p>
+                </article>
+                <article class="edu-card reveal">
+                    <p class="kicker">2026</p>
+                    <h3>UC Berkeley Summer Sessions</h3>
+                    <p>GPA 4.0 / 4.0</p>
+                    <p>CS160 User Interface Design and Development · COGSCI131 Computational Models of Cognition</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="band contact" id="contact">
+        <div class="wrap">
+            <p class="hand-title reveal">Say hello.</p>
+            <p class="contact-lead reveal">Open to internships in AI application engineering and product. Based in Tokyo.</p>
+            <div class="contact-actions reveal">
+                <a class="btn btn-fill" href="mailto:chika5747@g.ecc.u-tokyo.ac.jp">chika5747@g.ecc.u-tokyo.ac.jp</a>
+                <a class="btn" href="https://github.com/chika19qian">GitHub ↗</a>
+            </div>
+            <div class="site-footer">
+                <p>© 2026 Qian Shu</p>
+                <p>Languages: Chinese · English · Japanese (N1) · German (basic)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
+        });
+
+        document.querySelectorAll('.pet').forEach(pet => {
+            pet.addEventListener('click', () => {
+                pet.classList.remove('hop');
+                void pet.offsetWidth;
+                pet.classList.add('hop');
+            });
+            pet.addEventListener('animationend', () => pet.classList.remove('hop'));
+        });
+
+        const portrait = document.getElementById('portrait');
+        if (portrait) {
+            portrait.addEventListener('click', () => {
+                portrait.classList.toggle('wink');
+            });
+        }
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const yarn = document.getElementById('yarn');
+        const path = document.getElementById('yarn-path');
+        const hero = document.querySelector('.hero-band');
+        const lookers = [...document.querySelectorAll('[data-look]')];
+        if (reduce || !yarn || !path || !hero) return;
+
+        let mx = window.innerWidth * 0.52;
+        let my = window.innerHeight * 0.72;
+        let yx = mx;
+        let yy = my;
+
+        const onMove = (e) => {
+            mx = e.clientX;
+            my = e.clientY;
+        };
+        window.addEventListener('pointermove', onMove, { passive: true });
+
+        const point = (el, fallbackX, fallbackY) => {
+            if (!el) return { x: fallbackX, y: fallbackY };
+            const r = el.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        };
+
+        const tick = () => {
+            yx += (mx - yx) * 0.1;
+            yy += (my - yy) * 0.1;
+            const hr = hero.getBoundingClientRect();
+            const inside = my > hr.top && my < hr.bottom;
+            const yarnX = inside ? yx : hr.left + hr.width * 0.52;
+            const yarnY = inside ? yy : hr.top + hr.height * 0.72;
+            yarn.style.transform = `translate(${yarnX - hr.left - 14}px, ${yarnY - hr.top - 14}px)`;
+            yarn.style.left = '0';
+            yarn.style.top = '0';
+
+            lookers.forEach(p => {
+                if (p.closest('.pet')?.classList.contains('hop')) return;
+                const r = p.getBoundingClientRect();
+                const cx = r.left + r.width / 2;
+                const cy = r.top + r.height / 2;
+                const ang = Math.max(-14, Math.min(14, Math.atan2(my - cy, mx - cx) * 10));
+                p.style.transform = `rotate(${ang}deg)`;
+            });
+
+            const cat = document.querySelector('.hero-cat');
+            const dog = document.querySelector('.hero-dog');
+            const a = point(cat, hr.left + 80, hr.bottom - 80);
+            const b = { x: yarnX, y: yarnY };
+            const c = point(dog, hr.right - 80, hr.bottom - 80);
+            const toLocal = (pt) => `${pt.x - hr.left} ${pt.y - hr.top}`;
+            path.setAttribute('d', `M ${toLocal(a)} Q ${toLocal({ x: b.x, y: b.y - 10 })} ${toLocal(c)}`);
+
+            requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    });
+    </script>
+</body>
+</html>
