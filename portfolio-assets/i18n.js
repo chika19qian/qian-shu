@@ -106,6 +106,27 @@
     "Qian Shu — psychology student at the University of Tokyo. Personal site: internships, research, and selected work.": "Qian Shu — 东京大学心理学学生。个人网站：实习、研究与项目作品。",
     "Psychology student at the University of Tokyo. AI application engineer intern in Tokyo.": "东京大学心理学学生，在东京从事 AI 应用工程实习。"
 };
+    Object.assign(chinese, {
+    "My memory map": "我的回忆地图",
+    "A few places, a little of me.": "把回忆，放在地图上。",
+    "Three cities. A few memories. Things I made along the way.": "三座城市，一些回忆，还有一路做出的作品。",
+    "Choose a city to explore its story and projects": "选择一座城市，看看我的故事和作品",
+    "Pacific Ocean": "太平洋",
+    "Wuhan": "武汉",
+    "Tokyo": "东京",
+    "Berkeley": "伯克利",
+    "Every pin holds a little story.": "每个标记，都藏着一个故事。",
+    "Pick a city to see what it means to me, and what I made there.": "点开一座城市，看看它与我的故事，以及我在那里做出的东西。",
+    "Close city story": "关闭城市故事",
+    "Where I was born": "我出生的地方",
+    "Where I study now": "我现在上学的地方",
+    "A summer of building together": "一起动手创造的夏天",
+    "Wuhan is where I was born, and where I made SamoDiary and SamoPet. One companion lives in a journal, the other on a desktop: two little ways to bring a Samoyed into everyday life.": "武汉是我出生的地方，也是在这里，我做出了 SamoDiary 和 SamoPet。一个住在日记里，一个陪在桌面上，把小萨摩耶的陪伴带进日常。",
+    "Tokyo is where I study now, at the University of Tokyo. Here, I explored dance motion with OpenPose and Python, and led a three-person team building Rock Star Maze. A place for learning, experimenting, and making things.": "东京是我现在上学的地方，我在东京大学学习。在这里，我用 OpenPose 和 Python 探索舞蹈动作，也带领三人团队做出了 Rock Star Maze。学习、尝试，再把想法慢慢做出来。",
+    "During my summer at UC Berkeley, I worked with a team on SmartCart. I designed flows in Figma and built the responsive interface for our meal-planning app. This city holds a chapter of learning by making things together.": "在加州大学伯克利分校的暑期课程中，我和团队一起做出了 SmartCart。我用 Figma 设计交互流程，并实现饮食规划应用的响应式界面。这座城市，留下了与伙伴一起边做边学的一段回忆。",
+    "Tap a pin, open a memory.": "点一个标记，打开一段回忆。",
+    "Made in these places, carried with me.": "在这些地方做出的东西，也成为了我的一部分。"
+});
     let language = 'en';
     try { if (localStorage.getItem('qian-site-language') === 'zh') language = 'zh'; } catch {}
     const t = text => language === 'zh' ? (chinese[text] ?? text) : text;

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portfolio-assets/memory-map.css">
     <style>
         /* === PERSONAL SITE BASE CSS === */
         :root {
@@ -1365,11 +1366,82 @@
                     </div>
                 </div>
             </section>
+            <section class="memory-map" id="memory-map" aria-labelledby="memory-map-title">
+                <div class="memory-heading">
+                    <p class="memory-eyebrow">My memory map</p>
+                    <h2 id="memory-map-title">A few places, a little of me.</h2>
+                    <p>Three cities. A few memories. Things I made along the way.</p>
+                </div>
+                <div class="memory-layout">
+                    <div class="memory-atlas" role="group" aria-label="Choose a city to explore its story and projects">
+                        <svg class="memory-coast" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                            <g class="memory-land">
+                                <path d="M0 48Q69 57 95 41L140 52L157 80L201 89L224 115L261 124L283 152L313 154L326 178L311 198L316 216L297 230L288 263L264 286L257 310L233 322L211 315L198 341L205 365L187 378L170 356L153 351L139 331L106 337L82 365L58 374L34 349L0 363Z"/>
+                                <path d="M326 192Q340 207 333 227L321 240L315 227L320 210Z"/>
+                                <path d="M386 156L397 170L389 184L377 183L373 170Z M383 188Q398 201 389 213L370 222L364 238L346 246L342 235L359 220L371 207Z M334 241L343 250L336 259L323 255Z M308 288Q317 301 311 318L304 325L299 311Z"/>
+                                <path d="M1000 61L951 56L923 72L899 76L869 99L846 120L834 153L822 179L818 203L800 227L807 253L826 275L840 302L866 316L879 343L906 355L925 374L944 369L960 340L986 335L1000 338Z"/>
+                                <path d="M826 274L831 295L844 315L850 337L859 342L856 321L843 298Z"/>
+                            </g>
+                            <path class="memory-route" d="M220 291Q289 238 380 203M398 200C486 67 708 57 820 223"/>
+                            <g class="memory-sketch">
+                                <path d="M170 377L195 354L222 374M178 371V397H214V371M192 397V383H201V397"/>
+                                <path d="M351 280Q370 274 386 285Q402 274 420 280V311Q400 306 386 316Q370 306 351 311ZM386 285V316"/>
+                                <path d="M782 341H881M797 341V301M866 341V301M797 307Q829 344 866 307M810 321V341M824 330V341M839 329V341M853 320V341"/>
+                                <path d="M491 178L515 164L552 173L526 179L518 193L512 180L491 178Z"/>
+                                <path d="M472 363q12-9 24 0t24 0M520 385q12-9 24 0t24 0M581 359q12-9 24 0t24 0" opacity=".55"/>
+                                <path d="M515 75q-10-20 8-24q10-18 25-2q21-7 22 15h-54M901 431q-8-16 8-20q10-16 23-1q19-6 21 14h-50" opacity=".6"/>
+                                <g transform="translate(75 451)"><circle r="22" stroke-dasharray="2 5"/><path d="M0-30V30M-30 0H30M0-22L6 0L0 22L-6 0Z"/></g>
+                            </g>
+                        </svg>
+                        <span class="memory-ocean">Pacific Ocean</span>
+                        <button class="memory-pin" type="button" data-memory-place="wuhan" style="--pin-x:22%; --pin-y:56%" aria-expanded="false" aria-controls="memory-wuhan"><svg viewBox="0 0 28 36" aria-hidden="true"><path d="M14 33C11 28 3 20 3 13C3 0 25 0 25 13C25 20 17 28 14 33Z"/><circle cx="14" cy="13" r="4"/></svg><span>Wuhan</span></button>
+                        <button class="memory-pin" type="button" data-memory-place="tokyo" style="--pin-x:38%; --pin-y:39%" aria-expanded="false" aria-controls="memory-tokyo"><svg viewBox="0 0 28 36" aria-hidden="true"><path d="M14 33C11 28 3 20 3 13C3 0 25 0 25 13C25 20 17 28 14 33Z"/><circle cx="14" cy="13" r="4"/></svg><span>Tokyo</span></button>
+                        <button class="memory-pin" type="button" data-memory-place="berkeley" style="--pin-x:82%; --pin-y:43%" aria-expanded="false" aria-controls="memory-berkeley"><svg viewBox="0 0 28 36" aria-hidden="true"><path d="M14 33C11 28 3 20 3 13C3 0 25 0 25 13C25 20 17 28 14 33Z"/><circle cx="14" cy="13" r="4"/></svg><span>Berkeley</span></button>
+                    </div>
+                    <div class="memory-notes" aria-live="polite" aria-relevant="additions text">
+                        <div class="memory-empty">
+                            <svg viewBox="0 0 90 70" aria-hidden="true"><path d="M7 15L31 7L58 16L81 8L84 57L59 64L32 56L8 64ZM31 7L32 56M58 16L59 64M21 35Q40 17 53 38T76 38"/><path d="M48 33C45 29 37 24 37 18C37 5 59 5 59 18C59 24 51 29 48 33Z" fill="var(--cream)"/><circle cx="48" cy="18" r="3"/></svg>
+                            <h3>Every pin holds a little story.</h3>
+                            <p>Pick a city to see what it means to me, and what I made there.</p>
+                        </div>
+                        <article class="memory-story" id="memory-wuhan" aria-labelledby="memory-wuhan-title" hidden>
+                            <button class="memory-close" type="button" aria-label="Close city story">×</button>
+                            <p class="memory-place-note">Where I was born</p>
+                            <h3 id="memory-wuhan-title">Wuhan</h3>
+                            <p>Wuhan is where I was born, and where I made SamoDiary and SamoPet. One companion lives in a journal, the other on a desktop: two little ways to bring a Samoyed into everyday life.</p>
+                            <div class="memory-projects">
+                                <a href="#project-samodiary"><img src="portfolio-assets/samodiary-icon.png" alt="" loading="lazy">SamoDiary</a>
+                                <a href="#project-samopet"><img src="portfolio-assets/samopet-logo.png" alt="" loading="lazy">SamoPet</a>
+                            </div>
+                        </article>
+                        <article class="memory-story" id="memory-tokyo" aria-labelledby="memory-tokyo-title" hidden>
+                            <button class="memory-close" type="button" aria-label="Close city story">×</button>
+                            <p class="memory-place-note">Where I study now</p>
+                            <h3 id="memory-tokyo-title">Tokyo</h3>
+                            <p>Tokyo is where I study now, at the University of Tokyo. Here, I explored dance motion with OpenPose and Python, and led a three-person team building Rock Star Maze. A place for learning, experimenting, and making things.</p>
+                            <div class="memory-projects">
+                                <a href="#project-dance">Dance motion</a>
+                                <a href="#project-rock">Rock Star Maze</a>
+                            </div>
+                        </article>
+                        <article class="memory-story" id="memory-berkeley" aria-labelledby="memory-berkeley-title" hidden>
+                            <button class="memory-close" type="button" aria-label="Close city story">×</button>
+                            <p class="memory-place-note">A summer of building together</p>
+                            <h3 id="memory-berkeley-title">Berkeley</h3>
+                            <p>During my summer at UC Berkeley, I worked with a team on SmartCart. I designed flows in Figma and built the responsive interface for our meal-planning app. This city holds a chapter of learning by making things together.</p>
+                            <div class="memory-projects">
+                                <a href="#project-smartcart"><img src="portfolio-assets/smartcart-logo.png" alt="" loading="lazy">SmartCart</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="memory-map-footer"><span>Tap a pin, open a memory.</span><span>Made in these places, carried with me.</span></div>
+            </section>
             <div class="projects-head">
                 <h2>Projects</h2>
             </div>
             <div class="project-list">
-                <article class="project-card reveal">
+                <article id="project-samodiary" class="project-card reveal">
                     <div class="project-media icon">
                         <img src="portfolio-assets/samodiary-icon.png" alt="SamoDiary app icon">
                     </div>
@@ -1390,7 +1462,7 @@
                     </div>
                 </article>
 
-                <article class="project-card reveal">
+                <article id="project-samopet" class="project-card reveal">
                     <div class="project-media logo">
                         <img src="portfolio-assets/samopet-logo.png" alt="SamoPet logo">
                     </div>
@@ -1410,7 +1482,7 @@
                     </div>
                 </article>
 
-                <article class="project-card reveal">
+                <article id="project-smartcart" class="project-card reveal">
                     <div class="project-media logo smartcart">
                         <span class="smartcart-mark"><img src="portfolio-assets/smartcart-logo.png" alt="SmartCart logo"></span>
                     </div>
@@ -1442,7 +1514,7 @@
                 </article>
 
                 <div class="split-two">
-                    <article class="project-card reveal">
+                    <article id="project-dance" class="project-card reveal">
                         <div class="project-body">
                             <p class="kicker">Research · UTokyo</p>
                             <h3>Dance motion</h3>
@@ -1455,7 +1527,7 @@
                             </div>
                         </div>
                     </article>
-                    <article class="project-card reveal">
+                    <article id="project-rock" class="project-card reveal">
                         <div class="project-body">
                             <p class="kicker">Hackathon · Unity</p>
                             <h3>Rock Star Maze</h3>
@@ -1558,6 +1630,7 @@
     </dialog>
 
     <script src="portfolio-assets/i18n.js"></script>
+    <script src="portfolio-assets/memory-map.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const observer = new IntersectionObserver((entries) => {
@@ -2056,7 +2129,7 @@
 
         };
         const lookers = [...document.querySelectorAll('[data-look]')];
-        const stops = ['#me', '#work', '#experience', '#contact'];
+        const stops = ['#me', '#work', '#memory-map', '#experience', '#contact'];
         let stopIndex = 0;
 
         const layoutYarn = () => {
