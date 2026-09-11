@@ -6,3 +6,9 @@ node_modules/
 .env.*
 *.pdf
 *.extracted.txt
+resume.cls
+template.aux
+template.dvi
+template.log
+template.out
+template.tex
