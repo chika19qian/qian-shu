@@ -19,9 +19,9 @@
             --muted: #888;
             --surface: #fff;
             --border: #e8e4de;
-            --font-display: 'Inter', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --font-mono: 'Fira Code', monospace;
+            --font-display: 'Caveat', cursive;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: var(--font-body);
             --title: clamp(2rem, 5vw, 4rem);
             --h2: clamp(1.5rem, 3vw, 2.5rem);
             --h3: clamp(1.1rem, 2vw, 1.5rem);
@@ -38,7 +38,7 @@
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+        html { scroll-behavior: smooth; scroll-padding-top: 52px; }
         body {
             font-family: var(--font-body);
             font-size: var(--body);
@@ -48,6 +48,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        button, input, textarea, select { font: inherit; }
         img { max-width: 100%; height: auto; display: block; }
         a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
 
@@ -88,11 +89,12 @@
             --surface: rgba(255, 248, 220, 0.55);
             --border: rgba(255, 255, 255, 0.7);
             --ink-white: #fffdf6;
-            --navy: #0f2440;
+            --ink-strong: #70451f;
+            --yarn-ink: #bb7a36;
             --font-display: 'Caveat', cursive;
             --font-body: 'Plus Jakarta Sans', sans-serif;
             --max-width: min(92vw, 1080px);
-            --title: clamp(2.4rem, 7vw, 5.2rem);
+            --title: clamp(2.65rem, 7.8vw, 5.8rem);
             --radius: clamp(16px, 2.4vw, 28px);
         }
 
@@ -130,13 +132,32 @@
         .band {
             position: relative;
             padding: var(--space-xl) 0;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+            border-bottom: 0;
         }
         .band:not(.hero-band) {
             padding-top: clamp(72px, 9vw, 112px);
         }
+        .band-yolk { background: var(--bg); }
+        .band-cream {
+            background: var(--cream);
+        }
+        .band-wave {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 44px;
+            display: block;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .band-yolk > .band-wave { color: var(--cream); }
+        .band-cream > .band-wave { color: var(--bg); }
+        #experience > .band-wave { z-index: 0; }
 
         .hero-band {
+            overflow-x: clip;
             min-height: 100svh;
             display: flex;
             align-items: center;
@@ -150,8 +171,9 @@
             left: 0;
             right: 0;
             z-index: 10;
-            padding: var(--space-sm) 0;
-            background: linear-gradient(to bottom, rgba(240, 209, 92, 0.94), rgba(240, 209, 92, 0));
+            padding: 4px 0;
+            background: var(--nav-background, var(--ink-white));
+            border-radius: 0;
         }
         .site-nav .wrap {
             display: flex;
@@ -161,7 +183,7 @@
         }
         .logo {
             font-family: var(--font-display);
-            font-size: clamp(1.4rem, 2.4vw, 2rem);
+            font-size: clamp(1.15rem, 2vw, 1.55rem);
             color: var(--ink-white);
             font-weight: 700;
         }
@@ -174,7 +196,7 @@
             font-size: var(--small);
             font-weight: 600;
         }
-        .nav-links a:hover { color: var(--navy); }
+        .nav-links a:hover { color: var(--ink-strong); }
 
         /* doodle layer */
         .doodle {
@@ -195,10 +217,10 @@
             font-weight: 700;
         }
         .piano {
-            width: clamp(120px, 18vw, 210px);
-            top: 88px;
-            left: max(8px, calc(50% - 540px));
-            transform: rotate(-26deg);
+            width: clamp(176px, 25vw, 280px);
+            top: 108px;
+            left: max(10px, calc(50% - 540px));
+            transform: rotate(-12deg);
             pointer-events: auto;
             background: none;
             border: 0;
@@ -206,22 +228,129 @@
             z-index: 5;
         }
         .piano-inner { display: block; width: 100%; animation: float 5s var(--ease) infinite; }
-        .iv-key {
-            fill: rgba(255, 253, 246, 0.28);
-            stroke: currentColor;
-            stroke-width: 2.4;
-            cursor: pointer;
+        .piano-case {
+            background: #f7df88;
+            border: 2.8px solid var(--accent);
+            border-radius: 12px;
+            padding: 10px 8px 8px;
         }
-        .iv-key:hover,
-        .iv-key.is-on { fill: var(--ink-white); }
-        .campus { width: clamp(110px, 16vw, 170px); top: 88px; right: max(20px, calc(50% - 520px)); animation: float 6s 0.4s var(--ease) infinite; }
-        .hero-cat { width: clamp(110px, 16vw, 176px); left: max(8px, calc(50% - 540px)); bottom: 14%; pointer-events: auto; z-index: 5; }
-        .hero-dog { width: clamp(110px, 16vw, 180px); right: max(16px, calc(50% - 520px)); bottom: 14%; pointer-events: auto; }
-        #me { min-height: 100svh; }
+        .piano-lid {
+            height: 0;
+            margin: 0 12px 10px;
+            border-top: 2.6px solid var(--accent);
+            position: relative;
+            background: none;
+        }
+        .piano-lid::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 2px;
+            width: 30%;
+            height: 12px;
+            transform: translateX(-50%);
+            border: 2.6px solid var(--accent);
+            border-bottom: 0;
+            border-radius: 8px 8px 0 0;
+            background: none;
+        }
+        .piano-keys {
+            position: relative;
+            height: clamp(76px, 10.5vw, 104px);
+            background: transparent;
+            padding: 0;
+        }
+        .white-keys {
+            display: flex;
+            height: 100%;
+            gap: 0;
+        }
+        .pkey-white {
+            flex: 1;
+            height: 100%;
+            border: 2.3px solid var(--accent);
+            padding: 0;
+            margin: 0 0 0 -2.3px;
+            cursor: pointer;
+            border-radius: 0 0 6px 6px;
+            background: #fff9e4;
+            transform: translateY(0);
+            transform-origin: top center;
+            transition: transform 70ms ease, background 70ms ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pkey-white:first-child { margin-left: 0; }
+        .pkey-white:hover { background: var(--ink-white); }
+        .pkey-white.is-pressed {
+            transform: translateY(6px);
+            background: var(--ink-white);
+        }
+        .pkey-white:focus-visible,
+        .pkey-black:focus-visible {
+            outline: 2px dashed var(--accent);
+            outline-offset: 3px;
+        }
+        .black-keys {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 56%;
+        }
+        .pkey-black {
+            position: absolute;
+            top: 0;
+            width: 9%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            border: 2.2px solid var(--accent);
+            border-radius: 0 0 4px 4px;
+            background: var(--accent);
+            transform: translateY(0);
+            transform-origin: top center;
+            transition: transform 70ms ease, filter 70ms ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pkey-black:hover { filter: brightness(1.08); }
+        .pkey-black.is-pressed {
+            transform: translateY(5px);
+            filter: brightness(0.82);
+        }
+        .hero-greeting {
+            position: absolute;
+            top: 76px;
+            left: max(16px, calc(50% - 540px));
+            font: 600 clamp(1.4rem, 2.8vw, 2rem) / 1.15 var(--font-display);
+            color: var(--ink-white);
+            z-index: 2;
+        }
+        .campus {
+            width: clamp(152px, 23vw, 240px);
+            aspect-ratio: 5 / 4;
+            top: 108px;
+            right: max(18px, calc(50% - 530px));
+            transform: rotate(5deg);
+            transform-origin: 50% 85%;
+            pointer-events: auto;
+            cursor: pointer;
+            padding: 0;
+            border: 0;
+            background: none;
+            z-index: 5;
+        }
+        .campus svg { display: block; animation: float 6s 0.4s var(--ease) infinite; }
+        .campus.is-ringing svg { animation: campus-ring 0.65s ease-in-out; }
+        .campus:focus-visible { outline: 2px dashed var(--accent); outline-offset: 8px; border-radius: 12px; }
+        .hero-cat { width: clamp(156px, 23vw, 260px); left: max(8px, calc(50% - 560px)); bottom: 15%; pointer-events: auto; z-index: 5; }
+        .hero-dog { width: clamp(126px, 18vw, 205px); right: max(20px, calc(50% - 530px)); bottom: 17%; pointer-events: auto; }
+        #me { padding-bottom: clamp(64px, 8vw, 96px); }
+        #me .panel-block:last-child { margin-bottom: 0; }
         .about-cat {
             position: absolute;
             left: max(10px, calc(50% - 540px));
-            bottom: 6%;
+            bottom: 96px;
             width: clamp(110px, 16vw, 168px);
             pointer-events: auto;
             z-index: 5;
@@ -235,6 +364,10 @@
             padding: 0;
             filter: drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12));
         }
+        .hero-cat,
+        .about-cat {
+            filter: none;
+        }
         .pet-face {
             display: block;
             width: 100%;
@@ -243,23 +376,59 @@
         }
         .pet img { width: 100%; pointer-events: none; }
         .pet.hop .pet-face { animation: hop 0.55s var(--ease); }
+        .hero-dog .pet-face { position: relative; aspect-ratio: 785 / 900; }
+        .hero-dog .pet-sprite {
+            position: absolute;
+            width: 206%;
+            max-width: none;
+            left: -58%;
+            top: -39%;
+            filter: url(#samo-warm-ink);
+        }
+        .hero-dog.is-heart .pet-sprite {
+            width: 125%;
+            left: -12.5%;
+            top: 4%;
+        }
+        .color-filters { position: absolute; width: 0; height: 0; pointer-events: none; }
+        .yarn-finale {
+            position: relative;
+            height: clamp(250px, 26vw, 340px);
+            margin-top: var(--space-md);
+        }
+        .grab-cat {
+            position: absolute;
+            width: clamp(170px, 21vw, 220px);
+            left: max(8px, calc(50% - 540px));
+            bottom: 0;
+            z-index: 5;
+        }
+        .grab-cat { filter: none; }
+        .grab-cat .pet-face { transform-origin: 50% 90%; }
         .pet:focus-visible { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 40%; }
 
         .yarn {
             position: absolute;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
             z-index: 4;
             pointer-events: auto;
             cursor: pointer;
             border: 0;
-            background:
-                repeating-conic-gradient(from 20deg, #fff6d4 0 12deg, #e3941c 12deg 18deg);
-            box-shadow: 2px 3px 0 rgba(180, 110, 20, 0.2), inset 0 0 0 2px rgba(255,255,255,0.4);
+            padding: 0;
+            background: none;
             left: 0;
             top: 0;
         }
+        .yarn svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            display: block;
+            color: var(--accent);
+        }
+        .yarn svg path { stroke-width: 1.8px; }
+        .yarn svg > circle { stroke-width: 2.4px; }
         .yarn:hover { transform: scale(1.08); }
 
         .yarn-trail-page {
@@ -268,21 +437,21 @@
             left: 0;
             width: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 4;
             overflow: visible;
         }
         .yarn-trail-page path {
             fill: none;
             stroke: var(--accent);
-            stroke-width: 2.2;
-            stroke-dasharray: 8 12;
+            stroke-width: 3.2px;
             stroke-linecap: round;
-            opacity: 0.55;
+            stroke-linejoin: round;
+            opacity: 1;
         }
 
         .hero-copy {
             text-align: center;
-            max-width: min(90vw, 720px);
+            max-width: min(90vw, 820px);
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -303,7 +472,7 @@
         .hero-copy .lede {
             margin-top: var(--space-sm);
             font-family: var(--font-display);
-            font-size: clamp(1.35rem, 3.2vw, 2.15rem);
+            font-size: clamp(1.5rem, 3.6vw, 2.4rem);
             color: var(--ink-white);
             line-height: 1.25;
         }
@@ -324,36 +493,21 @@
         }
         .portrait {
             position: relative;
-            width: clamp(140px, 18vw, 210px);
+            width: clamp(168px, 24vw, 260px);
             aspect-ratio: 1;
             border-radius: 50%;
-            border: 3px solid var(--ink-white);
-            background: rgba(255,255,255,0.18);
+            border: 3px solid rgba(227, 148, 28, 0.35);
+            background: #fff;
             overflow: hidden;
             display: grid;
             place-items: center;
         }
         .portrait-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
+            width: 88%;
+            height: 88%;
+            object-fit: contain;
+            object-position: center 62%;
         }
-        .portrait-photo.is-missing { display: none; }
-        .portrait-hint {
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding: 18%;
-            font-family: var(--font-display);
-            font-size: clamp(1rem, 1.6vw, 1.25rem);
-            line-height: 1.2;
-            color: var(--ink-white);
-            pointer-events: none;
-        }
-        .portrait:has(.portrait-photo:not(.is-missing)) .portrait-hint { display: none; }
 
         .panel-block { margin-bottom: var(--space-lg); }
         .hand-title {
@@ -403,7 +557,7 @@
         .tag:hover {
             transform: translateY(-2px);
             background: var(--ink-white);
-            color: var(--navy);
+            color: var(--ink-strong);
         }
 
         .exp-mini {
@@ -431,28 +585,29 @@
         }
         .exp-mini p { font-size: var(--small); color: var(--muted); }
 
-        #work {
-            background-color: #faf4ea;
-            background-image: radial-gradient(circle, #f2b129 1.15px, transparent 1.6px);
-            background-size: 20px 20px;
-            border-bottom: 2px solid rgba(227, 148, 28, 0.18);
+        .band-cream .hand-title { color: var(--accent); }
+        .band-cream .link-tile {
+            color: var(--accent);
+            border-color: var(--accent);
         }
-        #work .projects-head h2 { color: var(--accent); }
-        #work .projects-head h2::before,
-        #work .projects-head h2::after { background: var(--accent); }
-        #work .project-card {
+        .band-cream .link-tile:hover {
+            background: var(--accent);
+            color: var(--ink-white);
+        }
+        .band-cream .tag {
             border-color: rgba(227, 148, 28, 0.42);
             background: rgba(255, 255, 255, 0.72);
         }
-        #work .project-card:hover {
-            background: #fff;
-            box-shadow: 0 16px 0 rgba(227, 148, 28, 0.08);
+        .band-cream .exp-mini article {
+            border-bottom-color: rgba(227, 148, 28, 0.22);
         }
-        #work .project-body h3 { color: var(--navy); }
-        #work .tag {
+        .band-cream .exp-mini h3 { color: var(--ink-strong); }
+        .band-cream .edu-card {
             border-color: rgba(227, 148, 28, 0.4);
-            background: rgba(255, 246, 212, 0.7);
+            background: rgba(255, 255, 255, 0.58);
         }
+        .band-cream .edu-card:hover { background: #fff; }
+
         .projects-head {
             text-align: center;
             margin-bottom: var(--space-lg);
@@ -508,15 +663,25 @@
             object-fit: cover;
         }
         .project-media.icon {
-            background: #f4a300;
+            background: transparent;
             padding: 12%;
         }
-        .project-media.icon img { object-fit: contain; height: auto; }
+        .project-media.icon img { object-fit: contain; height: auto; border-radius: 22%; }
         .project-media.logo {
             background: #f4d35e;
             padding: 8%;
         }
         .project-media.logo img { object-fit: contain; height: auto; }
+        .project-media.smartcart { background: transparent; padding: 12%; }
+        .smartcart-mark {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            aspect-ratio: 1;
+            padding: 10%;
+            background: var(--ink-white);
+            border-radius: 22%;
+        }
         .project-media.bear {
             background: linear-gradient(180deg, #faf4ea, #f2b129 140%);
             padding: 8% 8% 0;
@@ -550,7 +715,7 @@
         .project-body p { color: var(--fg); margin-bottom: var(--space-sm); }
         .project-links { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: var(--space-sm); }
         .project-links a {
-            color: var(--navy);
+            color: var(--ink-strong);
             font-weight: 700;
             font-size: var(--small);
             background-image: linear-gradient(var(--accent), var(--accent));
@@ -569,6 +734,25 @@
         .split-two .project-card {
             grid-template-columns: 1fr;
         }
+        .split-two .project-body { display: flex; flex-direction: column; }
+        .project-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 16px;
+            margin-top: auto;
+        }
+        .project-thumb {
+            flex: 0 0 clamp(100px, 10vw, 136px);
+            aspect-ratio: 4 / 3;
+            border: 2px solid var(--ink-white);
+            border-radius: 12px;
+            padding: 4px;
+            background: var(--cream);
+            overflow: hidden;
+        }
+        .project-thumb img { width: 100%; height: 100%; object-fit: contain; border-radius: 7px; }
+
 
         .edu-row {
             display: grid;
@@ -592,7 +776,7 @@
 
         .contact {
             text-align: center;
-            padding-bottom: var(--space-xl);
+            padding-bottom: 16px;
         }
         .contact-lead {
             max-width: 40ch;
@@ -621,11 +805,11 @@
         .btn:hover { transform: translateY(-3px) rotate(-2deg); }
         .btn-fill {
             background: var(--ink-white);
-            color: var(--navy);
+            color: var(--ink-strong);
         }
-        .btn-fill:hover { color: var(--navy); }
+        .btn-fill:hover { color: var(--ink-strong); }
         .site-footer {
-            margin-top: var(--space-lg);
+            margin-top: var(--space-sm);
             display: flex;
             justify-content: space-between;
             gap: var(--space-md);
@@ -639,6 +823,12 @@
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+        @keyframes campus-ring {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            20% { transform: translateY(-8px) rotate(-6deg); }
+            45% { transform: translateY(-5px) rotate(6deg); }
+            70% { transform: translateY(-3px) rotate(-3deg); }
         }
         @keyframes hop {
             0% { transform: translateY(0) scale(1); }
@@ -655,10 +845,13 @@
             .exp-mini article {
                 grid-template-columns: 1fr;
             }
-            .piano, .campus { opacity: 0.85; }
-            .hero-cat { left: 2%; bottom: 6%; }
-            .hero-dog { right: 2%; bottom: 4%; width: 28vw; }
-            .about-cat { left: 4%; bottom: 12px; width: 28vw; }
+            .hero-greeting { top: 72px; left: 5%; }
+            .piano { width: min(52vw, 240px); top: 108px; }
+            .campus { width: 37vw; max-width: 188px; top: 108px; right: 5%; }
+            .hero-cat { left: 0; bottom: 5%; width: 43vw; }
+            .hero-dog { right: 7%; bottom: 5%; width: 32vw; }
+            #me { padding-bottom: 170px; }
+            .about-cat { left: 12%; bottom: 36px; width: 28vw; }
             .hero-band { min-height: 100svh; }
             .site-footer { flex-direction: column; text-align: center; }
         }
@@ -666,92 +859,371 @@
         @media (max-width: 400px) {
             .contact-actions .btn { width: 100%; }
         }
+
+        /* SamoDiary postcards and the taped project collection. */
+        .samo-feature {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+            gap: clamp(24px, 4vw, 56px);
+            align-items: center;
+            padding: 12px 0 clamp(88px, 11vw, 144px);
+        }
+        .samo-feature h2 {
+            font: 700 clamp(3.8rem, 6vw, 5.8rem) / 1 var(--font-display);
+            color: var(--ink-white);
+            margin: 12px 0;
+        }
+        .samo-intro { font: 500 clamp(1.1rem, 1.8vw, 1.45rem) / 1.55 var(--font-body); letter-spacing: -.02em; }
+        .samo-byline { font-size: var(--small); margin-top: 18px; color: var(--ink-strong); }
+        .samo-story { margin-top: 30px; min-height: 218px; }
+        .samo-chapter { display: flex; align-items: baseline; gap: 14px; font-size: var(--small); font-weight: 700; }
+        .samo-counter { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .samo-story h3 { font: 600 clamp(1rem, 1.4vw, 1.2rem) / 1.5 var(--font-body); margin: 12px 0; }
+        .samo-story > p:last-child { font-size: clamp(0.875rem, 1.1vw, 1rem); line-height: 1.8; }
+        .samo-chapters { display: flex; flex-wrap: wrap; gap: 7px; margin: 20px 0 24px; }
+        .samo-chapters button {
+            width: 36px; height: 36px; border: 1px solid rgba(107,69,20,0.24);
+            border-radius: 50%; background: transparent; color: var(--fg); font: 600 0.75rem var(--font-body);
+            cursor: pointer; transition: transform .2s, background .2s;
+        }
+        .samo-chapters button:hover { transform: translateY(-3px); }
+        .samo-chapters button[aria-current="true"] { background: var(--ink-white); border-color: var(--ink-white); }
+        .samo-feature-links { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .samo-website { font-size: var(--small); font-weight: 700; color: var(--ink-strong); }
+        .samo-gallery { min-width: 0; }
+        .samo-deck {
+            position: relative; height: clamp(510px, 46vw, 620px);
+            display: grid; place-items: center; isolation: isolate; touch-action: pan-y;
+        }
+        .samo-print {
+            position: absolute; width: 46%; max-width: 260px;
+            padding: 9px 9px 28px; border: 0; border-radius: 20px;
+            background: var(--ink-white); color: var(--fg); cursor: pointer;
+            box-shadow: 0 14px 32px rgba(107,69,20,.17), 0 2px 4px rgba(107,69,20,.08);
+            transition: transform .5s var(--ease), box-shadow .3s;
+        }
+        .samo-print img { border-radius: 13px; width: 100%; height: auto; aspect-ratio: 1290 / 2796; object-fit: contain; pointer-events: none; }
+        .samo-print-prev { transform: translate(-61%, 6px) rotate(-7deg) scale(.89); z-index: 1; }
+        .samo-print-next { transform: translate(61%, 8px) rotate(7deg) scale(.89); z-index: 1; }
+        .samo-print-main { z-index: 2; transform: rotate(-3deg); }
+        .samo-print-main:hover { transform: translateY(-8px) rotate(1deg); box-shadow: 0 22px 40px rgba(107,69,20,.2); }
+        .samo-print-prev:hover { transform: translate(-68%, 0) rotate(-9deg) scale(.92); }
+        .samo-print-next:hover { transform: translate(68%, 0) rotate(9deg) scale(.92); }
+        .samo-print-caption { display: block; padding-top: 8px; font: 600 clamp(.95rem, 1.5vw, 1.2rem) / 1 var(--font-display); }
+        .samo-gallery-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 18px; }
+        .samo-gallery-controls p { text-align: center; font: 500 .9rem / 1.5 var(--font-body); }
+        .samo-gallery-controls span { display: block; margin-top: 8px; font: 500 .68rem / 1.5 var(--font-body); }
+        .samo-arrow { width: 40px; height: 40px; flex-shrink: 0; border: 1.5px solid var(--ink-white); border-radius: 50%; background: rgba(255,253,246,.35); color: var(--fg); font: 1.4rem var(--font-body); cursor: pointer; }
+        .samo-arrow:hover { background: var(--ink-white); }
+        .samo-feature button:focus-visible, .samo-lightbox button:focus-visible { outline: 2px dashed var(--fg); outline-offset: 5px; }
+        .samo-lightbox { margin: auto; width: min(94vw, 760px); max-height: 94svh; padding: 30px 24px 16px; border: 0; border-radius: 14px; background: var(--cream); color: var(--fg); box-shadow: 0 24px 80px #3b260a55; }
+        .samo-lightbox::backdrop { background: rgba(61,39,13,.66); backdrop-filter: blur(7px); }
+        .samo-lightbox > img { height: 74svh; max-width: 100%; width: auto; object-fit: contain; margin: 0 auto; }
+        .samo-close { position: absolute; right: 10px; top: 5px; border: 0; background: var(--cream); color: var(--fg); font-size: 1.8rem; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; }
+        .samo-lightbox-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 12px; }
+        .samo-lightbox-footer p { text-align: center; font: 600 1.5rem var(--font-display); }
+        body.has-lightbox { overflow: hidden; }
+        .project-card { position: relative; border-width: 5px; border-radius: 14px; background: rgba(255,253,246,.25); box-shadow: 0 7px 18px rgba(107,69,20,.06); }
+        .project-card::before {
+            content: ''; position: absolute; top: -17px; left: 24px; z-index: 3;
+            width: clamp(60px, 7.5vw, 86px); height: 27px; transform: rotate(-19deg); pointer-events: none;
+            background: repeating-linear-gradient(92deg, #fffdf608 0 2px, #fffdf633 2px 3px), linear-gradient(180deg, #fffdf68a, #fffdf644 45%, #fffdf68a);
+            border: 1px solid #fffdf699; backdrop-filter: blur(1px);
+            clip-path: polygon(0 5%, 3% 14%, 0 28%, 3% 44%, 0 65%, 3% 80%, 0 96%, 100% 100%, 97% 82%, 100% 63%, 97% 45%, 100% 28%, 97% 10%, 100% 0);
+        }
+        .project-card:nth-child(even)::before { left: auto; right: 24px; transform: rotate(21deg); }
+        .split-two .project-card:first-child::before { left: 28px; transform: rotate(-17deg); }
+        .project-body h3 { color: var(--ink-strong); }
+        .contact-layout { display: grid; grid-template-columns: minmax(180px, .65fr) minmax(0, 1.35fr); gap: var(--space-md); align-items: center; min-height: 340px; }
+        .contact-copy { grid-column: 2; grid-row: 1; }
+        .yarn-finale { grid-column: 1; grid-row: 1; height: 340px; margin-top: 0; }
+        .grab-cat { width: 220px; left: 0; bottom: 50%; transform: translateY(50%); }
+        .site-footer { margin-top: 32px; }
+        @media (max-width: 768px) {
+            .samo-feature { grid-template-columns: 1fr; gap: 26px; }
+            .samo-feature-copy { max-width: 520px; }
+            .samo-story { min-height: 206px; }
+            .samo-gallery { width: 100%; max-width: 520px; justify-self: center; }
+            .samo-deck { height: clamp(350px, 100vw, 500px); }
+            .samo-print { width: 43%; max-width: 220px; padding: 7px 7px 20px; }
+            .samo-print-caption { font-size: 1rem; }
+            .samo-gallery-controls { gap: 12px; }
+            .samo-gallery-controls p { font-size: .85rem; }
+            .contact-layout { grid-template-columns: 88px minmax(0, 1fr); gap: 10px; min-height: 310px; }
+            .contact-copy .hand-title { font-size: 1.9rem; }
+            .contact-copy .contact-lead { font-size: .8rem; }
+            .yarn-finale { height: 310px; }
+            .grab-cat { width: 124px; left: -28px; }
+            .contact-actions { gap: 8px; }
+            .contact-actions .btn { width: auto; padding: .65em 1em; }
+            .site-footer { margin-top: 20px; }
+        }
+
+        .piano { --accent: #9e704d; }
+        .piano-case { background: #f7df88; }
+        .pkey-white { background: #fff9e4; }
+        .campus { color: #b7833f; }
+        .hero-cat img { filter: url(#cat-caramel); }
+        .yarn svg { color: var(--yarn-ink); }
+        .yarn-trail-page path { stroke: var(--yarn-ink); }
+        .project-video { width: min(100%, 480px); margin-top: 20px; }
+        .project-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; min-height: 200px; border: 3px solid var(--ink-white); border-radius: 12px; background: var(--cream); }
+        .project-video-cover { display: block; position: relative; aspect-ratio: 16 / 9; min-height: 200px; overflow: hidden; border: 3px solid var(--ink-white); border-radius: 12px; background: var(--cream); }
+        .project-video-cover > img { width: 100%; height: 100%; object-fit: cover; }
+        .project-video-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, #39261388); }
+        .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 58px; height: 58px; display: grid; place-items: center; padding-left: 4px; border-radius: 50%; background: var(--ink-white); color: var(--ink-strong); font-size: 1.4rem; z-index: 1; transition: scale .2s; }
+        .project-video-cover:hover .video-play { scale: 1.1; }
+        .video-cover-label { position: absolute; bottom: 14px; left: 16px; z-index: 1; color: var(--ink-white); font-size: .85rem; font-weight: 600; }
+        .project-video figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 8px; font-size: .7rem; }
+        .project-video a { color: var(--ink-strong); font-weight: 600; }
+        #work { overflow-x: clip; }
+        .samo-deck { perspective: 1000px; }
+        .samo-print-departing { z-index: 4; pointer-events: none; }
+        .samo-autoplay { display: flex; align-items: center; gap: 18px; margin: 10px auto 0; width: 80%; }
+        .samo-progress { flex: 1; height: 2px; overflow: hidden; background: rgba(107,69,20,.16); }
+        .samo-progress > span { display: block; width: 100%; height: 100%; background: var(--ink-strong); transform: scaleX(0); transform-origin: left; }
+        .samo-play-toggle { border: 0; background: none; color: var(--ink-strong); cursor: pointer; font-size: .72rem; padding: 8px 0; }
+
+        /* A luminous handwritten name, framed by the four familiar doodles. */
+        .hero-band {
+            min-height: max(760px, 100svh);
+            padding: 96px 0 88px;
+            background: radial-gradient(ellipse at 50% 48%, #f9df82 0%, #f5d96e 32%, transparent 66%), var(--bg);
+            isolation: isolate;
+        }
+        .hero-copy { max-width: min(88vw, 760px); }
+        .hero-copy::before {
+            content: ''; position: absolute; z-index: -1; pointer-events: none;
+            inset: -76px -40px -56px; border-radius: 50%;
+            background: radial-gradient(ellipse, #fff5c526, transparent 70%);
+            border: 1px solid #fff7d43d; transform: rotate(-12deg);
+            mask-image: linear-gradient(115deg, transparent 8%, #000 32%, #000 65%, transparent 92%);
+        }
+        .hero-spark {
+            position: absolute; width: 30px; height: 38px; fill: none;
+            stroke: var(--ink-white); stroke-width: 2; pointer-events: none;
+        }
+        .hero-spark-left { left: 5%; top: 19%; transform: rotate(-12deg); }
+        .hero-spark-right { right: 16%; top: 5%; width: 23px; transform: rotate(12deg); }
+        .hero-copy h1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8d5724;
+            text-shadow: none;
+            line-height: .94;
+        }
+        .hero-hi { display: block; margin: 0 0 8px; font-size: clamp(2.3rem, 4vw, 3.6rem); font-weight: 500; transform: rotate(-5deg); }
+        .hero-copy h1 em {
+            display: inline-block; position: relative;
+            color: var(--ink-white); font-size: clamp(6.4rem, 12.8vw, 11.5rem);
+            text-shadow: 0 3px 0 #bb8d3d, 0 10px 28px #a7792526;
+            font-style: normal; font-weight: 700; letter-spacing: -.035em;
+            transform: rotate(-3deg); padding: 0 10px 20px;
+        }
+        .name-underline { position: absolute; width: 95%; height: 22px; bottom: 0; left: 3%; fill: none; stroke: #fffdf6; stroke-width: 4; opacity: .9; stroke-linecap: round; }
+        .hero-copy .lede { margin-top: 26px; font: 500 clamp(.85rem, 1.25vw, 1.05rem) / 1.9 var(--font-body); color: #8d5724; }
+        .hero-copy .lede span { color: #a56c32; font-weight: 400; }
+        .piano { width: clamp(185px, 19vw, 245px); top: 23%; left: max(28px, calc(50% - 505px)); transform: rotate(-10deg); }
+        .campus { width: clamp(180px, 18vw, 225px); top: 18%; right: max(32px, calc(50% - 490px)); }
+        .hero-cat { width: clamp(155px, 16vw, 195px); left: max(16px, calc(50% - 535px)); bottom: 13%; }
+        .hero-dog { width: clamp(205px, 21vw, 255px); right: max(32px, calc(50% - 535px)); bottom: 8%; }
+        .site-nav .logo { color: var(--ink-strong); font-weight: 600; }
+        .nav-links a { position: relative; padding: 5px 0; color: var(--ink-strong); }
+        .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink-strong); }
+        .nav-links a::after {
+            content: ''; position: absolute; left: -4px; right: -4px; bottom: 0; height: 7px;
+            border-bottom: 2px solid var(--ink-strong); border-radius: 0 0 50% 45%;
+            transform: scaleX(0) rotate(-4deg); transform-origin: left; transition: transform .25s var(--ease);
+        }
+        .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1) rotate(-4deg); }
+        .samo-ownership { font: 700 clamp(1.6rem, 2.8vw, 2.5rem) / 1.2 var(--font-body); letter-spacing: -.045em; max-width: 420px; color: var(--ink-strong); }
+        .samo-feature h2 { margin: 18px 0 16px; }
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .piano { top: 17%; width: 180px; }
+            .campus { top: 14%; width: 180px; }
+            .hero-cat { bottom: 10%; width: 165px; }
+            .hero-dog { bottom: 9%; width: 210px; }
+        }
+        @media (max-width: 768px) {
+            .hero-band { min-height: max(740px, 100svh); padding: 60px 0 80px; }
+            .site-nav { padding: 16px 0; }
+            .logo { font-size: 1.5rem; }
+            .hero-hi { margin-left: 0; font-size: 2.2rem; }
+            .hero-copy::before { inset: -42px -12px -36px; }
+            .hero-spark-left { left: 1%; top: 9%; width: 20px; }
+            .hero-spark-right { right: 0; top: -14%; width: 18px; }
+            .hero-copy h1 em { font-size: clamp(4.7rem, 21vw, 8rem); padding-bottom: 16px; }
+            .name-underline { height: 17px; stroke-width: 3; }
+            .hero-copy .lede { margin-top: 22px; font-size: clamp(.75rem, 3.1vw, .95rem); }
+            .piano { width: min(38vw, 210px); left: 6%; top: 16%; }
+            .piano-keys { height: clamp(48px, 10vw, 70px); }
+            .campus { width: min(32vw, 180px); right: 7%; top: 12%; }
+            .hero-cat { width: min(32vw, 175px); left: 3%; bottom: 9%; }
+            .hero-dog { width: min(38vw, 220px); right: 6%; bottom: 7%; }
+            .samo-print { border-radius: 16px; }
+            .samo-print img { border-radius: 10px; }
+        }
+
+        /* A quiet greeting and a persistent, keyboard-accessible language switch. */
+        .site-nav .wrap { min-height: 40px; }
+        .site-nav .logo {
+            font-family: var(--font-body); font-size: clamp(.75rem, 1.1vw, .9rem);
+            font-weight: 500; line-height: 1.5; letter-spacing: -.025em;
+        }
+        .nav-actions { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px); }
+        .language-switch { display: flex; align-items: center; flex-shrink: 0; gap: 2px; color: var(--ink-strong); }
+        .language-switch button {
+            min-width: 38px; min-height: 30px; padding: 4px 6px; border: 0; border-radius: 0;
+            color: var(--ink-strong); background: transparent; font: 600 .75rem / 1.5 var(--font-body); cursor: pointer;
+        }
+        .language-switch button[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+        .language-switch button:focus-visible { outline: 2px dashed var(--ink-strong); outline-offset: 4px; }
+        html:lang(zh) { --font-body: 'Plus Jakarta Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+        html:lang(zh) .hand-title, html:lang(zh) .samo-intro, html:lang(zh) .samo-print-caption,
+        html:lang(zh) .samo-lightbox-footer p, html:lang(zh) .projects-head h2,
+        html:lang(zh) .project-body h3 { font-family: var(--font-body); line-height: 1.6; }
+        html:lang(zh) .hero-hi { font-family: var(--font-body); font-size: clamp(1.5rem, 2.8vw, 2.5rem); line-height: 1.5; }
+        html:lang(zh) .hand-title { font-size: clamp(1.4rem, 2.7vw, 2.2rem); }
+        html:lang(zh) .samo-intro { font-size: clamp(1.3rem, 2.2vw, 1.9rem); }
+        html:lang(zh) .samo-print-caption { font-size: .8rem; }
+        html:lang(zh) .samo-lightbox-footer p { font-size: 1.1rem; }
+        @media (max-width: 768px) {
+            html { scroll-padding-top: 76px; }
+            .site-nav { padding: 10px 0; }
+            .site-nav .wrap { gap: 10px; }
+            .language-switch button { min-width: 40px; min-height: 34px; }
+            .nav-actions { gap: 0; }
+        }
     </style>
 </head>
 <body>
+    <svg class="color-filters" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="cat-caramel" color-interpolation-filters="sRGB">
+                <feFlood style="flood-color: var(--yarn-ink)" />
+                <feComposite in2="SourceAlpha" operator="in" />
+            </filter>
+            <filter id="samo-warm-ink" color-interpolation-filters="sRGB">
+                <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 0 1" />
+                <feComponentTransfer>
+                    <feFuncA type="table" tableValues="0 0 0 0 0 0 0.25 0.65 1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceAlpha" operator="in" result="dark-ink" />
+                <feFlood flood-color="#a47a3c" />
+                <feComposite in2="dark-ink" operator="in" />
+                <feComposite in2="SourceGraphic" operator="over" />
+            </filter>
+        </defs>
+    </svg>
     <a class="skip" href="#me">Skip to about</a>
     <svg class="yarn-trail-page" id="yarn-svg" aria-hidden="true">
         <path id="yarn-path"></path>
+        <path id="yarn-tail"></path>
     </svg>
-    <button class="yarn" id="yarn" type="button" aria-label="Follow the yarn ball to the next page"></button>
+    <button class="yarn" id="yarn" type="button" aria-label="Follow the yarn ball to the next page">
+        <svg viewBox="-20 -20 40 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+            <defs><clipPath id="yarn-windings"><circle r="15.3" stroke="none"/></clipPath></defs>
+            <circle r="16.4"/>
+            <g clip-path="url(#yarn-windings)" transform="rotate(-28)">
+                <path d="M-19-1C-8-6 7-6 19 0M-19 4C-8-1 7-1 19 5M-18 9C-7 4 7 4 18 10M-13 14C-4 10 6 10 13 14"/>
+                <path d="M-12-16C-10-11-6-7-1-4M-6-18C-4-12 0-8 6-4M1-18C3-12 8-8 14-3"/>
+            </g>
+        </svg>
+    </button>
 
     <nav class="site-nav" aria-label="Primary">
         <div class="wrap">
-            <a class="logo" href="#top">Qian</a>
+            <a class="logo" href="#top">Hello, glad you're here!</a>
+            <div class="nav-actions">
             <div class="nav-links">
                 <a href="#me">Me</a>
                 <a href="#work">Projects</a>
-                <a href="#experience">Work</a>
-                <a href="#contact">Hello</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="language-switch" role="group" aria-label="Site language">
+                <button type="button" data-language="en" lang="en" aria-pressed="true">EN</button>
+                <span aria-hidden="true">/</span>
+                <button type="button" data-language="zh" lang="zh-CN" aria-pressed="false">中</button>
+            </div>
             </div>
         </div>
     </nav>
 
     <!-- === 1. Intro (sketch page 1) === -->
-    <header class="band hero-band" id="top">
+    <header class="band hero-band band-yolk" id="top">
         <div class="doodle piano" id="piano" role="group" aria-label="Piano keys from do to ti">
             <div class="piano-inner">
-                <svg viewBox="0 0 150 82" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
-                    <rect x="6" y="30" width="138" height="46" rx="7"/>
-                    <path d="M22 18c10-12 22-12 32 0"/>
-                    <rect class="iv-key" data-note="0" x="12" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="1" x="30" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="2" x="48" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="3" x="66" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="4" x="84" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="5" x="102" y="36" width="16" height="34" rx="3"/>
-                    <rect class="iv-key" data-note="6" x="120" y="36" width="16" height="34" rx="3"/>
-                </svg>
+                <div class="piano-case">
+                    <div class="piano-lid" aria-hidden="true"></div>
+                    <div class="piano-keys">
+                        <div class="white-keys">
+                            <button type="button" class="pkey-white" data-note="0" aria-label="Do"></button>
+                            <button type="button" class="pkey-white" data-note="1" aria-label="Re"></button>
+                            <button type="button" class="pkey-white" data-note="2" aria-label="Mi"></button>
+                            <button type="button" class="pkey-white" data-note="3" aria-label="Fa"></button>
+                            <button type="button" class="pkey-white" data-note="4" aria-label="Sol"></button>
+                            <button type="button" class="pkey-white" data-note="5" aria-label="La"></button>
+                            <button type="button" class="pkey-white" data-note="6" aria-label="Ti"></button>
+                        </div>
+                        <div class="black-keys">
+                            <button type="button" class="pkey-black" data-freq="277.18" aria-label="Do sharp" style="left: 9.4%"></button>
+                            <button type="button" class="pkey-black" data-freq="311.13" aria-label="Re sharp" style="left: 24.2%"></button>
+                            <button type="button" class="pkey-black" data-freq="369.99" aria-label="Fa sharp" style="left: 52.6%"></button>
+                            <button type="button" class="pkey-black" data-freq="415.30" aria-label="Sol sharp" style="left: 67.2%"></button>
+                            <button type="button" class="pkey-black" data-freq="466.16" aria-label="La sharp" style="left: 81.8%"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="doodle campus" aria-hidden="true">
-            <svg viewBox="0 0 130 90" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 78V42l22-16 22 16v36"/>
-                <path d="M62 78V48l28-18 28 18v30"/>
-                <path d="M28 78h72"/>
-                <rect x="34" y="54" width="10" height="10" rx="1"/>
-                <rect x="82" y="54" width="10" height="10" rx="1"/>
+        <button class="doodle campus" type="button" aria-label="Play clock chimes. Press again to stop.">
+            <svg aria-hidden="true" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 148h176"/>
+                <path d="M18 148V96h42V148"/>
+                <path d="M60 148V80h22V148"/>
+                <path d="M118 148V80h22V148"/>
+                <path d="M140 148V96h42V148"/>
+                <path d="M82 148V26M118 26V148"/>
+                <path d="M80 26V16H90V12H110V16H120V26Z"/>
+                <circle cx="100" cy="38" r="8"/>
+                <path d="M100 38v-4.5M100 38l3.6 2.2" stroke-width="2"/>
+                <path d="M100 48v12"/>
+                <path d="M88 148V116c0-16 24-16 24 0v32"/>
+                <path d="M26 108v24M34 108v24M42 108v24M50 108v24"/>
+                <path d="M68 92v30M76 92v30"/>
+                <path d="M92 74v20M108 74v20"/>
+                <path d="M124 92v30M132 92v30"/>
+                <path d="M150 108v24M158 108v24M166 108v24M174 108v24"/>
             </svg>
-        </div>
+        </button>
 
-        <button class="doodle pet hero-cat" type="button" aria-label="A doodle cat playing with yarn. Click to bounce.">
+        <button class="doodle pet hero-cat" type="button" aria-label="A doodle cat playing with yarn. Click to hear a meow.">
             <span class="pet-face" data-look>
-                <svg viewBox="0 0 160 150" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
-                    <ellipse cx="80" cy="128" rx="30" ry="14"/>
-                    <circle cx="80" cy="74" r="40"/>
-                    <path d="M48 52 58 16l22 32"/>
-                    <path d="M112 52 102 14 80 48"/>
-                    <path d="M58 44 62 28" opacity=".45"/>
-                    <path d="M102 44 98 26" opacity=".45"/>
-                    <circle cx="66" cy="74" r="3.4" fill="currentColor" stroke="none"/>
-                    <circle cx="94" cy="74" r="3.4" fill="currentColor" stroke="none"/>
-                    <circle cx="54" cy="86" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                    <circle cx="106" cy="86" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                    <path d="M80 82c-2 3-2 3 0 5 2-2 2-2 0-5Z" fill="currentColor" stroke="none"/>
-                    <path d="M70 94c6 8 14 8 20 0"/>
-                    <path d="M42 76H18M42 86H16M42 96H22"/>
-                    <path d="M118 76h24M118 86h26M118 96h20"/>
-                </svg>
+                <img src="portfolio-assets/cat2.png" alt="">
             </span>
         </button>
-        <button class="doodle pet hero-dog" type="button" aria-label="Samo, a Samoyed. Click to bounce.">
+        <button class="doodle pet hero-dog" type="button" aria-label="Pet Samo to hear a squeaky toy and turn the puppy into a heart.">
             <span class="pet-face" data-look>
-                <img src="portfolio-assets/samo-puppy.png" alt="">
+                <img class="pet-sprite" src="portfolio-assets/puppy_happy_0.png" alt="">
             </span>
         </button>
 
         <div class="wrap hero-copy">
-            <h1>Hi, I'm <em>Qian Shu</em></h1>
-            <p class="lede">a psychology student in the University of Tokyo.</p>
+            <svg class="hero-spark hero-spark-left" viewBox="0 0 30 38" aria-hidden="true"><path d="M15 2Q15 18 2 19Q15 20 15 36Q15 20 28 19Q15 18 15 2Z"/></svg>
+            <svg class="hero-spark hero-spark-right" viewBox="0 0 30 38" aria-hidden="true"><path d="M15 2Q15 18 2 19Q15 20 15 36Q15 20 28 19Q15 18 15 2Z"/></svg>
+            <h1><span class="hero-hi">Hi, I’m</span><em>Qian Shu<svg class="name-underline" viewBox="0 0 440 24" preserveAspectRatio="none" aria-hidden="true"><path d="M8 15C106 3 270 3 432 11M74 21C195 12 321 13 394 18"/></svg></em></h1>
+            <p class="lede">Psychology at the University of Tokyo.<br><span>Making little things with care.</span></p>
         </div>
+        <svg class="band-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 22C160 48 320 4 480 18C640 32 800 48 960 28C1120 8 1280 6 1440 24V48H0Z"/></svg>
     </header>
 
-    <section class="band" id="me">
+    <section class="band band-cream" id="me">
         <div class="wrap about-grid">
             <div class="portrait-col">
                 <div class="portrait" id="portrait">
-                    <img class="portrait-photo" src="portfolio-assets/avatar.png" alt="Qian Shu" onerror="this.classList.add('is-missing')">
-                    <span class="portrait-hint">把照片放到<br>avatar.png</span>
+                    <img class="portrait-photo" src="portfolio-assets/my-notion-face-transparent.png" alt="Qian Shu">
                 </div>
             </div>
 
@@ -790,32 +1262,91 @@
                         <span class="tag">User testing</span>
                     </div>
                 </div>
+
+                <div class="panel-block reveal">
+                    <p class="hand-title">Experience</p>
+                    <div class="exp-mini">
+                        <article>
+                            <time datetime="2022">2022 – 2027</time>
+                            <div>
+                                <h3>The University of Tokyo</h3>
+                                <p>B.A. Psychology, Faculty of Letters · GPA 3.8 / 4.0</p>
+                                <p>Mabuchi International Foundation Scholarship · Monbukagakusho Honors Scholarship</p>
+                            </div>
+                        </article>
+                        <article>
+                            <time datetime="2026">2026</time>
+                            <div>
+                                <h3>UC Berkeley Summer Sessions</h3>
+                                <p>GPA 4.0 / 4.0</p>
+                                <p>CS160 User Interface Design and Development · COGSCI131 Computational Models of Cognition</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="doodle pet about-cat" type="button" aria-label="A sitting doodle cat. Click to bounce.">
+        <button class="doodle pet about-cat" type="button" aria-label="A sitting doodle cat. Click to hear a meow.">
             <span class="pet-face" data-look>
-                <svg viewBox="0 0 170 160" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
-                    <ellipse cx="86" cy="122" rx="46" ry="28"/>
-                    <circle cx="78" cy="62" r="38"/>
-                    <path d="M48 46 56 12l22 30"/>
-                    <path d="M108 46 100 10 78 42"/>
-                    <circle cx="66" cy="62" r="3.2" fill="currentColor" stroke="none"/>
-                    <circle cx="90" cy="62" r="3.2" fill="currentColor" stroke="none"/>
-                    <circle cx="54" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                    <circle cx="102" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                    <path d="M78 70c-2 3-2 3 0 5 2-2 2-2 0-5Z" fill="currentColor" stroke="none"/>
-                    <path d="M68 82c6 8 14 8 20 0"/>
-                    <path d="M42 64H18M42 74H16M42 84H22"/>
-                    <path d="M114 64h24M114 74h26M114 84h20"/>
-                    <path d="M128 118c16 8 22 22 12 34"/>
-                </svg>
+                <img src="portfolio-assets/cat2.png" alt="">
             </span>
         </button>
+        <svg class="band-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 26C200 4 360 48 540 30C720 12 900 0 1080 22C1260 44 1380 36 1440 18V48H0Z"/></svg>
     </section>
 
     <!-- === 3. Projects (sketch page 3) === -->
-    <section class="band" id="work">
+    <section class="band band-yolk" id="work">
         <div class="wrap">
+            <section class="samo-feature" id="samodiary" aria-labelledby="samo-feature-title">
+                <div class="samo-feature-copy">
+                    <p class="samo-ownership">My independent creation.</p>
+                    <h2 id="samo-feature-title">SamoDiary</h2>
+                    <p class="samo-intro">A diary. A little companion.<br>A world that grows with you.</p>
+                    <p class="samo-byline">Designed and built by me, from idea to iOS app.<br>SwiftUI · Psychology-inspired design</p>
+                    <div class="samo-story" aria-live="polite" aria-atomic="true">
+                        <p class="samo-chapter"><span class="samo-counter">01 / 08</span> <span id="samo-chapter-name">Meet SamoDiary</span></p>
+                        <h3 id="samo-story-title">A little company for your everyday.</h3>
+                        <p id="samo-story-description">SamoDiary brings a mood journal and a growing Samoyed companion into one small daily ritual. I built this iOS app around a simple idea: reflecting on your feelings can feel warm, playful, and personal.</p>
+                    </div>
+                    <div class="samo-chapters" role="group" aria-label="Explore SamoDiary chapters">
+                        <button type="button" data-samo-index="0" aria-label="01: Meet SamoDiary" aria-current="true">01</button>
+                        <button type="button" data-samo-index="1" aria-label="02: Adopt your Samoyed">02</button>
+                        <button type="button" data-samo-index="2" aria-label="03: Record your mood">03</button>
+                        <button type="button" data-samo-index="3" aria-label="04: Feed & interact">04</button>
+                        <button type="button" data-samo-index="4" aria-label="05: Explore the forest">05</button>
+                        <button type="button" data-samo-index="5" aria-label="06: Meet your guides">06</button>
+                        <button type="button" data-samo-index="6" aria-label="07: Try a new perspective">07</button>
+                        <button type="button" data-samo-index="7" aria-label="08: Start your next chapter">08</button>
+                    </div>
+                    <div class="samo-feature-links">
+                        <a class="btn btn-fill" href="https://apps.apple.com/app/id6742567188">Meet your Samoyed ↗</a>
+                        <a class="samo-website" href="https://samodiary.com">Visit the website ↗</a>
+                    </div>
+                </div>
+                <div class="samo-gallery">
+                    <div class="samo-deck" aria-label="SamoDiary promotional postcards">
+                        <button class="samo-print samo-print-prev" type="button" data-samo-step="-1" aria-label="See the previous chapter">
+                            <img src="portfolio-assets/samodiary_detail/preview-08.webp" alt="" width="650" height="1409" loading="lazy">
+                        </button>
+                        <button class="samo-print samo-print-next" type="button" data-samo-step="1" aria-label="See the next chapter">
+                            <img src="portfolio-assets/samodiary_detail/preview-02.webp" alt="" width="650" height="1409" loading="lazy">
+                        </button>
+                        <button class="samo-print samo-print-main" type="button" aria-label="Enlarge Meet SamoDiary promotional image" aria-haspopup="dialog">
+                            <img src="portfolio-assets/samodiary_detail/preview-01.webp" alt="SamoDiary cover: a Samoyed companion and mood journal on iPhone" width="650" height="1409" loading="lazy">
+                            <span class="samo-print-caption">a little world, made with care</span>
+                        </button>
+                    </div>
+                    <div class="samo-autoplay">
+                        <span class="samo-progress" aria-hidden="true"><span></span></span>
+                        <button class="samo-play-toggle" type="button">Pause story</button>
+                    </div>
+                    <div class="samo-gallery-controls">
+                        <button class="samo-arrow" type="button" data-samo-step="-1" aria-label="Previous chapter">←</button>
+                        <p>Let the story unfold.<span>Swipe to explore · tap the photo to look closer</span></p>
+                        <button class="samo-arrow" type="button" data-samo-step="1" aria-label="Next chapter">→</button>
+                    </div>
+                </div>
+            </section>
             <div class="projects-head">
                 <h2>Projects</h2>
             </div>
@@ -836,6 +1367,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://samodiary.com">Website ↗</a>
+                            <a href="https://apps.apple.com/app/id6742567188">Download on the App Store ↗</a>
                         </div>
                     </div>
                 </article>
@@ -854,12 +1386,15 @@
                             <span class="tag">Xcode</span>
                             <span class="tag">AI agent</span>
                         </div>
+                        <div class="project-links">
+                            <a href="https://apps.apple.com/app/id6761685555?mt=12">Download on the Mac App Store ↗</a>
+                        </div>
                     </div>
                 </article>
 
                 <article class="project-card reveal">
-                    <div class="project-media bear">
-                        <img src="portfolio-assets/smartcart-bear.png" alt="SmartCart bear mascot holding a plate">
+                    <div class="project-media logo smartcart">
+                        <span class="smartcart-mark"><img src="portfolio-assets/smartcart-logo.png" alt="SmartCart logo"></span>
                     </div>
                     <div class="project-body">
                         <p class="kicker">UC Berkeley CS160 · Frontend</p>
@@ -873,59 +1408,58 @@
                             <span class="tag">MongoDB</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://k-coder05.github.io/smartcart/design-process/index.html">Case study ↗</a>
+                            <a href="https://k-coder05.github.io/smartcart/design-process/index.html">Website ↗</a>
                             <a href="https://k-coder05.github.io/smartcart/index.html">Prototype ↗</a>
                             <a href="https://github.com/K-coder05/smartcart">GitHub ↗</a>
                         </div>
+                        <figure class="project-video">
+                            <a class="project-video-cover" href="https://www.youtube.com/watch?v=jp4YI9yQPhc" target="_blank" rel="noopener" aria-label="Play the SmartCart video demonstration">
+                                <img src="portfolio-assets/smartcart-video.jpg" alt="SmartCart video preview" width="480" height="360" loading="lazy">
+                                <span class="video-play" aria-hidden="true">▶</span>
+                                <span class="video-cover-label">Watch the demo</span>
+                            </a>
+                            <figcaption>SmartCart in action <a href="https://www.youtube.com/watch?v=jp4YI9yQPhc">Watch on YouTube ↗</a></figcaption>
+                        </figure>
                     </div>
                 </article>
 
                 <div class="split-two">
                     <article class="project-card reveal">
-                        <div class="project-media">
-                            <img src="portfolio-assets/openpose.png" alt="Dance motion comparison: reference video and OpenPose overlay">
-                        </div>
                         <div class="project-body">
                             <p class="kicker">Research · UTokyo</p>
                             <h3>Dance motion</h3>
                             <p>Used OpenPose to extract joint coordinates from dance videos, then compared motion with cosine similarity and dynamic time warping in Python.</p>
-                            <div class="project-links">
-                                <a href="http://bit.ly/46qWl5B">University blog ↗</a>
+                            <div class="project-bottom">
+                                <div class="project-links">
+                                    <a href="http://bit.ly/46qWl5B">University blog ↗</a>
+                                </div>
+                                <figure class="project-thumb"><img src="portfolio-assets/openpose.png" alt="Dance motion analysis with OpenPose" loading="lazy"></figure>
                             </div>
                         </div>
                     </article>
                     <article class="project-card reveal">
-                        <div class="project-media">
-                            <img src="portfolio-assets/rockmaze.png" alt="Rock Star Maze: talking with a rock star in a 3D maze">
-                        </div>
                         <div class="project-body">
                             <p class="kicker">Hackathon · Unity</p>
                             <h3>Rock Star Maze</h3>
                             <p>Led a three-person team building a 3D maze puzzle. Stick-breaking maze generation, character interactions, and an AWS dialogue prototype.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/chika19qian/RockMaze">GitHub ↗</a>
+                            <div class="project-bottom">
+                                <div class="project-links">
+                                    <a href="https://github.com/chika19qian/RockMaze">GitHub ↗</a>
+                                </div>
+                                <figure class="project-thumb"><img src="portfolio-assets/rockmaze.png" alt="Rock Star Maze game screenshot" loading="lazy"></figure>
                             </div>
                         </div>
                     </article>
                 </div>
             </div>
         </div>
+        <svg class="band-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 22C160 48 320 4 480 18C640 32 800 48 960 28C1120 8 1280 6 1440 24V48H0Z"/></svg>
     </section>
 
-    <section class="band" id="experience">
+    <section class="band band-cream" id="experience">
         <div class="wrap">
-            <p class="hand-title reveal">Work</p>
+            <p class="hand-title reveal">Research experience</p>
             <div class="exp-mini exp-full">
-                <article class="reveal">
-                    <time datetime="2025-12">Dec 2025 – Apr 2026</time>
-                    <div>
-                        <h3>AI Engineer Intern · Epark Inc.</h3>
-                        <ul>
-                            <li>Contributed to AI-based product development in the product planning division.</li>
-                            <li>Used generative AI tools to support system design and implementation.</li>
-                        </ul>
-                    </div>
-                </article>
                 <article class="reveal">
                     <time datetime="2025-05">May 2025 – present</time>
                     <div>
@@ -944,6 +1478,20 @@
                         </ul>
                     </div>
                 </article>
+            </div>
+
+            <p class="hand-title reveal" style="margin-top: var(--space-lg);">Work</p>
+            <div class="exp-mini exp-full">
+                <article class="reveal">
+                    <time datetime="2025-12">Dec 2025 – Apr 2026</time>
+                    <div>
+                        <h3>AI Engineer Intern · Epark Inc.</h3>
+                        <ul>
+                            <li>Contributed to AI-based product development in the product planning division.</li>
+                            <li>Used generative AI tools to support system design and implementation.</li>
+                        </ul>
+                    </div>
+                </article>
                 <article class="reveal">
                     <time datetime="2024-05">May 2024 – Jun 2024</time>
                     <div>
@@ -955,40 +1503,43 @@
                     </div>
                 </article>
             </div>
-
-            <p class="hand-title reveal" style="margin-top: var(--space-lg);">Student</p>
-            <div class="edu-row">
-                <article class="edu-card reveal">
-                    <p class="kicker">2022 – 2027</p>
-                    <h3>The University of Tokyo</h3>
-                    <p>B.A. Psychology, Faculty of Letters · GPA 3.8 / 4.0</p>
-                    <p>Mabuchi International Foundation Scholarship · Monbukagakusho Honors Scholarship</p>
-                </article>
-                <article class="edu-card reveal">
-                    <p class="kicker">2026</p>
-                    <h3>UC Berkeley Summer Sessions</h3>
-                    <p>GPA 4.0 / 4.0</p>
-                    <p>CS160 User Interface Design and Development · COGSCI131 Computational Models of Cognition</p>
-                </article>
-            </div>
         </div>
+        <svg class="band-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 26C200 4 360 48 540 30C720 12 900 0 1080 22C1260 44 1380 36 1440 18V48H0Z"/></svg>
     </section>
 
-    <footer class="band contact" id="contact">
-        <div class="wrap">
-            <p class="hand-title reveal">Say hello.</p>
-            <p class="contact-lead reveal">Open to internships in AI application engineering and product. Based in Tokyo.</p>
-            <div class="contact-actions reveal">
-                <a class="btn btn-fill" href="mailto:chika5747@g.ecc.u-tokyo.ac.jp">chika5747@g.ecc.u-tokyo.ac.jp</a>
-                <a class="btn" href="https://github.com/chika19qian">GitHub ↗</a>
+    <footer class="band contact band-yolk" id="contact">
+        <div class="wrap contact-layout">
+            <div class="contact-copy">
+                <p class="hand-title reveal">I'd love to hear from you.</p>
+                <p class="contact-lead reveal">Have an idea, a project, or an internship opportunity to share? You're always welcome to get in touch.</p>
+                <div class="contact-actions reveal">
+                    <a class="btn btn-fill" href="mailto:chika5747@g.ecc.u-tokyo.ac.jp">Email me ↗</a>
+                    <a class="btn" href="https://github.com/chika19qian">GitHub ↗</a>
+                </div>
             </div>
-            <div class="site-footer">
-                <p>© 2026 Qian Shu</p>
-                <p>Languages: Chinese · English · Japanese (N1) · German (basic)</p>
+            <div class="yarn-finale">
+                <button class="pet grab-cat" type="button" aria-label="Watch the cat jump for the yarn as it slips out of reach.">
+                    <span class="pet-face"><img src="portfolio-assets/catgrab.png" alt=""></span>
+                </button>
             </div>
+        </div>
+        <div class="wrap site-footer">
+            <p>© 2026 Qian Shu</p>
+            <p>Languages: Chinese · English · Japanese (N1) · German (basic)</p>
         </div>
     </footer>
 
+    <dialog class="samo-lightbox" id="samo-lightbox" aria-labelledby="samo-lightbox-title">
+        <button class="samo-close" type="button" aria-label="Close enlarged image" autofocus>×</button>
+        <img id="samo-full-image" src="portfolio-assets/samodiary_detail/首图英 1.png" alt="SamoDiary promotional cover" loading="lazy">
+        <div class="samo-lightbox-footer">
+            <button class="samo-arrow" type="button" data-samo-step="-1" aria-label="Previous image">←</button>
+            <p id="samo-lightbox-title">Meet SamoDiary</p>
+            <button class="samo-arrow" type="button" data-samo-step="1" aria-label="Next image">→</button>
+        </div>
+    </dialog>
+
+    <script src="portfolio-assets/i18n.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const observer = new IntersectionObserver((entries) => {
@@ -1002,7 +1553,36 @@
             if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
         });
 
-        document.querySelectorAll('.pet').forEach(pet => {
+        const i18n = window.portfolioI18n;
+        const t = i18n.t;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Keep the navigation white over the homepage and transparent over other sections.
+        const navigation = document.querySelector('.site-nav');
+        const bands = [...document.querySelectorAll('body > .band')];
+        const updateNavigation = () => {
+            const edge = navigation.getBoundingClientRect().bottom;
+            const current = bands.find(band => {
+                const rect = band.getBoundingClientRect();
+                return rect.top <= edge && rect.bottom > edge;
+            }) || bands[0];
+            const color = current.id === 'top'
+                ? getComputedStyle(document.documentElement).getPropertyValue('--ink-white')
+                : 'transparent';
+            navigation.style.setProperty('--nav-background', color);
+        };
+        let navFrame = 0;
+        const scheduleNavigation = () => {
+            if (navFrame) return;
+            navFrame = requestAnimationFrame(() => { navFrame = 0; updateNavigation(); });
+        };
+        window.addEventListener('scroll', scheduleNavigation, { passive: true });
+        window.addEventListener('resize', scheduleNavigation);
+        window.addEventListener('pageshow', scheduleNavigation);
+        new ResizeObserver(scheduleNavigation).observe(document.body);
+        updateNavigation();
+
+        document.querySelectorAll('.pet:not(.grab-cat)').forEach(pet => {
             pet.addEventListener('click', () => {
                 pet.classList.remove('hop');
                 void pet.offsetWidth;
@@ -1011,100 +1591,606 @@
             pet.addEventListener('animationend', () => pet.classList.remove('hop'));
         });
 
+        const dog = document.querySelector('.hero-dog');
+        if (dog && !reduce) {
+            const sprite = dog.querySelector('.pet-sprite');
+            const idle = 'portfolio-assets/puppy_happy_0.png';
+            const happy = 'portfolio-assets/puppy_happy.gif';
+            const heart = 'portfolio-assets/heartwink.gif';
+            [happy, heart].forEach(src => { const preload = new Image(); preload.src = src; });
+            let resetDog;
+            const react = (withHeart = false) => {
+                if (!withHeart && dog.classList.contains('is-heart')) return;
+                clearTimeout(resetDog);
+                dog.classList.toggle('is-heart', withHeart);
+                sprite.src = withHeart ? heart : happy;
+                resetDog = setTimeout(() => {
+                    dog.classList.remove('is-heart');
+                    sprite.src = idle;
+                }, 3000);
+            };
+            dog.addEventListener('pointerenter', event => {
+                if (event.pointerType === 'mouse') react();
+            });
+            dog.addEventListener('focus', () => react());
+            dog.addEventListener('click', () => react(true));
+        }
+
+
+        const samoSlidesEn = [
+            {
+                        "name": "Meet SamoDiary",
+                        "title": "A little company for your everyday.",
+                        "description": "SamoDiary brings a mood journal and a growing Samoyed companion into one small daily ritual. I built this iOS app around a simple idea: reflecting on your feelings can feel warm, playful, and personal.",
+                        "original": "portfolio-assets/samodiary_detail/首图英 1.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-01.webp"
+            },
+            {
+                        "name": "Adopt your Samoyed",
+                        "title": "Your story begins with a little friend.",
+                        "description": "Welcome a Samoyed into your own quiet corner of the world. As you keep a journal and return to the app, your companion grows alongside your everyday reflections.",
+                        "original": "portfolio-assets/samodiary_detail/英1.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-02.webp"
+            },
+            {
+                        "name": "Record your mood",
+                        "title": "Make a little room for your feelings.",
+                        "description": "Capture a moment, name a feeling, and write at your own pace. Mood check-ins and gentle prompts offer a starting point when you are not sure what to put into words.",
+                        "original": "portfolio-assets/samodiary_detail/英2.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-03.webp"
+            },
+            {
+                        "name": "Feed & interact",
+                        "title": "A small reflection becomes a small act of care.",
+                        "description": "Journaling connects to looking after your Samoyed. Feed your companion, discover its reactions, and turn the habit of checking in with yourself into something you look forward to.",
+                        "original": "portfolio-assets/samodiary_detail/英3.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-04.webp"
+            },
+            {
+                        "name": "Explore the forest",
+                        "title": "Let your daily ritual lead somewhere new.",
+                        "description": "Step into a storybook forest and discover new chapters. Exploration and small rewards give the journal a sense of progression, with a little more of the world to uncover as you return.",
+                        "original": "portfolio-assets/samodiary_detail/英4.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-05.webp"
+            },
+            {
+                        "name": "Meet your guides",
+                        "title": "A thoughtful nudge, when you need one.",
+                        "description": "Meet Nova and Solis, the app’s emotion guides. Their prompts invite you to pause, notice what you are feeling, and consider another perspective with a little kindness toward yourself.",
+                        "original": "portfolio-assets/samodiary_detail/英5.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-06.webp"
+            },
+            {
+                        "name": "Try a new perspective",
+                        "title": "Notice the stories your mind tells.",
+                        "description": "Play through psychology-inspired exercises about thinking patterns, including mind reading and cognitive biases. Each task is a small invitation to reflect on an assumption and try another way of seeing it.",
+                        "original": "portfolio-assets/samodiary_detail/英6.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-07.webp"
+            },
+            {
+                        "name": "Start your next chapter",
+                        "title": "Your Samoyed is waiting.",
+                        "description": "A journal, a companion, and a small world to explore. SamoDiary is available on the App Store; come meet your Samoyed and make the next entry your own.",
+                        "original": "portfolio-assets/samodiary_detail/英7.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-08.webp"
+            }
+];
+        const samoSlidesZh = [
+            {
+                        "name": "认识萨摩日记",
+                        "title": "给每一天，多一点陪伴。",
+                        "description": "萨摩日记把心情记录和萨摩耶的成长融入一个小小的日常习惯。我独立开发这款 iOS 应用，是希望记录感受也能是一件温暖、有趣、属于自己的事。",
+                        "original": "portfolio-assets/samodiary_detail/首图中 1.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-01.webp"
+            },
+            {
+                        "name": "遇见小萨摩耶",
+                        "title": "和一个小伙伴，开始新的故事。",
+                        "description": "在属于你的小天地里，迎接一只萨摩耶。随着你写下日记、回到这个小世界，它会陪着你，一起慢慢成长。",
+                        "original": "portfolio-assets/samodiary_detail/中1.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-02.webp"
+            },
+            {
+                        "name": "记录心情日记",
+                        "title": "给自己的感受，留一点空间。",
+                        "description": "记下一个瞬间，辨认一种情绪，按自己的节奏写下来。不知道从哪里开始时，心情记录和温柔的提示会陪你找到第一句话。",
+                        "original": "portfolio-assets/samodiary_detail/中2.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-03.webp"
+            },
+            {
+                        "name": "喂食与互动",
+                        "title": "一次记录，也是一份小小的照顾。",
+                        "description": "写日记也连接着对小萨摩耶的照顾。喂它吃饭，看看它的反应，让关心自己的日常变成一件值得期待的小事。",
+                        "original": "portfolio-assets/samodiary_detail/中3.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-04.webp"
+            },
+            {
+                        "name": "探索森林",
+                        "title": "让日常的小习惯，带你走向新的地方。",
+                        "description": "走进童话般的森林，发现新的篇章。探索和小小的奖励让记录更有成长感，每次回来，都能看见这个世界多一点。",
+                        "original": "portfolio-assets/samodiary_detail/中4.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-05.webp"
+            },
+            {
+                        "name": "认识情绪导师",
+                        "title": "需要的时候，给你一点温柔的启发。",
+                        "description": "认识情绪导师 Nova 和 Solis。它们的引导会邀请你停一停，留意此刻的感受，试着换一个角度，也对自己多一点温柔。",
+                        "original": "portfolio-assets/samodiary_detail/中5.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-06.webp"
+            },
+            {
+                        "name": "尝试新的视角",
+                        "title": "留意脑海里，那些习以为常的想法。",
+                        "description": "通过受心理学启发的小游戏，认识读心术和认知偏差等思维模式。每一个小任务，都邀请你想一想原来的假设，尝试另一种看待事情的方式。",
+                        "original": "portfolio-assets/samodiary_detail/中6.png",
+                        "preview": "portfolio-assets/samodiary_detail/preview-zh-07.webp"
+            }
+];
+        let samoSlides = i18n.language === 'zh' ? samoSlidesZh : samoSlidesEn;
+        const slideAlt = slide => i18n.language === 'zh' ? slide.name + ' — 萨摩日记介绍图' : slide.name + ' — SamoDiary promotional image';
+        const enlargeLabel = slide => i18n.language === 'zh' ? '放大图片：' + slide.name : 'Enlarge ' + slide.name + ' promotional image';
+        const samoFeature = document.querySelector('.samo-feature');
+        if (samoFeature) {
+            let activeSlide = 0;
+            let swipeStart;
+            let suppressOpenUntil = 0;
+            let photoAnimation;
+            let elapsed = 0;
+            let lastTick;
+            let galleryVisible = false;
+            let userPaused = reduce;
+            const hovering = new Set();
+            const storyDuration = 6500;
+            const deck = samoFeature.querySelector('.samo-deck');
+            const main = samoFeature.querySelector('.samo-print-main');
+            const dialog = document.getElementById('samo-lightbox');
+            const fullImage = document.getElementById('samo-full-image');
+            const toggle = samoFeature.querySelector('.samo-play-toggle');
+            const progress = samoFeature.querySelector('.samo-progress > span');
+            const syncPlayback = () => {
+                toggle.textContent = t(userPaused ? 'Play story' : 'Pause story');
+                samoFeature.querySelector('.samo-story').setAttribute('aria-live', userPaused ? 'polite' : 'off');
+            };
+            const updateGallery = (index, manual = true, animate = true) => {
+                const direction = index >= activeSlide ? 1 : -1;
+                elapsed = 0;
+                if (manual) userPaused = true;
+                syncPlayback();
+                if (!reduce && animate) {
+                    deck.querySelectorAll('.samo-print-departing').forEach(card => card.remove());
+                    const departing = main.cloneNode(true);
+                    departing.className = 'samo-print samo-print-departing';
+                    departing.removeAttribute('aria-haspopup');
+                    departing.setAttribute('aria-hidden', 'true');
+                    departing.tabIndex = -1;
+                    departing.disabled = true;
+                    deck.append(departing);
+                    const exit = departing.animate([
+                        { transform: 'translateX(0) rotate(-3deg)', opacity: 1 },
+                        { transform: `translateX(${-direction * 85}px) translateY(-12px) rotate(${-direction * 15}deg) rotateY(${-direction * 12}deg)`, opacity: .85, offset: .55 },
+                        { transform: `translateX(${-direction * 105}px) translateY(18px) rotate(${-direction * 20}deg) scale(.93)`, opacity: 0 }
+                    ], { duration: 780, easing: 'cubic-bezier(.2,.65,.2,1)', fill: 'forwards' });
+                    exit.finished.then(() => departing.remove(), () => departing.remove());
+                }
+                activeSlide = (index + samoSlides.length) % samoSlides.length;
+                const slide = samoSlides[activeSlide];
+                main.querySelector('img').src = slide.preview;
+                main.querySelector('img').alt = slideAlt(slide);
+                main.setAttribute('aria-label', enlargeLabel(slide));
+                samoFeature.querySelector('.samo-print-prev img').src = samoSlides[(activeSlide + samoSlides.length - 1) % samoSlides.length].preview;
+                samoFeature.querySelector('.samo-print-next img').src = samoSlides[(activeSlide + 1) % samoSlides.length].preview;
+                document.getElementById('samo-chapter-name').textContent = slide.name;
+                document.getElementById('samo-story-title').textContent = slide.title;
+                document.getElementById('samo-story-description').textContent = slide.description;
+                samoFeature.querySelector('.samo-counter').textContent = String(activeSlide + 1).padStart(2, '0') + ' / ' + String(samoSlides.length).padStart(2, '0');
+                samoFeature.querySelectorAll('[data-samo-index]').forEach(button => {
+                    const chapterIndex = Number(button.dataset.samoIndex);
+                    button.hidden = chapterIndex >= samoSlides.length;
+                    if (!button.hidden) button.setAttribute('aria-label', String(chapterIndex + 1).padStart(2, '0') + ': ' + samoSlides[chapterIndex].name);
+                    if (chapterIndex === activeSlide) button.setAttribute('aria-current', 'true');
+                    else button.removeAttribute('aria-current');
+                });
+                if (dialog.open) {
+                    fullImage.src = slide.original;
+                    fullImage.alt = slideAlt(slide);
+                    document.getElementById('samo-lightbox-title').textContent = slide.name;
+                }
+                if (!reduce && animate) {
+                    photoAnimation?.cancel();
+                    photoAnimation = main.animate([
+                        { transform: `translateX(${direction * 46}px) translateY(12px) rotate(${direction * 9}deg) scale(.94)`, opacity: .45 },
+                        { transform: 'translateX(0) translateY(0) rotate(-3deg) scale(1)', opacity: 1 }
+                    ], { duration: 860, easing: 'cubic-bezier(.16,1,.3,1)' });
+                    samoFeature.querySelector('.samo-story').animate([{ opacity: .3, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 500, easing: 'ease-out' });
+                }
+            };
+            document.querySelectorAll('[data-samo-step]').forEach(button => button.addEventListener('click', () => updateGallery(activeSlide + Number(button.dataset.samoStep))));
+            samoFeature.querySelectorAll('[data-samo-index]').forEach(button => button.addEventListener('click', () => updateGallery(Number(button.dataset.samoIndex))));
+            main.addEventListener('click', () => {
+                if (performance.now() < suppressOpenUntil) return;
+                const slide = samoSlides[activeSlide];
+                fullImage.src = slide.original;
+                fullImage.alt = slideAlt(slide);
+                document.getElementById('samo-lightbox-title').textContent = slide.name;
+                userPaused = true;
+                syncPlayback();
+                dialog.showModal();
+                document.body.classList.add('has-lightbox');
+            });
+            dialog.querySelector('.samo-close').addEventListener('click', () => dialog.close());
+            dialog.addEventListener('click', event => {
+                if (event.target !== dialog) return;
+                const rect = dialog.getBoundingClientRect();
+                if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+            });
+            dialog.addEventListener('close', () => {
+                document.body.classList.remove('has-lightbox');
+                main.focus({ preventScroll: true });
+            });
+            const arrowKeys = event => {
+                if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    updateGallery(activeSlide + (event.key === 'ArrowRight' ? 1 : -1));
+                }
+            };
+            samoFeature.addEventListener('keydown', arrowKeys);
+            dialog.addEventListener('keydown', arrowKeys);
+            deck.addEventListener('pointerdown', event => { swipeStart = { x: event.clientX, y: event.clientY }; });
+            deck.addEventListener('pointerup', event => {
+                if (!swipeStart) return;
+                const dx = event.clientX - swipeStart.x;
+                const dy = event.clientY - swipeStart.y;
+                swipeStart = null;
+                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+                    suppressOpenUntil = performance.now() + 400;
+                    updateGallery(activeSlide + (dx < 0 ? 1 : -1));
+                }
+            });
+            deck.addEventListener('pointercancel', () => { swipeStart = null; });
+            toggle.addEventListener('click', () => {
+                userPaused = !userPaused;
+                elapsed = 0;
+                syncPlayback();
+            });
+            [deck, samoFeature.querySelector('.samo-story')].forEach(region => {
+                region.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hovering.add(region); });
+                region.addEventListener('pointerleave', () => hovering.delete(region));
+            });
+            const galleryObserver = new IntersectionObserver(entries => {
+                galleryVisible = entries[0].isIntersecting && entries[0].intersectionRatio >= .35;
+            }, { threshold: [0, .35] });
+            galleryObserver.observe(deck);
+            updateGallery(0, false, false);
+            document.addEventListener('portfolio:languagechange', () => {
+                samoSlides = i18n.language === 'zh' ? samoSlidesZh : samoSlidesEn;
+                photoAnimation?.cancel();
+                deck.querySelectorAll('.samo-print-departing').forEach(card => card.remove());
+                updateGallery(Math.min(activeSlide, samoSlides.length - 1), false, false);
+            });
+            const autoTick = now => {
+                const focused = samoFeature.contains(document.activeElement) && document.activeElement !== toggle && document.activeElement.matches(':focus-visible');
+                const playing = galleryVisible && !userPaused && !dialog.open && !document.hidden && !hovering.size && !focused;
+                if (playing && lastTick !== undefined) {
+                    elapsed += Math.min(now - lastTick, 150);
+                    if (elapsed >= storyDuration) updateGallery(activeSlide + 1, false);
+                }
+                progress.style.transform = `scaleX(${elapsed / storyDuration})`;
+                lastTick = now;
+                requestAnimationFrame(autoTick);
+            };
+            requestAnimationFrame(autoTick);
+        }
+
+        document.querySelectorAll('.project-video-cover').forEach(cover => {
+            cover.addEventListener('click', event => {
+                // Local files have no HTTP referrer; the regular YouTube link works there.
+                if (location.protocol === 'file:') return;
+                event.preventDefault();
+                const frame = document.createElement('iframe');
+                frame.src = 'https://www.youtube-nocookie.com/embed/jp4YI9yQPhc?autoplay=1&playsinline=1';
+                frame.title = t('SmartCart video demonstration');
+                frame.dataset.localizedVideo = 'true';
+                frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+                frame.allowFullscreen = true;
+                frame.referrerPolicy = 'strict-origin-when-cross-origin';
+                cover.replaceWith(frame);
+                frame.focus();
+            });
+        });
+
+        document.addEventListener('portfolio:languagechange', () => {
+            document.querySelectorAll('[data-localized-video]').forEach(frame => { frame.title = t('SmartCart video demonstration'); });
+        });
+
         const piano = document.getElementById('piano');
         let audioCtx = null;
         const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88];
-        const playNote = (freq) => {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        const getAudio = () => {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return null;
+            if (!audioCtx) audioCtx = new AudioContext();
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+            return audioCtx;
+        };
+        const playNote = (freq, { delay = 0, duration = 0.85, volume = 0.18, type = 'triangle' } = {}) => {
+            if (!getAudio()) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.type = 'triangle';
+            osc.type = type;
             osc.frequency.value = freq;
-            const t = audioCtx.currentTime;
+            const t = audioCtx.currentTime + delay;
             gain.gain.setValueAtTime(0.0001, t);
-            gain.gain.exponentialRampToValueAtTime(0.16, t + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
+            gain.gain.exponentialRampToValueAtTime(volume, t + 0.018);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
             osc.connect(gain).connect(audioCtx.destination);
             osc.start(t);
-            osc.stop(t + 0.75);
+            osc.stop(t + duration + 0.05);
+            osc.onended = () => { osc.disconnect(); gain.disconnect(); };
         };
+        // Local field recordings; playback begins only after a click or keyboard activation.
+        // Sources and licenses: portfolio-assets/audio/credits.md.
+        const makeSound = (file, volume) => {
+            const sound = new Audio(`portfolio-assets/audio/${file}`);
+            sound.preload = 'auto';
+            sound.volume = volume;
+            return sound;
+        };
+        const meowSound = makeSound('meow-single.mp3', .65);
+        const bellSound = makeSound('clock-hour.mp3', .25);
+        const toySound = makeSound('toy-squeak.mp3', .25);
+        let activeSound = null;
+        const playSound = sound => {
+            // Repeated taps never stack recordings, and a new toy interrupts the old sound.
+            if (activeSound) activeSound.pause();
+            sound.currentTime = 0;
+            activeSound = sound;
+            sound.play().catch(() => { /* Leave the visual interaction available if audio is blocked. */ });
+        };
+        const playMeow = () => playSound(meowSound);
+        const playBell = () => {
+            if (activeSound === bellSound && !bellSound.paused) {
+                bellSound.pause();
+                bellSound.currentTime = 0;
+                activeSound = null;
+                return false;
+            }
+            playSound(bellSound);
+            return true;
+        };
+        document.querySelectorAll('.hero-cat, .about-cat').forEach(cat => cat.addEventListener('click', playMeow));
+        if (dog) dog.addEventListener('click', () => playSound(toySound));
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && activeSound) activeSound.pause();
+        });
+        const campus = document.querySelector('.campus');
+        if (campus) {
+            campus.setAttribute('aria-label', t('Play clock chimes. Press again to stop.'));
+            campus.setAttribute('aria-pressed', 'false');
+            const resetBellButton = () => {
+                campus.setAttribute('aria-pressed', 'false');
+                campus.classList.remove('is-ringing');
+            };
+            bellSound.addEventListener('playing', () => campus.setAttribute('aria-pressed', 'true'));
+            bellSound.addEventListener('pause', resetBellButton);
+            bellSound.addEventListener('ended', resetBellButton);
+            bellSound.addEventListener('error', resetBellButton);
+            campus.addEventListener('click', () => {
+                campus.classList.remove('is-ringing');
+                if (!playBell()) return;
+                void campus.offsetWidth;
+                campus.classList.add('is-ringing');
+            });
+            campus.addEventListener('animationend', () => campus.classList.remove('is-ringing'));
+        }
         if (piano) {
-            piano.querySelectorAll('.iv-key').forEach((key) => {
-                const names = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Ti'];
-                const i = Number(key.dataset.note);
-                key.setAttribute('tabindex', '0');
-                key.setAttribute('role', 'button');
-                key.setAttribute('aria-label', names[i]);
-                const tap = () => {
-                    playNote(scale[i]);
-                    key.classList.add('is-on');
-                    setTimeout(() => key.classList.remove('is-on'), 180);
+            piano.querySelectorAll('.pkey-white, .pkey-black').forEach((key) => {
+                const freq = key.dataset.freq
+                    ? Number(key.dataset.freq)
+                    : scale[Number(key.dataset.note)];
+                const press = (e) => {
+                    if (e) e.preventDefault();
+                    if (key.classList.contains('is-pressed')) return;
+                    key.classList.add('is-pressed');
+                    playNote(freq);
                 };
-                key.addEventListener('click', tap);
+                const release = () => key.classList.remove('is-pressed');
+                key.addEventListener('pointerdown', (e) => {
+                    key.setPointerCapture(e.pointerId);
+                    press(e);
+                });
+                key.addEventListener('pointerup', release);
+                key.addEventListener('pointercancel', release);
+                key.addEventListener('lostpointercapture', release);
                 key.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        tap();
+                        press();
                     }
+                });
+                key.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') release();
                 });
             });
         }
 
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const yarn = document.getElementById('yarn');
         const svg = document.getElementById('yarn-svg');
         const path = document.getElementById('yarn-path');
+        const tail = document.getElementById('yarn-tail');
+        const grabCat = document.querySelector('.grab-cat');
+        let tailGeometry;
+        let yarnLift = 0;
+        let catPlaying = false;
+        const drawYarnTail = () => {
+            if (!tail || !tailGeometry) return;
+            const { startX, startY, endX, endY } = tailGeometry;
+            const tipY = endY - Math.min(0, yarnLift);
+            const straightLength = window.innerWidth <= 768 ? 36 : 58;
+            const joinY = endY - straightLength;
+            const fall = joinY - startY;
+            // One loose bend settles into a straight, vertical end just above the paw.
+            // Both controls point down at the joins, so there is no kink into the line tip.
+            tail.setAttribute('d', `M ${startX} ${startY} C ${startX} ${startY + fall * .5} ${endX} ${joinY - fall * .45} ${endX} ${joinY} L ${endX} ${tipY}`);
+            // Shorten the visible thread along its own curve so it slips back toward the margin.
+            const length = tail.getTotalLength();
+            tail.style.strokeDasharray = `${length} ${length}`;
+            tail.style.strokeDashoffset = Math.min(length - 20, Math.max(0, yarnLift) * 2.2);
+
+        };
         const lookers = [...document.querySelectorAll('[data-look]')];
         const stops = ['#me', '#work', '#experience', '#contact'];
         let stopIndex = 0;
 
         const layoutYarn = () => {
             if (!yarn || !svg || !path) return;
-            const cat = document.querySelector('.hero-cat');
-            const me = document.getElementById('me');
-            const work = document.getElementById('work');
-            const sit = document.querySelector('.about-cat');
-            const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+            const h = document.body.offsetHeight;
             const w = window.innerWidth;
             svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
             svg.setAttribute('width', w);
             svg.setAttribute('height', h);
             svg.style.height = h + 'px';
 
-            const catBox = cat ? cat.getBoundingClientRect() : { right: 120, top: 400, height: 120 };
-            const start = {
-                x: catBox.right + 12,
-                y: catBox.top + catBox.height * 0.58 + window.scrollY
+            const abs = (el) => {
+                if (!el) return null;
+                const r = el.getBoundingClientRect();
+                return {
+                    left: r.left,
+                    right: r.right,
+                    width: r.width,
+                    height: r.height,
+                    top: r.top + window.scrollY,
+                    bottom: r.bottom + window.scrollY,
+                    cx: r.left + r.width / 2,
+                    cy: r.top + window.scrollY + r.height / 2
+                };
             };
-            yarn.style.left = (start.x - 17) + 'px';
-            yarn.style.top = (start.y - 17) + 'px';
 
-            const box = (el) => el ? el.getBoundingClientRect() : null;
-            const meBox = box(me);
-            const workBox = box(work);
-            const sitBox = box(sit);
-            const gutter = Math.max(36, Math.min(72, w * 0.055));
-            const meLeft = meBox ? meBox.left + 28 : gutter;
-            const meBottom = meBox ? meBox.bottom + window.scrollY - 40 : start.y + 700;
-            const sitPt = sitBox
-                ? { x: sitBox.right + 8, y: sitBox.top + sitBox.height * 0.45 + window.scrollY }
-                : { x: gutter + 40, y: meBottom };
-            const workLeft = workBox ? workBox.left + 24 : gutter;
-            const workTop = workBox ? workBox.top + window.scrollY + 36 : meBottom + 200;
+            const catBox = abs(document.querySelector('.hero-cat'));
+            const meBox = abs(document.getElementById('me'));
+            const aboutCat = document.querySelector('.about-cat');
+            const aboutCopy = abs(document.querySelector('.about-grid > div:last-child'));
+            if (aboutCat && meBox && aboutCopy) {
+                aboutCat.style.bottom = 'auto';
+                aboutCat.style.top = (aboutCopy.bottom - meBox.top + (w <= 768 ? 8 : -aboutCat.offsetHeight)) + 'px';
+            }
+            const sitBox = abs(aboutCat);
+            const workBox = abs(document.getElementById('work'));
+            const expBox = abs(document.getElementById('experience'));
+            const contactBox = abs(document.getElementById('contact'));
 
-            path.setAttribute('d', [
-                `M ${start.x} ${start.y}`,
-                `c 28 -36 72 -8 48 28`,
-                `a 22 18 0 1 1 -36 8`,
-                `c -10 70 ${gutter - start.x} 120 ${gutter + 8} ${start.y + 220}`,
-                `c 8 90 -12 160 ${meLeft} ${(meBox ? meBox.top + window.scrollY + meBox.height * 0.35 : start.y + 500)}`,
-                `c 70 30 20 90 -10 70`,
-                `S ${sitPt.x + 50} ${sitPt.y - 40} ${sitPt.x} ${sitPt.y}`,
-                `c -40 50 ${workLeft - sitPt.x} 90 ${workLeft} ${workTop}`,
-                `c 40 20 20 70 -8 90`
-            ].join(' '));
+            const yarnW = yarn.offsetWidth || 48;
+            const yarnH = yarn.offsetHeight || 48;
+            const yarnLeft = catBox ? catBox.right - (w <= 768 ? 16 : 4) : 48;
+            const yarnTop = catBox ? catBox.cy - yarnH * 0.45 : 420;
+            yarn.style.left = yarnLeft + 'px';
+            yarn.style.top = yarnTop + 'px';
+
+            const cx = yarnLeft + yarnW / 2;
+            const cy = yarnTop + yarnH / 2;
+            const r = yarnW * (16.4 / 40);
+            const startX = cx + r;
+            const startY = cy;
+            const mobile = w <= 768;
+            const lane = mobile ? 8 : Math.max(45, Math.min(88, w * .055));
+            const drift = mobile ? 2.5 : 20;
+            const meY = meBox.top + 65;
+            const sitY = sitBox.cy;
+            const besideCat = mobile ? sitBox.left - 18 : sitBox.left - 42;
+            const workY = workBox.top + 55;
+            const overviewY = abs(document.querySelector('.projects-head')).top - 25;
+            const expY = expBox.top + 45;
+            const endY = contactBox.top - 24;
+
+            // One loose, asymmetric loop in the falling thread, like a strand curling over itself.
+            // Cubic handles keep every join tangent, including the exit back into the long drape.
+            const loopR = mobile ? 17 : 26;
+            const loopX = lane + (startX - lane) * .52;
+            const loopY = startY + (meY - startY) * .43;
+            const entryX = loopX + loopR * 1.4;
+            const entryY = loopY + loopR * .6;
+            const exitX = loopX - loopR * 1.3;
+            const exitY = loopY + loopR * 2;
+            let route = `M ${startX} ${startY}
+                C ${startX} ${startY + (entryY - startY) * .6} ${entryX + loopR * 1.2} ${entryY - loopR * .2} ${entryX} ${entryY}
+                C ${loopX + loopR * .2} ${loopY + loopR * .8} ${loopX - loopR * 1.1} ${loopY + loopR * .7} ${loopX - loopR * 1.1} ${loopY - loopR * .1}
+                C ${loopX - loopR * 1.1} ${loopY - loopR * .9} ${loopX + loopR * .4} ${loopY - loopR * 1.2} ${loopX + loopR * .6} ${loopY - loopR * .4}
+                C ${loopX + loopR * .8} ${loopY + loopR * .4} ${loopX - loopR * .1} ${loopY + loopR * 1.4} ${exitX} ${exitY}
+                C ${exitX - loopR * 1.2} ${exitY + loopR * .6} ${lane} ${meY - (meY - exitY) * .55} ${lane} ${meY}`;
+            let lastX = lane, lastY = meY;
+            const drapeTo = (x, y) => {
+                const fall = y - lastY;
+                route += ` C ${lastX} ${lastY + fall * .42} ${x} ${y - fall * .42} ${x} ${y}`;
+                lastX = x;
+                lastY = y;
+            };
+            drapeTo(lane + drift, (meY + sitY) / 2);
+            if (mobile) drapeTo(lane, aboutCopy.bottom + 8);
+            drapeTo(besideCat, sitY);
+            drapeTo(lane - drift * .35, workY);
+            drapeTo(lane + drift, (workY + overviewY) / 2);
+            drapeTo(lane - drift * .5, overviewY);
+            drapeTo(lane + drift, (overviewY + expY) / 2);
+            drapeTo(lane - drift * .4, expY);
+            drapeTo(lane + drift * .7, (expY + endY) / 2);
+            drapeTo(lane, endY);
+            path.setAttribute('d', route);
+            const grabBox = abs(grabCat);
+            if (grabBox) {
+                tailGeometry = {
+                    startX: lane,
+                    startY: endY,
+                    endX: grabBox.left + grabBox.width * 0.59,
+                    endY: grabBox.top + grabBox.height * 0.25 - 12
+                };
+                drawYarnTail();
+            }
         };
+
+        if (grabCat) {
+            grabCat.addEventListener('click', () => {
+                if (catPlaying) return;
+                catPlaying = true;
+                grabCat.classList.add('is-playing');
+                if (reduce) {
+                    yarnLift = 32;
+                    drawYarnTail();
+                    setTimeout(() => {
+                        yarnLift = 0;
+                        drawYarnTail();
+                        catPlaying = false;
+                        grabCat.classList.remove('is-playing');
+                    }, 500);
+                    return;
+                }
+                grabCat.querySelector('.pet-face').animate([
+                    { transform: 'translateY(0) scale(1)', filter: 'none', offset: 0 },
+                    { transform: 'translateY(4px) scale(1.04, 0.95)', filter: 'none', offset: 0.12 },
+                    { transform: 'translateY(-54px) rotate(-7deg) scale(0.98, 1.04)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.36 },
+                    { transform: 'translateY(-42px) rotate(5deg)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.5 },
+                    { transform: 'translateY(2px) scale(1.04, 0.96)', filter: 'none', offset: 0.73 },
+                    { transform: 'translateY(0) scale(1)', filter: 'none', offset: 1 }
+                ], { duration: 1400, easing: 'ease-in-out' });
+                const started = performance.now();
+                const frames = [[0, 0], [0.14, -10], [0.38, 128], [0.58, 128], [1, 0]];
+                const teaseYarn = now => {
+                    const progress = Math.min(1, (now - started) / 1400);
+                    let i = 1;
+                    while (i < frames.length - 1 && progress > frames[i][0]) i++;
+                    const [t0, y0] = frames[i - 1];
+                    const [t1, y1] = frames[i];
+                    const phase = (progress - t0) / (t1 - t0);
+                    const eased = phase * phase * (3 - 2 * phase);
+                    yarnLift = y0 + (y1 - y0) * eased;
+                    drawYarnTail();
+                    if (progress < 1) requestAnimationFrame(teaseYarn);
+                    else {
+                        catPlaying = false;
+                        grabCat.classList.remove('is-playing');
+                    }
+                };
+                requestAnimationFrame(teaseYarn);
+            });
+        }
 
         if (yarn) {
             yarn.addEventListener('click', () => {
@@ -1116,7 +2202,16 @@
 
         layoutYarn();
         window.addEventListener('resize', layoutYarn);
-        window.addEventListener('scroll', layoutYarn, { passive: true });
+        window.addEventListener('load', layoutYarn);
+        document.fonts.ready.then(layoutYarn);
+        const aboutResize = new ResizeObserver(layoutYarn);
+        aboutResize.observe(document.querySelector('.about-grid'));
+        aboutResize.observe(document.querySelector('.yarn-finale'));
+        aboutResize.observe(document.querySelector('.samo-feature'));
+        document.querySelectorAll('.band').forEach(band => aboutResize.observe(band));
+        document.querySelectorAll('.hero-cat img, .about-cat img, .grab-cat img').forEach((img) => {
+            if (!img.complete) img.addEventListener('load', layoutYarn);
+        });
 
         if (!reduce) {
             let mx = window.innerWidth / 2;
