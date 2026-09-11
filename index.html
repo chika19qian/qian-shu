@@ -1083,8 +1083,8 @@
 
             const catBox = cat ? cat.getBoundingClientRect() : { right: 120, top: 400, height: 120 };
             const start = {
-                x: catBox.right - 6,
-                y: catBox.top + catBox.height * 0.55 + window.scrollY
+                x: catBox.right + 10,
+                y: catBox.top + catBox.height * 0.58 + window.scrollY
             };
             yarn.style.left = (start.x - 17) + 'px';
             yarn.style.top = (start.y - 17) + 'px';
