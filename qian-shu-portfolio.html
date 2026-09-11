@@ -1005,6 +1005,16 @@
         }
         .hero-spark-left { left: 5%; top: 19%; transform: rotate(-12deg); }
         .hero-spark-right { right: 16%; top: 5%; width: 23px; transform: rotate(12deg); }
+        .hero-flourish {
+            position: absolute; width: clamp(58px, 6vw, 86px); height: auto;
+            fill: none; stroke: var(--ink-white); stroke-width: 2.2;
+            stroke-linecap: round; stroke-linejoin: round; opacity: .85;
+            pointer-events: none;
+        }
+        .hero-flourish path { vector-effect: non-scaling-stroke; }
+        .hero-flourish-left { left: 0; top: 36%; transform: rotate(-8deg); }
+        .hero-flourish-right { right: 0; top: 29%; transform: rotate(8deg); }
+        .hero-flourish .warm-stroke { stroke: var(--yarn-ink); opacity: .65; }
         .hero-copy h1 {
             display: flex;
             flex-direction: column;
@@ -1053,6 +1063,9 @@
             .hero-copy::before { inset: -42px -12px -36px; }
             .hero-spark-left { left: 1%; top: 9%; width: 20px; }
             .hero-spark-right { right: 0; top: -14%; width: 18px; }
+            .hero-flourish { width: 29px; stroke-width: 1.5; }
+            .hero-flourish-left { left: -6px; top: 39%; }
+            .hero-flourish-right { right: -6px; top: 33%; }
             .hero-copy h1 em { font-size: clamp(4.7rem, 21vw, 8rem); padding-bottom: 16px; }
             .name-underline { height: 17px; stroke-width: 3; }
             .hero-copy .lede { margin-top: 22px; font-size: clamp(.75rem, 3.1vw, .95rem); }
@@ -1211,6 +1224,14 @@
         </button>
 
         <div class="wrap hero-copy">
+            <svg class="hero-flourish hero-flourish-left" viewBox="0 0 90 110" aria-hidden="true" focusable="false">
+                <path d="M72 14C46 10 24 22 18 44M68 45L50 38M67 63Q52 61 35 66M72 81L57 92"/>
+                <path class="warm-stroke" d="M26 80Q19 83 15 90"/>
+            </svg>
+            <svg class="hero-flourish hero-flourish-right" viewBox="0 0 90 110" aria-hidden="true" focusable="false">
+                <path d="M17 15C49 9 68 25 64 44C61 58 42 58 40 47M15 64L32 70M11 86Q18 96 29 101"/>
+                <path class="warm-stroke" d="M74 67L79 75"/>
+            </svg>
             <svg class="hero-spark hero-spark-left" viewBox="0 0 30 38" aria-hidden="true"><path d="M15 2Q15 18 2 19Q15 20 15 36Q15 20 28 19Q15 18 15 2Z"/></svg>
             <svg class="hero-spark hero-spark-right" viewBox="0 0 30 38" aria-hidden="true"><path d="M15 2Q15 18 2 19Q15 20 15 36Q15 20 28 19Q15 18 15 2Z"/></svg>
             <h1><span class="hero-hi">Hi, I’m</span><em>Qian Shu<svg class="name-underline" viewBox="0 0 440 24" preserveAspectRatio="none" aria-hidden="true"><path d="M8 15C106 3 270 3 432 11M74 21C195 12 321 13 394 18"/></svg></em></h1>
@@ -1232,7 +1253,7 @@
                     <p class="hand-title">Links</p>
                     <div class="link-row">
                         <a class="link-tile" href="https://github.com/chika19qian" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 19c-4 1.5-4-2-6-2m12 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.6-1.6 6.6-7A5.4 5.4 0 0 0 19 4.8 5 5 0 0 0 18.9 1S17.7.6 15 2.5a10.3 10.3 0 0 0-6 0C6.3.6 5.1 1 5.1 1a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 3.5 8.9c0 5.4 3.4 6.6 6.6 7a3.4 3.4 0 0 0-1 2.6V22"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path transform="translate(3.6 3.6) scale(0.7)" stroke-width="2.5" d="M9 19c-4 1.5-4-2-6-2m12 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.6-1.6 6.6-7A5.4 5.4 0 0 0 19 4.8 5 5 0 0 0 18.9 1S17.7.6 15 2.5a10.3 10.3 0 0 0-6 0C6.3.6 5.1 1 5.1 1a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 3.5 8.9c0 5.4 3.4 6.6 6.6 7a3.4 3.4 0 0 0-1 2.6V22"/></svg>
                         </a>
                         <a class="link-tile" href="https://www.linkedin.com/in/qian-shu-665346253" aria-label="LinkedIn">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7.5v.2M12 17v-4.5a2.5 2.5 0 0 1 5 0V17"/></svg>
