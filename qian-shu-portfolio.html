@@ -195,29 +195,37 @@
             font-weight: 700;
         }
         .piano {
-            width: clamp(92px, 15vw, 168px);
-            top: 92px;
-            left: max(12px, calc(50% - 540px));
+            width: clamp(120px, 18vw, 210px);
+            top: 88px;
+            left: max(8px, calc(50% - 540px));
             transform: rotate(-26deg);
             pointer-events: auto;
-            cursor: pointer;
             background: none;
             border: 0;
+            padding: 0;
             z-index: 5;
         }
         .piano-inner { display: block; width: 100%; animation: float 5s var(--ease) infinite; }
-        .piano:hover { filter: brightness(1.08); }
-        .piano.playing .key { fill: var(--ink-white); }
+        .iv-key {
+            fill: rgba(255, 253, 246, 0.28);
+            stroke: currentColor;
+            stroke-width: 2.4;
+            cursor: pointer;
+        }
+        .iv-key:hover,
+        .iv-key.is-on { fill: var(--ink-white); }
         .campus { width: clamp(110px, 16vw, 170px); top: 88px; right: max(20px, calc(50% - 520px)); animation: float 6s 0.4s var(--ease) infinite; }
         .hero-cat { width: clamp(110px, 16vw, 176px); left: max(8px, calc(50% - 540px)); bottom: 14%; pointer-events: auto; z-index: 5; }
         .hero-dog { width: clamp(110px, 16vw, 180px); right: max(16px, calc(50% - 520px)); bottom: 14%; pointer-events: auto; }
+        #me { min-height: 100svh; }
         .about-cat {
-            position: relative;
-            left: auto;
-            bottom: auto;
-            width: clamp(90px, 13vw, 140px);
+            position: absolute;
+            left: max(10px, calc(50% - 540px));
+            bottom: 6%;
+            width: clamp(110px, 16vw, 168px);
             pointer-events: auto;
-            margin-top: -8px;
+            z-index: 5;
+            margin: 0;
         }
 
         .pet {
@@ -242,7 +250,7 @@
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            z-index: 6;
+            z-index: 4;
             pointer-events: auto;
             cursor: pointer;
             border: 0;
@@ -260,16 +268,16 @@
             left: 0;
             width: 100%;
             pointer-events: none;
-            z-index: 3;
+            z-index: 0;
             overflow: visible;
         }
         .yarn-trail-page path {
             fill: none;
             stroke: var(--accent);
             stroke-width: 2.2;
-            stroke-dasharray: 7 11;
+            stroke-dasharray: 8 12;
             stroke-linecap: round;
-            opacity: 0.85;
+            opacity: 0.55;
         }
 
         .hero-copy {
@@ -313,7 +321,6 @@
             align-items: center;
             gap: var(--space-md);
             position: relative;
-            min-height: 280px;
         }
         .portrait {
             position: relative;
@@ -424,7 +431,28 @@
         }
         .exp-mini p { font-size: var(--small); color: var(--muted); }
 
-        /* projects — sketch bottom cards */
+        #work {
+            background-color: #faf4ea;
+            background-image: radial-gradient(circle, #f2b129 1.15px, transparent 1.6px);
+            background-size: 20px 20px;
+            border-bottom: 2px solid rgba(227, 148, 28, 0.18);
+        }
+        #work .projects-head h2 { color: var(--accent); }
+        #work .projects-head h2::before,
+        #work .projects-head h2::after { background: var(--accent); }
+        #work .project-card {
+            border-color: rgba(227, 148, 28, 0.42);
+            background: rgba(255, 255, 255, 0.72);
+        }
+        #work .project-card:hover {
+            background: #fff;
+            box-shadow: 0 16px 0 rgba(227, 148, 28, 0.08);
+        }
+        #work .project-body h3 { color: var(--navy); }
+        #work .tag {
+            border-color: rgba(227, 148, 28, 0.4);
+            background: rgba(255, 246, 212, 0.7);
+        }
         .projects-head {
             text-align: center;
             margin-bottom: var(--space-lg);
@@ -627,11 +655,10 @@
             .exp-mini article {
                 grid-template-columns: 1fr;
             }
-            .piano, .campus { opacity: 0.7; }
+            .piano, .campus { opacity: 0.85; }
             .hero-cat { left: 2%; bottom: 6%; }
             .hero-dog { right: 2%; bottom: 4%; width: 28vw; }
-            .portrait-col { min-height: 0; }
-            .about-cat { position: relative; left: auto; bottom: auto; }
+            .about-cat { left: 4%; bottom: 12px; width: 28vw; }
             .hero-band { min-height: 100svh; }
             .site-footer { flex-direction: column; text-align: center; }
         }
@@ -654,7 +681,7 @@
             <div class="nav-links">
                 <a href="#me">Me</a>
                 <a href="#work">Projects</a>
-                <a href="#experience">Experience</a>
+                <a href="#experience">Work</a>
                 <a href="#contact">Hello</a>
             </div>
         </div>
@@ -662,19 +689,21 @@
 
     <!-- === 1. Intro (sketch page 1) === -->
     <header class="band hero-band" id="top">
-        <button class="doodle piano" id="piano" type="button" aria-label="Play a little piano tune">
-            <span class="piano-inner">
-                <svg viewBox="0 0 120 78" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
-                    <rect x="8" y="32" width="104" height="38" rx="6"/>
-                    <path d="M8 48h104"/>
-                    <rect class="key" x="22" y="32" width="10" height="20" fill="currentColor" opacity=".4"/>
-                    <rect class="key" x="46" y="32" width="10" height="20" fill="currentColor" opacity=".4"/>
-                    <rect class="key" x="70" y="32" width="10" height="20" fill="currentColor" opacity=".4"/>
-                    <rect class="key" x="94" y="32" width="10" height="20" fill="currentColor" opacity=".4"/>
-                    <path d="M18 20c10-14 22-14 32 0"/>
+        <div class="doodle piano" id="piano" role="group" aria-label="Piano keys from do to ti">
+            <div class="piano-inner">
+                <svg viewBox="0 0 150 82" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <rect x="6" y="30" width="138" height="46" rx="7"/>
+                    <path d="M22 18c10-12 22-12 32 0"/>
+                    <rect class="iv-key" data-note="0" x="12" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="1" x="30" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="2" x="48" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="3" x="66" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="4" x="84" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="5" x="102" y="36" width="16" height="34" rx="3"/>
+                    <rect class="iv-key" data-note="6" x="120" y="36" width="16" height="34" rx="3"/>
                 </svg>
-            </span>
-        </button>
+            </div>
+        </div>
         <div class="doodle campus" aria-hidden="true">
             <svg viewBox="0 0 130 90" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 78V42l22-16 22 16v36"/>
@@ -717,7 +746,6 @@
         </div>
     </header>
 
-    <!-- === 2. Links / Skills / Experience (sketch page 2) === -->
     <section class="band" id="me">
         <div class="wrap about-grid">
             <div class="portrait-col">
@@ -725,25 +753,6 @@
                     <img class="portrait-photo" src="portfolio-assets/avatar.png" alt="Qian Shu" onerror="this.classList.add('is-missing')">
                     <span class="portrait-hint">把照片放到<br>avatar.png</span>
                 </div>
-                <button class="doodle pet about-cat" type="button" aria-label="A sitting doodle cat. Click to bounce.">
-                    <span class="pet-face" data-look>
-                        <svg viewBox="0 0 170 160" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
-                            <ellipse cx="86" cy="122" rx="46" ry="28"/>
-                            <circle cx="78" cy="62" r="38"/>
-                            <path d="M48 46 56 12l22 30"/>
-                            <path d="M108 46 100 10 78 42"/>
-                            <circle cx="66" cy="62" r="3.2" fill="currentColor" stroke="none"/>
-                            <circle cx="90" cy="62" r="3.2" fill="currentColor" stroke="none"/>
-                            <circle cx="54" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                            <circle cx="102" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
-                            <path d="M78 70c-2 3-2 3 0 5 2-2 2-2 0-5Z" fill="currentColor" stroke="none"/>
-                            <path d="M68 82c6 8 14 8 20 0"/>
-                            <path d="M42 64H18M42 74H16M42 84H22"/>
-                            <path d="M114 64h24M114 74h26M114 84h20"/>
-                            <path d="M128 118c16 8 22 22 12 34"/>
-                        </svg>
-                    </span>
-                </button>
             </div>
 
             <div>
@@ -756,7 +765,7 @@
                         <a class="link-tile" href="https://www.linkedin.com/in/qian-shu-665346253" aria-label="LinkedIn">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7.5v.2M12 17v-4.5a2.5 2.5 0 0 1 5 0V17"/></svg>
                         </a>
-                        <a class="link-tile" href="https://www.instagram.com/" aria-label="Instagram">
+                        <a class="link-tile" href="https://www.instagram.com/chika_qian0819/" aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>
                         </a>
                         <a class="link-tile" href="mailto:chika5747@g.ecc.u-tokyo.ac.jp" aria-label="Email">
@@ -781,62 +790,27 @@
                         <span class="tag">User testing</span>
                     </div>
                 </div>
-
-                <div class="panel-block reveal">
-                    <p class="hand-title">Work</p>
-                    <div class="exp-mini">
-                        <article>
-                            <time>2025–26</time>
-                            <div>
-                                <h3>AI Engineer Intern</h3>
-                                <p>Epark Inc. · Tokyo</p>
-                            </div>
-                        </article>
-                        <article>
-                            <time>2025–now</time>
-                            <div>
-                                <h3>Research Assistant</h3>
-                                <p>Imamizu Lab, UTokyo Psychology</p>
-                            </div>
-                        </article>
-                        <article>
-                            <time>2024–25</time>
-                            <div>
-                                <h3>Research Assistant</h3>
-                                <p>Takahashi Lab, UTokyo Engineering</p>
-                            </div>
-                        </article>
-                        <article>
-                            <time>2024</time>
-                            <div>
-                                <h3>STEP Intern</h3>
-                                <p>Google Japan · Tokyo</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-
-                <div class="panel-block reveal">
-                    <p class="hand-title">Student</p>
-                    <div class="exp-mini">
-                        <article>
-                            <time>2022–27</time>
-                            <div>
-                                <h3>Psychology, University of Tokyo</h3>
-                                <p>GPA 3.8 / 4.0</p>
-                            </div>
-                        </article>
-                        <article>
-                            <time>2026</time>
-                            <div>
-                                <h3>UC Berkeley Summer Sessions</h3>
-                                <p>GPA 4.0 / 4.0</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
             </div>
         </div>
+        <button class="doodle pet about-cat" type="button" aria-label="A sitting doodle cat. Click to bounce.">
+            <span class="pet-face" data-look>
+                <svg viewBox="0 0 170 160" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round">
+                    <ellipse cx="86" cy="122" rx="46" ry="28"/>
+                    <circle cx="78" cy="62" r="38"/>
+                    <path d="M48 46 56 12l22 30"/>
+                    <path d="M108 46 100 10 78 42"/>
+                    <circle cx="66" cy="62" r="3.2" fill="currentColor" stroke="none"/>
+                    <circle cx="90" cy="62" r="3.2" fill="currentColor" stroke="none"/>
+                    <circle cx="54" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
+                    <circle cx="102" cy="74" r="5" fill="currentColor" opacity=".18" stroke="none"/>
+                    <path d="M78 70c-2 3-2 3 0 5 2-2 2-2 0-5Z" fill="currentColor" stroke="none"/>
+                    <path d="M68 82c6 8 14 8 20 0"/>
+                    <path d="M42 64H18M42 74H16M42 84H22"/>
+                    <path d="M114 64h24M114 74h26M114 84h20"/>
+                    <path d="M128 118c16 8 22 22 12 34"/>
+                </svg>
+            </span>
+        </button>
     </section>
 
     <!-- === 3. Projects (sketch page 3) === -->
@@ -1039,27 +1013,43 @@
 
         const piano = document.getElementById('piano');
         let audioCtx = null;
-        const playTune = () => {
+        const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88];
+        const playNote = (freq) => {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const now = audioCtx.currentTime;
-            const notes = [523.25, 659.25, 783.99, 659.25, 987.77, 783.99, 659.25, 523.25];
-            notes.forEach((freq, i) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.value = freq;
-                const t = now + i * 0.2;
-                gain.gain.setValueAtTime(0.0001, t);
-                gain.gain.exponentialRampToValueAtTime(0.12, t + 0.03);
-                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
-                osc.connect(gain).connect(audioCtx.destination);
-                osc.start(t);
-                osc.stop(t + 0.4);
-            });
-            piano.classList.add('playing');
-            setTimeout(() => piano.classList.remove('playing'), 1800);
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.value = freq;
+            const t = audioCtx.currentTime;
+            gain.gain.setValueAtTime(0.0001, t);
+            gain.gain.exponentialRampToValueAtTime(0.16, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start(t);
+            osc.stop(t + 0.75);
         };
-        if (piano) piano.addEventListener('click', playTune);
+        if (piano) {
+            piano.querySelectorAll('.iv-key').forEach((key) => {
+                const names = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Ti'];
+                const i = Number(key.dataset.note);
+                key.setAttribute('tabindex', '0');
+                key.setAttribute('role', 'button');
+                key.setAttribute('aria-label', names[i]);
+                const tap = () => {
+                    playNote(scale[i]);
+                    key.classList.add('is-on');
+                    setTimeout(() => key.classList.remove('is-on'), 180);
+                };
+                key.addEventListener('click', tap);
+                key.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        tap();
+                    }
+                });
+            });
+        }
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const yarn = document.getElementById('yarn');
@@ -1074,30 +1064,46 @@
             const cat = document.querySelector('.hero-cat');
             const me = document.getElementById('me');
             const work = document.getElementById('work');
-            const exp = document.getElementById('experience');
+            const sit = document.querySelector('.about-cat');
             const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-            svg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${h}`);
-            svg.setAttribute('width', window.innerWidth);
+            const w = window.innerWidth;
+            svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+            svg.setAttribute('width', w);
             svg.setAttribute('height', h);
             svg.style.height = h + 'px';
 
             const catBox = cat ? cat.getBoundingClientRect() : { right: 120, top: 400, height: 120 };
             const start = {
-                x: catBox.right + 10,
+                x: catBox.right + 12,
                 y: catBox.top + catBox.height * 0.58 + window.scrollY
             };
             yarn.style.left = (start.x - 17) + 'px';
             yarn.style.top = (start.y - 17) + 'px';
 
-            const mid = (el, xRatio, yRatio) => {
-                if (!el) return { x: window.innerWidth * xRatio, y: start.y + 400 };
-                const r = el.getBoundingClientRect();
-                return { x: r.left + r.width * xRatio, y: r.top + r.height * yRatio + window.scrollY };
-            };
-            const p2 = mid(me, 0.58, 0.28);
-            const p3 = mid(work, 0.5, 0.08);
-            const p4 = mid(exp, 0.42, 0.12);
-            path.setAttribute('d', `M ${start.x} ${start.y} C ${start.x + 40} ${start.y + 90}, ${p2.x - 40} ${p2.y - 80}, ${p2.x} ${p2.y} S ${p3.x + 30} ${p3.y - 40}, ${p3.x} ${p3.y} S ${p4.x - 20} ${p4.y - 30}, ${p4.x} ${p4.y}`);
+            const box = (el) => el ? el.getBoundingClientRect() : null;
+            const meBox = box(me);
+            const workBox = box(work);
+            const sitBox = box(sit);
+            const gutter = Math.max(36, Math.min(72, w * 0.055));
+            const meLeft = meBox ? meBox.left + 28 : gutter;
+            const meBottom = meBox ? meBox.bottom + window.scrollY - 40 : start.y + 700;
+            const sitPt = sitBox
+                ? { x: sitBox.right + 8, y: sitBox.top + sitBox.height * 0.45 + window.scrollY }
+                : { x: gutter + 40, y: meBottom };
+            const workLeft = workBox ? workBox.left + 24 : gutter;
+            const workTop = workBox ? workBox.top + window.scrollY + 36 : meBottom + 200;
+
+            path.setAttribute('d', [
+                `M ${start.x} ${start.y}`,
+                `c 28 -36 72 -8 48 28`,
+                `a 22 18 0 1 1 -36 8`,
+                `c -10 70 ${gutter - start.x} 120 ${gutter + 8} ${start.y + 220}`,
+                `c 8 90 -12 160 ${meLeft} ${(meBox ? meBox.top + window.scrollY + meBox.height * 0.35 : start.y + 500)}`,
+                `c 70 30 20 90 -10 70`,
+                `S ${sitPt.x + 50} ${sitPt.y - 40} ${sitPt.x} ${sitPt.y}`,
+                `c -40 50 ${workLeft - sitPt.x} 90 ${workLeft} ${workTop}`,
+                `c 40 20 20 70 -8 90`
+            ].join(' '));
         };
 
         if (yarn) {
