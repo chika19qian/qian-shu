@@ -139,7 +139,7 @@
     "My summer at UC Berkeley was my first time in an English-speaking country. An unfamiliar world brought plenty of challenges, and, along the way, many good friends.": "去伯克利上暑期课，是我第一次来到英语国家。面对陌生的环境，我遇到了不少挑战，也在那里交到了很多好朋友。",
     "In our HCI class, we made SmartCart together. I designed the UI, built all of the frontend interfaces and web pages, and contributed to part of the backend. As I found my feet in a new place, I was also learning to give ideas a shape that others could see and use.": "在人机交互（HCI）课上，我们一起完成了 SmartCart。我独立完成了 UI 设计和全部前端开发，也参与了部分后端工作。那是一个边适应新生活、边和朋友一起学习和做项目的夏天。"
 });
-    // Concise bilingual stories; emphasis is kept in the HTML.
+    // Concise bilingual stories; inline spans preserve translation boundaries.
     Object.assign(chinese, {
     "Wuhan is my hometown. During a difficult time, I started building a diary app for myself.": "武汉是我的家乡。经历低谷时，我开始给自己做一个日记软件。",
     "With psychology woven in, ": "慢慢融入心理学知识后，",
