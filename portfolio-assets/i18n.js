@@ -2,8 +2,8 @@
 (() => {
     const chinese = {
     "Skip to about": "跳转到“关于我”",
-    "Hello, glad you're here!": "你好，欢迎来逛逛！",
-    "Say hello to Qian": "和我打个招呼",
+    "Hello, glad you're here!": "你好，欢迎来到我的小世界！",
+    "Say hello to Qian": "欢迎联系我呀～",
     "Hmm?": "嗯？",
     "Hi, lovely to meet you!": "你好呀，很高兴见到你！",
     "Background music": "背景音乐",
@@ -15,11 +15,11 @@
     "Me": "关于我",
     "Projects": "项目",
     "Experience": "经历",
-    "Contact": "联系",
+    "Contact": "联系方式",
     "Hi, I’m": "你好，我是",
-    "Psychology at the University of Tokyo.": "在东京大学读心理学。",
-    "Making little things with care.": "把喜欢的想法，认真做出来。",
-    "Links": "找到我",
+    "Psychology at the University of Tokyo.": "来自东京大学心理学",
+    "Making little things with care.": "用心面对每一个小灵感～",
+    "Links": "链接",
     "Skills": "技能",
     "AI agents": "AI 智能体",
     "AI agent": "AI 智能体",
@@ -30,8 +30,8 @@
     "UC Berkeley Summer Sessions": "加州大学伯克利分校暑期课程",
     "CS160 User Interface Design and Development · COGSCI131 Computational Models of Cognition": "CS160 用户界面设计与开发 · COGSCI131 认知计算模型",
     "My independent creation.": "我的独立作品",
-    "A diary. A little companion.": "一本日记，一只小萨摩耶。",
-    "A world that grows with you.": "陪你记录日常，也陪你慢慢成长。",
+    "A diary. A little companion.": "一本日记和一只小萨摩耶。",
+    "A world that grows with you.": "陪你记录日常，陪你慢慢成长。",
     "Designed and built by me, from idea to iOS app.": "从想法到 iOS 应用，设计和开发都由我独立完成。",
     "SwiftUI · Psychology-inspired design": "SwiftUI · 融入心理学的交互设计",
     "Meet your Samoyed ↗": "领养你的小萨摩耶 ↗",
@@ -77,7 +77,7 @@
     "Worked through data structures, algorithms, and systems topics in Python and C++, including TSP and a malloc challenge.": "用 Python 和 C++ 练习数据结构、算法和系统相关课题，包括旅行商问题（TSP）和 malloc 内存分配挑战。",
     "Studied compilers, memory allocation, architecture, parallelization, and security.": "学习了编译器、内存分配、计算机架构、并行计算和安全等相关知识。",
     "I'd love to hear from you.": "欢迎来聊聊。",
-    "Have an idea, a project, or an internship opportunity to share? You're always welcome to get in touch.": "想交流想法、一起做项目，或聊聊实习机会，都欢迎联系我。",
+    "Have an idea, a project, or an internship opportunity to share? You're always welcome to get in touch.": "如果想交流想法、一起做项目，或聊聊实习机会，都欢迎联系我～",
     "Email me ↗": "给我发邮件 ↗",
     "Languages: Chinese · English · Japanese (N1) · German (basic)": "语言：中文 · 英语 · 日语（N1）· 德语（基础）",
     "Primary": "主导航",
@@ -117,8 +117,8 @@
 };
     Object.assign(chinese, {
     "My memory map": "我的回忆地图",
-    "A few places, a little of me.": "把回忆留在地图上。",
-    "Three cities. A few memories. Things I made along the way.": "三座城市，几段回忆，还有在那里做出的作品。",
+    "A few places, a little of me.": "在地图上看看我的回忆吧。",
+    "Three cities. A few memories. Things I made along the way.": "在这三座不同的城市里，藏着我的几段回忆。",
     "Choose a city to explore its story and projects": "点击城市标记，查看我在那里的经历和作品",
     "Pacific Ocean": "太平洋",
     "Wuhan": "武汉",
@@ -132,12 +132,12 @@
     "A summer of building together": "和朋友一起做项目的夏天",
     "Tap a pin, open a memory.": "点开标记，看看这段回忆。",
     "Made in these places, carried with me.": "这些地方和作品，慢慢成了我的一部分。",
-    "Wuhan is where I was born. In a difficult season of my life, it was also where I began making a diary app for myself: a small place to set down what I was carrying.": "武汉是我的出生地，SamoDiary 和 SamoPet 也从这里开始。那时，我正经历一段很艰难的日子，只想给自己做个日记软件，找个地方写下心事。",
-    "Little by little, I wove in what I had learned about psychology. SamoDiary and SamoPet grew from that beginning, along with a magical forest that was once mine and is now open to everyone. Making it has been a journey of healing, too.": "后来，我慢慢把学到的心理学知识融入其中，也一点点搭起了一座魔法森林。最初，它只是我自己的小天地；现在，我很高兴能和大家分享。做出这些作品的过程，对我来说也是一段治愈自己的旅程。",
+    "Wuhan is where I was born. In a difficult season of my life, it was also where I began making a diary app for myself: a small place to set down what I was carrying.": "武汉是我的出生地，SamoDiary 和 SamoPet 也从这里开始。那时，我正经历一段很艰难的日子，那时我想给自己做个日记软件，记录每天的心情。",
+    "Little by little, I wove in what I had learned about psychology. SamoDiary and SamoPet grew from that beginning, along with a magical forest that was once mine and is now open to everyone. Making it has been a journey of healing, too.": "后来，我慢慢把学到的心理学知识融入其中，也逐渐有了做出一座魔法森林的想法。最初，它只是我自己的小天地；现在，我很高兴能和大家分享。做出这些作品的过程，对我来说也是一段治愈自己的旅程。",
     "Tokyo is where I study now. In class, I explored dance through OpenPose and Python, learning to read the body's movement in the language of code.": "东京是我现在读书的地方。在课堂上，我用 OpenPose 和 Python 分析舞蹈动作，尝试从数据里理解身体的表达。",
-    "With two women I met during my Google internship, I led our team of three in building Rock Star Maze at an Amazon hackathon. We brought the curiosity and playfulness at the heart of a hackathon, and turned an idea into a maze we could step inside.": "我还和在 Google 实习时认识的两位女生组队，由我带队参加 Amazon 的黑客松，一起做出了 Rock Star Maze。带着好奇心和玩心，和伙伴一起把一个点子真的做出来——这是我喜欢黑客松的原因。",
+    "With two women I met during my Google internship, I led our team of three in building Rock Star Maze at an Amazon hackathon. We brought the curiosity and playfulness at the heart of a hackathon, and turned an idea into a maze we could step inside.": "我还和在 Google 实习时认识的两位女生组队，由我带队参加 Amazon 的黑客松，一起做出了 Rock Star Maze。带着好奇心和伙伴一起把一个点子真的做出来——这是我喜欢黑客松的原因。",
     "My summer at UC Berkeley was my first time in an English-speaking country. An unfamiliar world brought plenty of challenges, and, along the way, many good friends.": "去伯克利上暑期课，是我第一次来到英语国家。面对陌生的环境，我遇到了不少挑战，也在那里交到了很多好朋友。",
-    "In our HCI class, we made SmartCart together. I designed the UI, built all of the frontend interfaces and web pages, and contributed to part of the backend. As I found my feet in a new place, I was also learning to give ideas a shape that others could see and use.": "在人机交互（HCI）课上，我们一起完成了 SmartCart。我独立完成了 UI 设计和全部前端开发，也参与了部分后端工作。那是一个边适应新生活、边和朋友一起学习和做项目的夏天。"
+    "In our HCI class, we made SmartCart together. I designed the UI, built all of the frontend interfaces and web pages, and contributed to part of the backend. As I found my feet in a new place, I was also learning to give ideas a shape that others could see and use.": "在人机交互（HCI）课上，我们一起完成了 SmartCart。我独立完成了 UI 设计和全部前端开发，也参与了部分后端工作。那是一个边适应新生活、边和朋友一起学习和做项目的难忘的夏天。"
 });
     // Concise bilingual stories; inline spans preserve translation boundaries.
     Object.assign(chinese, {

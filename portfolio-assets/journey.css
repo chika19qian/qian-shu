@@ -1,0 +1,14 @@
+/* Small, one-time entrances; navigation keeps the browser's native scrolling. */
+.journey-reveal { opacity: 0; }
+.journey-yarn {
+    position: fixed; top: 0; left: 0; width: 28px; height: 28px;
+    z-index: 9; pointer-events: none; color: var(--yarn-ink);
+}
+.journey-yarn svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.journey-yarn svg > circle { fill: var(--cream); }
+.journey-yarn svg path { stroke-width: 1.8px; }
+@media (max-width: 768px) { .journey-yarn { width: 16px; height: 16px; } }
+@media (prefers-reduced-motion: reduce) {
+    .journey-reveal { opacity: 1; }
+    .journey-yarn { display: none; }
+}

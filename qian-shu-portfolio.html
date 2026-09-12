@@ -16,6 +16,7 @@
         } catch {}
     </script>
     <link rel="stylesheet" href="portfolio-assets/memory-map.css">
+    <link rel="stylesheet" href="portfolio-assets/journey.css">
     <style>
         /* Local, preloaded fonts avoid late swaps from a third-party font service. */
         @font-face {
@@ -1750,19 +1751,9 @@
     <script src="portfolio-assets/i18n.js"></script>
     <script src="portfolio-assets/music.js"></script>
     <script src="portfolio-assets/memory-map.js"></script>
+    <script src="portfolio-assets/journey.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
-        });
-
         const i18n = window.portfolioI18n;
         const t = i18n.t;
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2434,7 +2425,10 @@
             yarn.addEventListener('click', () => {
                 const target = document.querySelector(stops[stopIndex % stops.length]);
                 stopIndex += 1;
-                if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+                if (target) {
+                    window.portfolioJourney?.guide(target);
+                    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+                }
             });
         }
 
