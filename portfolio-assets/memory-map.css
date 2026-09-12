@@ -51,10 +51,23 @@
 .memory-empty h3 { font: 600 1.75rem / 1.2 var(--font-display); margin-bottom: 12px; }
 .memory-empty p { font-size: .8rem; line-height: 1.8; color: #997142; }
 .memory-story { position: relative; }
-.memory-story::before { content: ''; position: absolute; left: 30px; top: -10px; width: 64px; height: 20px; background: #efdc9d99; border: 1px solid #d9bb7655; transform: rotate(-5deg); }
+.memory-story::before { content: ''; position: absolute; left: 30px; top: -10px; width: 46px; height: 20px; background: #efdc9d99; border: 1px solid #d9bb7655; transform: rotate(-18deg); }
 .memory-close { position: absolute; right: 7px; top: 7px; width: 32px; height: 32px; padding: 0; border: 0; background: none; color: #997142; font-size: 1.4rem; cursor: pointer; }
 .memory-story .memory-place-note { font: 500 .68rem / 1.5 var(--font-body); color: #997142; padding-right: 20px; }
 .memory-story h3 { font: 600 2.5rem / 1.15 var(--font-display); margin: 6px 0 12px; }
+.memory-story-art {
+    display: block; width: 136px; height: auto; max-width: 100%; margin: 4px auto 18px;
+    fill: none; stroke: #b08a55; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.memory-story-art .art-paper { fill: #fffdf6; }
+.memory-story-art .art-warm { fill: #f4e3ac; }
+.memory-story-art .art-steam { stroke: #cbb58e; }
+.memory-story-art .art-noodles { stroke: #c69343; stroke-width: 2.4; }
+.memory-story-art .art-chopsticks { stroke-width: 3; }
+.memory-story-art .art-herbs { stroke: #8e9b70; stroke-width: 3; }
+.memory-story-art .art-blossom { fill: #f7dfd3; stroke: #bd927e; stroke-width: 1.7; }
+.memory-story-art .art-pollen { fill: #d6ac62; stroke: none; }
+.memory-story-art .art-leaf { fill: #e9e7c6; }
 .memory-story > p:not(.memory-place-note) { font: 400 .82rem / 1.85 var(--font-body); }
 .memory-story > p + p { margin-top: 12px; }
 .memory-projects { display: grid; gap: 8px; margin-top: 20px; }

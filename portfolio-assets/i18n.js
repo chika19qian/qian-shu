@@ -3,6 +3,15 @@
     const chinese = {
     "Skip to about": "跳转到“关于我”",
     "Hello, glad you're here!": "你好，欢迎来逛逛！",
+    "Say hello to Qian": "和我打个招呼",
+    "Hmm?": "嗯？",
+    "Hi, lovely to meet you!": "你好呀，很高兴见到你！",
+    "Background music": "背景音乐",
+    "Play music": "播放音乐",
+    "Pause music": "暂停音乐",
+    "Music is playing": "音乐已播放",
+    "Music paused": "音乐已暂停",
+    "Music could not play. Please try again.": "音乐暂时无法播放，请再试一次。",
     "Me": "关于我",
     "Projects": "项目",
     "Experience": "经历",
@@ -130,6 +139,33 @@
     "My summer at UC Berkeley was my first time in an English-speaking country. An unfamiliar world brought plenty of challenges, and, along the way, many good friends.": "去伯克利上暑期课，是我第一次来到英语国家。面对陌生的环境，我遇到了不少挑战，也在那里交到了很多好朋友。",
     "In our HCI class, we made SmartCart together. I designed the UI, built all of the frontend interfaces and web pages, and contributed to part of the backend. As I found my feet in a new place, I was also learning to give ideas a shape that others could see and use.": "在人机交互（HCI）课上，我们一起完成了 SmartCart。我独立完成了 UI 设计和全部前端开发，也参与了部分后端工作。那是一个边适应新生活、边和朋友一起学习和做项目的夏天。"
 });
+    // Concise bilingual stories; emphasis is kept in the HTML.
+    Object.assign(chinese, {
+    "Wuhan is my hometown. During a difficult time, I started building a diary app for myself.": "武汉是我的家乡。经历低谷时，我开始给自己做一个日记软件。",
+    "With psychology woven in, ": "慢慢融入心理学知识后，",
+    "SamoDiary and SamoPet": "SamoDiary 和 SamoPet",
+    " became a magical forest to share—a journey of healing for me, too.": " 长成了一座可以与大家分享的魔法森林，也陪我走过了一段治愈之旅。",
+    "I study in Tokyo, where I explored dance motion with ": "我现在在东京读书，在课上用",
+    "OpenPose and Python.": " OpenPose 和 Python 分析舞蹈动作。",
+    "With two women I met at Google, I ": "我和在 Google 实习时认识的两位女生组队，",
+    "led our team of three": "由我带队",
+    " to build Rock Star Maze at an Amazon hackathon—curiosity and playfulness at work.": "参加 Amazon 黑客松，带着好奇心和玩心做出了 Rock Star Maze。",
+    "UC Berkeley Summer Sessions took me to an English-speaking country for the first time, bringing new challenges and good friends.": "伯克利暑期课是我第一次来到英语国家。遇到了不少挑战，也交到了好朋友。",
+    "For our HCI project SmartCart, I handled ": "在 HCI 课程项目 SmartCart 中，我负责",
+    "UI design and all frontend development": " UI 设计和全部前端开发",
+    ", and contributed to the backend.": "，也参与了部分后端工作。",
+    "Supported ": "协助开展",
+    "behavioral and fMRI experiments": "行为与 fMRI 实验",
+    ", from scheduling to data collection.": "，负责排期、任务设置与数据采集。",
+    "Helped record mouse auditory-cortex signals and ": "协助采集小鼠听觉皮层信号，并用",
+    "analyzed data in MATLAB.": " MATLAB 分析数据。",
+    "Contributed to ": "参与",
+    "AI product development": " AI 产品开发",
+    ", using generative AI to support design and implementation.": "，用生成式 AI 辅助系统设计与实现。",
+    "Practiced ": "用 ",
+    "algorithms and systems in Python and C++": "Python 和 C++ 完成算法与系统课题",
+    ", including TSP and memory allocation.": "，包括 TSP 和内存分配。"
+});
     let language = 'en';
     try { if (localStorage.getItem('qian-site-language') === 'zh') language = 'zh'; } catch {}
     const t = text => language === 'zh' ? (chinese[text] ?? text) : text;
@@ -152,7 +188,7 @@
         let node;
         while ((node = walker.nextNode())) {
             if (node.parentElement.closest('script, style, svg, .samo-story, .samo-chapters, .samo-play-toggle, #samo-lightbox-title')) continue;
-            const key = node.nodeValue.trim();
+            const key = Object.hasOwn(chinese, node.nodeValue) ? node.nodeValue : node.nodeValue.trim();
             if (Object.hasOwn(chinese, key)) textBindings.push({ node, key, original: node.nodeValue });
         }
         document.querySelectorAll('[aria-label], [alt], [title], meta[name="description"], meta[property="og:description"]').forEach(element => {

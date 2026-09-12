@@ -18,4 +18,4 @@ These recordings play only after user activation. The clock interaction is a sho
 
 ## User-provided cat recording
 
-`meow-single.mp3` is derived from the user-provided `../meow.mp3`; no license is inferred for this supplied recording. The original is preserved. The first half (0–1.98 seconds of a 3.96-second source) contains one meow; 0.65 seconds of leading silence were also removed, giving a 1.33-second clip with short fades. This clip now plays for the two cat2 buttons only; the footer cat has no sound.
+`meow-single.mp3` is derived from the user-provided `../meow.mp3`; no license is inferred for this supplied recording. The original is preserved. The first half (0–1.98 seconds of a 3.96-second source) contains one meow; 0.65 seconds of leading silence were also removed, giving a 1.33-second clip with short fades. This clip plays for the homepage cat2 button. The second-page cat2 button uses the user-provided `cutcatmeow.mp3` without further edits. The footer cat plays the user-provided `freesound_community-cartoon-jump-6462.mp3` when its jump starts, at 30% volume.
