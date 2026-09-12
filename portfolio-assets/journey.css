@@ -7,6 +7,15 @@
 .journey-yarn svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .journey-yarn svg > circle { fill: var(--cream); }
 .journey-yarn svg path { stroke-width: 1.8px; }
+.journey-yarn.is-touring { width: 34px; height: 34px; }
+.yarn.yarn-on-tour { opacity: 0; }
+.journey-stop {
+    position: fixed; right: 18px; bottom: max(18px, env(safe-area-inset-bottom)); z-index: 12;
+    padding: 9px 16px; border: 1px solid #c8a66c; border-radius: 24px;
+    background: var(--cream); color: var(--ink-strong); font: 500 .8rem / 1.5 var(--font-body); cursor: pointer;
+}
+.journey-stop:focus-visible { outline: 2px dashed currentColor; outline-offset: 4px; }
+@media (max-width: 768px) { .journey-yarn.is-touring { width: 26px; height: 26px; } }
 @media (max-width: 768px) { .journey-yarn { width: 16px; height: 16px; } }
 @media (prefers-reduced-motion: reduce) {
     .journey-reveal { opacity: 1; }

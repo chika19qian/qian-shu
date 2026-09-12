@@ -1194,7 +1194,7 @@
         <path id="yarn-path"></path>
         <path id="yarn-tail"></path>
     </svg>
-    <button class="yarn" id="yarn" type="button" aria-label="Follow the yarn ball to the next page">
+    <button class="yarn" id="yarn" type="button" aria-label="Follow the yarn on a full-page tour" aria-pressed="false">
         <svg viewBox="-20 -20 40 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
             <defs><clipPath id="yarn-windings"><circle r="15.3" stroke="none"/></clipPath></defs>
             <circle r="16.4"/>
@@ -2266,8 +2266,6 @@
 
         };
         const lookers = [...document.querySelectorAll('[data-look]')];
-        const stops = ['#me', '#work', '#memory-map', '#experience', '#contact'];
-        let stopIndex = 0;
 
         const layoutYarn = () => {
             if (!yarn || !svg || !path) return;
@@ -2374,61 +2372,59 @@
             }
         };
 
-        if (grabCat) {
-            grabCat.addEventListener('click', () => {
-                if (catPlaying) return;
-                playSound(jumpSound);
-                catPlaying = true;
-                grabCat.classList.add('is-playing');
-                if (reduce) {
-                    yarnLift = 32;
+        const jumpCat = (onCatch = () => {}) => {
+            if (!grabCat || catPlaying) return false;
+            playSound(jumpSound);
+            catPlaying = true;
+            grabCat.classList.add('is-playing');
+            if (reduce) {
+                yarnLift = 32;
+                drawYarnTail();
+                setTimeout(onCatch, 200);
+                setTimeout(() => {
+                    yarnLift = 0;
                     drawYarnTail();
-                    setTimeout(() => {
-                        yarnLift = 0;
-                        drawYarnTail();
-                        catPlaying = false;
-                        grabCat.classList.remove('is-playing');
-                    }, 500);
-                    return;
+                    catPlaying = false;
+                    grabCat.classList.remove('is-playing');
+                }, 500);
+                return true;
+            }
+            grabCat.querySelector('.pet-face').animate([
+                { transform: 'translateY(0) scale(1)', filter: 'none', offset: 0 },
+                { transform: 'translateY(4px) scale(1.04, 0.95)', filter: 'none', offset: 0.12 },
+                { transform: 'translateY(-54px) rotate(-7deg) scale(0.98, 1.04)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.36 },
+                { transform: 'translateY(-42px) rotate(5deg)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.5 },
+                { transform: 'translateY(2px) scale(1.04, 0.96)', filter: 'none', offset: 0.73 },
+                { transform: 'translateY(0) scale(1)', filter: 'none', offset: 1 }
+            ], { duration: 1400, easing: 'ease-in-out' });
+            const started = performance.now();
+            let caught = false;
+            const frames = [[0, 0], [0.14, -10], [0.38, 128], [0.58, 128], [1, 0]];
+            const teaseYarn = now => {
+                const progress = Math.min(1, (now - started) / 1400);
+                if (!caught && progress >= .36) { caught = true; onCatch(); }
+                let i = 1;
+                while (i < frames.length - 1 && progress > frames[i][0]) i++;
+                const [t0, y0] = frames[i - 1];
+                const [t1, y1] = frames[i];
+                const phase = (progress - t0) / (t1 - t0);
+                const eased = phase * phase * (3 - 2 * phase);
+                yarnLift = y0 + (y1 - y0) * eased;
+                drawYarnTail();
+                if (progress < 1) requestAnimationFrame(teaseYarn);
+                else {
+                    catPlaying = false;
+                    grabCat.classList.remove('is-playing');
                 }
-                grabCat.querySelector('.pet-face').animate([
-                    { transform: 'translateY(0) scale(1)', filter: 'none', offset: 0 },
-                    { transform: 'translateY(4px) scale(1.04, 0.95)', filter: 'none', offset: 0.12 },
-                    { transform: 'translateY(-54px) rotate(-7deg) scale(0.98, 1.04)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.36 },
-                    { transform: 'translateY(-42px) rotate(5deg)', filter: 'drop-shadow(0 8px 0 rgba(227, 148, 28, 0.12))', offset: 0.5 },
-                    { transform: 'translateY(2px) scale(1.04, 0.96)', filter: 'none', offset: 0.73 },
-                    { transform: 'translateY(0) scale(1)', filter: 'none', offset: 1 }
-                ], { duration: 1400, easing: 'ease-in-out' });
-                const started = performance.now();
-                const frames = [[0, 0], [0.14, -10], [0.38, 128], [0.58, 128], [1, 0]];
-                const teaseYarn = now => {
-                    const progress = Math.min(1, (now - started) / 1400);
-                    let i = 1;
-                    while (i < frames.length - 1 && progress > frames[i][0]) i++;
-                    const [t0, y0] = frames[i - 1];
-                    const [t1, y1] = frames[i];
-                    const phase = (progress - t0) / (t1 - t0);
-                    const eased = phase * phase * (3 - 2 * phase);
-                    yarnLift = y0 + (y1 - y0) * eased;
-                    drawYarnTail();
-                    if (progress < 1) requestAnimationFrame(teaseYarn);
-                    else {
-                        catPlaying = false;
-                        grabCat.classList.remove('is-playing');
-                    }
-                };
-                requestAnimationFrame(teaseYarn);
-            });
-        }
+            };
+            requestAnimationFrame(teaseYarn);
+            return true;
+        };
+        if (grabCat) grabCat.addEventListener('click', () => jumpCat());
 
         if (yarn) {
             yarn.addEventListener('click', () => {
-                const target = document.querySelector(stops[stopIndex % stops.length]);
-                stopIndex += 1;
-                if (target) {
-                    window.portfolioJourney?.guide(target);
-                    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-                }
+                window.portfolioJourney?.startTour({ jump: jumpCat });
             });
         }
 

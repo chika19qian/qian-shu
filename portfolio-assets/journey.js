@@ -77,10 +77,128 @@ document.addEventListener('DOMContentLoaded', () => {
     let frame = 0;
     let traveler;
     let roll;
+    let tour = null;
+    let tourFrame = 0;
+    let cancelSegment;
+    let finaleTimer;
+    let stopButton;
+    const originalYarn = document.querySelector('#yarn');
     const stopJourney = () => {
+        tour = null;
+        cancelAnimationFrame(tourFrame);
+        cancelSegment?.(); cancelSegment = null;
+        clearTimeout(finaleTimer);
+        stopButton?.remove(); stopButton = null;
+        originalYarn.classList.remove('yarn-on-tour');
+        originalYarn.setAttribute('aria-pressed', 'false');
+        delete document.body.dataset.yarnTour;
         cancelAnimationFrame(frame); frame = 0;
         traveler?.remove(); traveler = null;
         roll?.cancel();
+    };
+    const makeTraveler = () => {
+        const element = document.createElement('div');
+        element.className = 'journey-yarn'; element.setAttribute('aria-hidden', 'true');
+        const drawing = originalYarn.querySelector('svg').cloneNode(true);
+        drawing.querySelectorAll('[id]').forEach(node => {
+            const old = node.id; node.id = `journey-${old}`;
+            drawing.querySelectorAll('[clip-path]').forEach(child => {
+                if (child.getAttribute('clip-path') === `url(#${old})`) child.setAttribute('clip-path', `url(#journey-${old})`);
+            });
+        });
+        element.append(drawing); document.body.append(element);
+        return element;
+    };
+    const maxScroll = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    const pageTop = element => element.getBoundingClientRect().top + scrollY;
+    const headerGap = () => document.querySelector('.site-nav').getBoundingClientRect().height + 18;
+    const clampScroll = y => Math.max(0, Math.min(maxScroll(), y));
+    const pointAtY = (path, y) => {
+        let low = 0, high = path.getTotalLength();
+        for (let i = 0; i < 15; i++) {
+            const middle = (low + high) / 2;
+            if (path.getPointAtLength(middle).y < y) low = middle; else high = middle;
+        }
+        return path.getPointAtLength((low + high) / 2);
+    };
+    const placeTourBall = point => {
+        if (!traveler || !tour) return;
+        const size = traveler.offsetWidth;
+        // Keep the whole ball visible even where the mobile thread hugs the edge.
+        const x = Math.max(size / 2 + 2, Math.min(innerWidth - size / 2 - 2, point.x));
+        traveler.style.transform = `translate(${x - size / 2}px, ${point.y - scrollY - size / 2}px)`;
+        tour.rotation += (point.y - tour.lastY) * 1.6;
+        tour.lastY = point.y;
+        traveler.querySelector('svg').style.transform = `rotate(${tour.rotation}deg)`;
+    };
+    const segment = (token, destination, duration, phase, ballProgress) => new Promise(resolve => {
+        if (tour !== token) { resolve(false); return; }
+        document.body.dataset.yarnTour = phase;
+        const from = scrollY;
+        const started = performance.now();
+        cancelSegment = () => resolve(false);
+        const tick = now => {
+            if (tour !== token) { resolve(false); return; }
+            const progress = Math.min(1, (now - started) / duration);
+            const eased = phase === 'slow' ? progress : progress * progress * (3 - 2 * progress);
+            const to = clampScroll(destination());
+            scrollTo({ top: from + (to - from) * eased, behavior: 'instant' });
+            if (ballProgress) ballProgress(eased);
+            else placeTourBall(pointAtY(token.path, scrollY + Math.min(innerHeight * .36, 280)));
+            if (progress < 1) tourFrame = requestAnimationFrame(tick);
+            else { cancelSegment = null; resolve(true); }
+        };
+        tourFrame = requestAnimationFrame(tick);
+    });
+    const startTour = async ({ jump }) => {
+        if (tour) { stopJourney(); return; }
+        stopJourney();
+        const path = document.querySelector('#yarn-path');
+        const tail = document.querySelector('#yarn-tail');
+        if (!path?.getAttribute('d') || !tail?.getAttribute('d')) return;
+        const token = { path, rotation: 0, lastY: pageTop(originalYarn) + originalYarn.offsetHeight / 2 };
+        tour = token;
+        originalYarn.classList.add('yarn-on-tour');
+        originalYarn.setAttribute('aria-pressed', 'true');
+        traveler = makeTraveler(); traveler.classList.add('is-touring');
+        stopButton = document.createElement('button');
+        stopButton.type = 'button'; stopButton.className = 'journey-stop';
+        stopButton.textContent = window.portfolioI18n.t('Stop tour');
+        stopButton.addEventListener('click', stopJourney);
+        document.body.append(stopButton);
+        const catchBall = () => { if (tour === token) stopJourney(); };
+        const finish = () => {
+            if (tour !== token) return;
+            document.body.dataset.yarnTour = 'catch';
+            // The cat invokes this callback at the peak of its existing jump.
+            if (!jump(catchBall)) catchBall();
+            else finaleTimer = setTimeout(catchBall, 1800);
+        };
+        if (reduced.matches) {
+            scrollTo({ top: maxScroll(), behavior: 'instant' });
+            finish(); return;
+        }
+        const targets = [...document.querySelectorAll('#me, #samodiary, #memory-map, .project-card, #experience')];
+        for (let index = 0; index < targets.length; index++) {
+            const target = targets[index];
+            const arrival = () => pageTop(target) - headerGap();
+            if (!(await segment(token, arrival, index === 0 ? 900 : 650, 'fast'))) return;
+            const departure = () => {
+                const bottom = pageTop(target) + target.offsetHeight - innerHeight * .62;
+                const next = targets[index + 1];
+                const limit = next ? pageTop(next) - headerGap() : pageTop(document.querySelector('#contact')) - headerGap();
+                return Math.max(arrival(), Math.min(limit, Math.max(arrival() + 90, bottom)));
+            };
+            const duration = Math.max(2000, Math.min(4800, (departure() - scrollY) / 95 * 1000));
+            if (!(await segment(token, departure, duration, 'slow'))) return;
+        }
+        // Join the tail, then follow it all the way to the waiting cat.
+        const tailStart = () => tail.getPointAtLength(0);
+        if (!(await segment(token, () => tailStart().y - Math.min(innerHeight * .36, 280), 650, 'fast'))) return;
+        if (!(await segment(token, maxScroll, 1500, 'finale', progress => {
+            placeTourBall(tail.getPointAtLength(tail.getTotalLength() * progress));
+        }))) return;
+        finish();
     };
     const guide = target => {
         stopJourney();
@@ -94,16 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
         roll = animate(yarn.querySelector('svg'), [
             { transform: 'rotate(0deg)' }, { transform: `rotate(${direction * 26}deg)` }, { transform: 'rotate(0deg)' }
         ], { duration: 340, easing: 'ease-in-out' });
-        traveler = document.createElement('div');
-        traveler.className = 'journey-yarn'; traveler.setAttribute('aria-hidden', 'true');
-        const drawing = yarn.querySelector('svg').cloneNode(true);
-        drawing.querySelectorAll('[id]').forEach(element => {
-            const old = element.id; element.id = `journey-${old}`;
-            drawing.querySelectorAll('[clip-path]').forEach(child => {
-                if (child.getAttribute('clip-path') === `url(#${old})`) child.setAttribute('clip-path', `url(#journey-${old})`);
-            });
-        });
-        traveler.append(drawing); document.body.append(traveler);
+        traveler = makeTraveler();
+        const drawing = traveler.querySelector('svg');
         const start = performance.now();
         let previousScroll = scrollY, stillSince = start;
         const tick = now => {
@@ -134,9 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
             guide(document.querySelector(link.getAttribute('href')));
         });
     });
-    window.portfolioJourney = { guide };
+    window.portfolioJourney = { guide, startTour };
+    document.addEventListener('portfolio:languagechange', () => {
+        if (stopButton) stopButton.textContent = window.portfolioI18n.t('Stop tour');
+    });
+    document.addEventListener('click', event => {
+        if (tour && event.isTrusted && !event.target.closest('#yarn, .journey-stop')) stopJourney();
+    });
     addEventListener('wheel', stopJourney, { passive: true });
     addEventListener('touchstart', stopJourney, { passive: true });
+    addEventListener('resize', stopJourney);
     addEventListener('keydown', event => {
         if (['Escape', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) stopJourney();
     });
