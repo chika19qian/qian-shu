@@ -14,7 +14,12 @@
         try {
             if (localStorage.getItem('qian-site-language') === 'zh') document.documentElement.lang = 'zh-CN';
         } catch {}
+        window.QIAN_ANALYTICS = {
+            clarity: 'yodflnq83z',
+            ga4: ''
+        };
     </script>
+    <script src="portfolio-assets/analytics.js" defer></script>
     <link rel="stylesheet" href="portfolio-assets/memory-map.css">
     <link rel="stylesheet" href="portfolio-assets/journey.css">
     <style>
